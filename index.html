@@ -36,12 +36,12 @@ a{color:var(--blue)}
 
 header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
 .brandrow{display:flex;align-items:center;gap:8px;padding:calc(var(--safe-t) + 10px) 16px 2px}
-.brandrow h1{margin:0;font-size:14px;font-weight:700;line-height:1.2}
-.brandrow p{margin:1px 0 0;font-size:11px;color:var(--sub)}
+.brandrow h1{margin:0;font-size:15.5px;font-weight:700;line-height:1.2}
+.brandrow p{margin:1px 0 0;font-size:12.5px;color:var(--sub)}
 .yearbar{display:flex;align-items:center;gap:4px;padding:0 12px 8px}
 .ybtn{width:28px;height:28px;border-radius:99px;display:grid;place-items:center;color:var(--sub)}
 .ybtn:active{background:var(--hov)}
-.yearbar b{font-size:13px;font-weight:700;min-width:56px;text-align:center}
+.yearbar b{font-size:14.5px;font-weight:700;min-width:56px;text-align:center}
 
 main{padding:16px;display:none}
 main.on{display:block}
@@ -49,51 +49,51 @@ main.on{display:block}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
 .card.tight{padding:0}
-.lbl{font-size:11px;color:var(--sub);margin-bottom:4px;text-transform:uppercase;letter-spacing:.02em}
+.lbl{font-size:12.5px;color:var(--sub);margin-bottom:4px;text-transform:uppercase;letter-spacing:.02em}
 .lbl .req{color:#ef4444;margin-left:2px}
 .g{color:var(--green)} .r{color:var(--red)} .o{color:var(--orange)} .p{color:var(--violet)} .am{color:var(--amber)} .bl{color:var(--blue)}
-.big{font-size:22px;font-weight:700}
+.big{font-size:24px;font-weight:700}
 .mid{font-size:16px;font-weight:700}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.hint{font-size:11px;color:var(--sub);line-height:1.6}
+.hint{font-size:12.5px;color:var(--sub);line-height:1.6}
 .between{display:flex;justify-content:space-between;align-items:center}
 .divline{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}
 
 /* entry panel tabs */
 .seg3{display:flex;border-bottom:1px solid var(--line)}
-.seg3 button{flex:1;padding:11px 4px;font-size:12px;font-weight:700;color:var(--sub)}
+.seg3 button{flex:1;padding:11px 4px;font-size:13.5px;font-weight:700;color:var(--sub)}
 .seg3 button.on.exp{background:var(--orange);color:#fff}
 .seg3 button.on.tx,.seg3 button.on.conv{background:var(--card2);color:var(--txt)}
 .panelbody{padding:14px;display:flex;flex-direction:column;gap:10px}
 .curtoggle{display:flex;border:1px solid var(--line2);border-radius:12px;overflow:hidden}
-.curtoggle button{flex:1;padding:8px;font-size:13px;font-weight:700;color:var(--sub)}
+.curtoggle button{flex:1;padding:8px;font-size:14.5px;font-weight:700;color:var(--sub)}
 .curtoggle button.on{background:var(--card2);color:var(--txt)}
 body.light .curtoggle button.on{background:#374151;color:#fff}
 .err{border-color:#ef4444 !important}
-.errtext{color:#ef4444;font-size:11px;margin-top:3px}
+.errtext{color:#ef4444;font-size:12.5px;margin-top:3px}
 .chipwrap{display:flex;flex-wrap:wrap;gap:6px}
-.chip{display:inline-flex;align-items:center;gap:5px;font-size:13px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:14.5px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
 .chip.sel{background:var(--orange);color:#fff;border-color:var(--orange)}
-.chip button{opacity:.6;color:#f43f5e;font-size:14px;line-height:1}
+.chip button{opacity:.6;color:#f43f5e;font-size:15.5px;line-height:1}
 .chip button:active{opacity:1}
-.chipadd{font-size:13px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
-.chipinput{flex:1;min-width:110px;padding:7px 10px;font-size:13px;border-radius:10px}
-.chipok{padding:7px 12px;border-radius:10px;background:var(--card2);color:var(--txt);font-size:13px;font-weight:700}
-.chipcancel{padding:7px 9px;border-radius:10px;color:var(--sub);font-size:13px}
-.ratebox{font-size:11px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
+.chipadd{font-size:14.5px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
+.chipinput{flex:1;min-width:110px;padding:7px 10px;font-size:14.5px;border-radius:10px}
+.chipok{padding:7px 12px;border-radius:10px;background:var(--card2);color:var(--txt);font-size:14.5px;font-weight:700}
+.chipcancel{padding:7px 9px;border-radius:10px;color:var(--sub);font-size:14.5px}
+.ratebox{font-size:12.5px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
 .ratebox .ok{color:var(--green)} .ratebox .warn{color:var(--amber)} .ratebox .fetch{color:var(--blue)}
 .raterow{display:flex;align-items:center;gap:8px}
-.raterow span.pre{flex:none;font-size:11px;color:var(--sub)}
-.raterow input{flex:1;padding:6px 10px;font-size:12px}
-.manualtag{font-size:11px;font-weight:700;color:var(--amber);flex:none}
-.savebtn{width:100%;padding:11px;border-radius:14px;font-weight:700;font-size:14px;color:#fff;text-align:center;background:#1f2937}
+.raterow span.pre{flex:none;font-size:12.5px;color:var(--sub)}
+.raterow input{flex:1;padding:6px 10px;font-size:13.5px}
+.manualtag{font-size:12.5px;font-weight:700;color:var(--amber);flex:none}
+.savebtn{width:100%;padding:11px;border-radius:14px;font-weight:700;font-size:15.5px;color:#fff;text-align:center;background:#1f2937}
 .savebtn.exp{background:var(--orange)}
 .savebtn.saved{background:var(--green)}
 .savebtn.busy{background:#4b5563}
 
 /* currency switch on home */
 .curswitch{display:flex;border:1px solid var(--line);border-radius:16px;overflow:hidden;width:fit-content;margin:0 auto}
-.curswitch button{padding:8px 30px;font-size:13px;font-weight:700;color:var(--sub)}
+.curswitch button{padding:8px 30px;font-size:14.5px;font-weight:700;color:var(--sub)}
 .curswitch button.on{background:#1f2937;color:#fff}
 body.light .curswitch button.on{background:#1f2937;color:#fff}
 
@@ -101,43 +101,43 @@ body.light .curswitch button.on{background:#1f2937;color:#fff}
 .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .sechead{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:13px 16px}
 .sechead:active,.sechead.open{background:var(--hov)}
-.sechead h3{margin:0;font-size:13.5px;font-weight:700}
-.sechead .cnt{font-size:11px;color:var(--sub)}
-.sechead .amt{margin-left:auto;font-weight:700;font-size:13.5px}
+.sechead h3{margin:0;font-size:15px;font-weight:700}
+.sechead .cnt{font-size:12.5px;color:var(--sub)}
+.sechead .amt{margin-left:auto;font-weight:700;font-size:15px}
 .chev{color:var(--sub);flex:none}
 .subtabs{display:flex;border-bottom:1px solid var(--line)}
-.subtabs button{flex:1;padding:8px;font-size:11px;font-weight:700;color:var(--sub)}
+.subtabs button{flex:1;padding:8px;font-size:12.5px;font-weight:700;color:var(--sub)}
 .subtabs button.on{background:#1f2937;color:#fff}
 .subtabs button.on.orange{background:var(--orange)}
 .grouphead{width:100%;display:flex;align-items:center;gap:10px;padding:11px 16px;text-align:left}
 .grouphead:active,.grouphead.open{background:var(--hov)}
-.grouptag{font-size:11px;padding:2px 8px;border-radius:6px;background:var(--card2);color:var(--sub);font-weight:600}
+.grouptag{font-size:12.5px;padding:2px 8px;border-radius:6px;background:var(--card2);color:var(--sub);font-weight:600}
 .groupinfo{flex:1;text-align:left;min-width:0}
 .groupinfo p{margin:0}
-.groupinfo .t{font-size:13.5px;font-weight:700}
-.groupinfo .s{font-size:11px;color:var(--sub)}
-.groupamt{font-weight:700;font-size:13.5px;flex:none}
+.groupinfo .t{font-size:15px;font-weight:700}
+.groupinfo .s{font-size:12.5px;color:var(--sub)}
+.groupamt{font-weight:700;font-size:15px;flex:none}
 .pbar{margin:0 16px 6px;height:4px;border-radius:2px;background:var(--card2);overflow:hidden}
 .pbar i{display:block;height:4px;background:var(--orange)}
 .itemrow{display:flex;align-items:center;gap:8px;padding:9px 16px;border-top:1px solid var(--line)}
-.itemrow .d{font-size:11px;color:var(--sub);width:38px;flex:none}
+.itemrow .d{font-size:12.5px;color:var(--sub);width:38px;flex:none}
 .itemrow .tags{display:flex;flex-direction:column;gap:3px;flex:none}
-.itemrow .tag{font-size:10.5px;padding:1px 6px;border-radius:5px;background:var(--card2);color:var(--sub)}
-.itemrow .memo{flex:1;font-size:11.5px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.itemrow .tag{font-size:12px;padding:1px 6px;border-radius:5px;background:var(--card2);color:var(--sub)}
+.itemrow .memo{flex:1;font-size:13px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .itemrow .right{text-align:right;flex:none}
-.itemrow .right p{margin:0;font-size:12.5px;font-weight:700}
-.itemrow .right small{font-size:10px;color:var(--sub)}
+.itemrow .right p{margin:0;font-size:14px;font-weight:700}
+.itemrow .right small{font-size:11.5px;color:var(--sub)}
 .itemrow .ico{padding:5px;border-radius:8px}
 .itemrow .ico:active{background:var(--hov)}
-.grouptotal{display:flex;justify-content:space-between;padding:8px 16px;font-size:11.5px;font-weight:700;background:var(--card2)}
+.grouptotal{display:flex;justify-content:space-between;padding:8px 16px;font-size:13px;font-weight:700;background:var(--card2)}
 .warnbox{margin:12px;padding:12px;border-radius:12px;border:1px solid rgba(245,158,11,.4);background:rgba(245,158,11,.08)}
-.emptybox{padding:34px 18px;text-align:center;color:var(--sub);font-size:13px}
-.emptybox p:first-child{font-size:28px;margin:0 0 8px}
+.emptybox{padding:34px 18px;text-align:center;color:var(--sub);font-size:14.5px}
+.emptybox p:first-child{font-size:30px;margin:0 0 8px}
 
 /* tabbar */
 nav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
 nav .wrap{display:flex;width:100%}
-nav button{flex:1;padding:9px 0 7px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--sub);font-size:10.5px;font-weight:600}
+nav button{flex:1;padding:9px 0 7px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--sub);font-size:12px;font-weight:600}
 nav button.on{color:var(--txt)}
 
 /* sheet/modal */
@@ -148,23 +148,23 @@ nav button.on{color:var(--txt)}
 .sheet h2{margin:0 0 14px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
 .sheet h2 button{color:var(--sub);font-size:16px;padding:4px}
 .f{margin-bottom:11px}
-.toast{position:fixed;left:50%;bottom:calc(92px + var(--safe-b));transform:translate(-50%,14px);z-index:60;background:#1f2937;color:#fff;border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transition:.22s;pointer-events:none;max-width:88vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(92px + var(--safe-b));transform:translate(-50%,14px);z-index:60;background:#1f2937;color:#fff;border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:14.5px;font-weight:600;opacity:0;transition:.22s;pointer-events:none;max-width:88vw;text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* security audit */
 .secitem{border-top:1px solid var(--line)}
 .secitem button{width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;text-align:left}
 .secitem button:active{background:var(--hov)}
-.secitem .ic{font-size:14px;flex:none}
+.secitem .ic{font-size:15.5px;flex:none}
 .secitem .body{flex:1;min-width:0}
-.secitem .body .t{font-size:11.5px;font-weight:600}
-.secitem .body .v{font-size:11px;color:var(--green);font-weight:700}
-.secitem .detail{padding:0 12px 12px;font-size:11px;color:var(--sub);line-height:1.6}
-.secitem pre{background:#000;color:#34d399;font-size:9.5px;line-height:1.6;padding:9px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;margin:6px 0 0;font-family:ui-monospace,monospace}
-.taxtablerow{display:flex;justify-content:space-between;font-size:11px;padding:4px 2px}
+.secitem .body .t{font-size:13px;font-weight:600}
+.secitem .body .v{font-size:12.5px;color:var(--green);font-weight:700}
+.secitem .detail{padding:0 12px 12px;font-size:12.5px;color:var(--sub);line-height:1.6}
+.secitem pre{background:#000;color:#34d399;font-size:11px;line-height:1.6;padding:9px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;margin:6px 0 0;font-family:ui-monospace,monospace}
+.taxtablerow{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 2px}
 .chartwrap{position:relative;padding-left:40px;margin-top:6px}
 .yax{position:absolute;left:0;top:0;width:38px;height:130px}
-.ytick{position:absolute;right:4px;transform:translateY(-50%);font-size:9px;color:var(--sub);white-space:nowrap}
+.ytick{position:absolute;right:4px;transform:translateY(-50%);font-size:10.5px;color:var(--sub);white-space:nowrap}
 .grid{position:absolute;left:40px;right:0;border-top:1px dashed var(--line);pointer-events:none}
 .grid.zero{border-top:1px solid var(--line2)}
 .bars{position:relative;display:flex;height:130px}
@@ -173,10 +173,10 @@ nav button.on{color:var(--txt)}
 .neg{display:flex;align-items:flex-start;justify-content:center}
 .bar{width:60%;max-width:20px;border-radius:2px}
 .xax{display:flex;margin-top:5px}
-.xax span{flex:1;text-align:center;font-size:9px;color:var(--sub)}
+.xax span{flex:1;text-align:center;font-size:10.5px;color:var(--sub)}
 .tip{position:absolute;z-index:5;background:#1f2937;border:1px solid var(--line2);border-radius:10px;padding:7px 11px;text-align:center;top:2px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
-.tip b{display:block;font-size:12px}
-.tip s{display:block;text-decoration:none;font-size:12px;font-weight:700;margin-top:1px}
+.tip b{display:block;font-size:13.5px}
+.tip s{display:block;text-decoration:none;font-size:13.5px;font-weight:700;margin-top:1px}
 .dot{width:12px;height:6px;border-radius:99px;position:relative;background:#4b5563}
 .dot i{position:absolute;top:0.5px;left:0.5px;width:5px;height:5px;border-radius:50%;background:#fff;transition:transform .15s}
 .dot.on{background:var(--green)}
@@ -419,7 +419,7 @@ const UI={
   adding:null, addingVal:"",
   txHistOpen:false, txHistTab:"month", expandedMonths:{}, expandedTxCats:{},
   expView:"month", expSection:false, expandedExpMonths:{}, expandedCats:{}, expandedProjs:{},
-  editingRate:false, rateInput:"30",
+  editingRate:false, rateInput:"30", chartMode:"pl",
   eTx:null, eExp:null, eConv:null, editTx:null, editExp:null, editConv:null, modalSaving:false,
   importMsg:null, confirmDelete:false, chartSel:-1,
 };
@@ -463,6 +463,14 @@ function computeAll(){
   const monthlyDataJPY=MONTHS.map((m,i)=>({month:m,v:allHistTxs.filter(t=>new Date(t.created_at).getMonth()===i).reduce((s,t)=>s+(t.profit_jpy||0)-(t.loss_jpy||0),0)}));
   const monthlyDataUSD=MONTHS.map((m,i)=>({month:m,v:allHistTxs.filter(t=>new Date(t.created_at).getMonth()===i).reduce((s,t)=>s+(t.profit_usd||0)-(t.loss_usd||0),0)}));
   const monthlyData=isUSD?monthlyDataUSD:monthlyDataJPY;
+  // 経費のみ／実質損益（損益－経費）月別系列（円・USD両方）
+  const expMonthlyJPY=MONTHS.map((m,i)=>_yExps.filter(e=>new Date(e.created_at).getMonth()===i).reduce((s,e)=>s+getExpJPY(e),0));
+  const expMonthlyUSD=MONTHS.map((m,i)=>_yExps.filter(e=>new Date(e.created_at).getMonth()===i).reduce((s,e)=>s+getExpUSD(e),0));
+  const chartSeries={
+    pl:{JPY:monthlyDataJPY.map(m=>m.v),USD:monthlyDataUSD.map(m=>m.v)},
+    ex:{JPY:expMonthlyJPY.map(v=>-v),USD:expMonthlyUSD.map(v=>-v)},
+    net:{JPY:monthlyDataJPY.map((m,i)=>m.v-expMonthlyJPY[i]),USD:monthlyDataUSD.map((m,i)=>m.v-expMonthlyUSD[i])},
+  };
   const allCatSet=new Set([...DB.txCats,...allHistTxs.map(t=>t.category)]);
   const catPnl=[...allCatSet].map(cat=>{
     const items=allHistTxs.filter(t=>t.category===cat);
@@ -476,7 +484,7 @@ function computeAll(){
   const projTotals=Object.keys(expByProj).map(proj=>{const it=expByProj[proj];return {proj,total:it.reduce((s,e)=>s+getExpJPY(e),0),totalU:it.reduce((s,e)=>s+getExpUSD(e),0),items:it};}).sort((a,b)=>b.total-a.total);
   const expByMonth=_yExps.reduce((a,e)=>{const k=e.created_at.slice(0,7);(a[k]=a[k]||[]).push(e);return a;},{});
   const sortedExpMK=Object.keys(expByMonth).sort((a,b)=>b.localeCompare(a));
-  return {isUSD,yTxs:_yTxs,yExps:_yExps,yConvs:_yConvs,tProfJPY,tLossJPY,netJPY,netUSD,totalExpJPY,totalExpUSD,usdc,avgRate,yForex,yForexUSD,taxable,taxEst,pendingTxs,allHistTxs,allHistByMonth,sortedMK,monthlyData,catPnl,corruptedExps,catTotals,projTotals,expByMonth,sortedExpMK};
+  return {isUSD,yTxs:_yTxs,yExps:_yExps,yConvs:_yConvs,tProfJPY,tLossJPY,netJPY,netUSD,totalExpJPY,totalExpUSD,usdc,avgRate,yForex,yForexUSD,taxable,taxEst,pendingTxs,allHistTxs,allHistByMonth,sortedMK,monthlyData,chartSeries,catPnl,corruptedExps,catTotals,projTotals,expByMonth,sortedExpMK};
 }
 
 /* ============================================================
@@ -775,9 +783,9 @@ function renderSecItem(c){
 /* ============================================================
    チャート (SVG不要・divベース)
 ============================================================ */
-function chartHTML(monthlyData,isUSD){
+function chartHTML(series,isUSD,mode){
   const H=130;
-  const v=monthlyData.map(m=>m.v);
+  const v=series;
   const maxP=Math.max(0,...v), minN=Math.min(0,...v), span=maxP-minN;
   const posH=span?Math.round(H*(maxP/span)):Math.round(H/2), negH=H-posH;
   const ticks=[];
@@ -790,8 +798,8 @@ function chartHTML(monthlyData,isUSD){
   let h='<div class="yax">'; ticks.forEach(t=>h+='<div class="ytick" style="top:'+t.y+'px">'+kfmt(t.v)+"</div>"); h+="</div>";
   ticks.forEach(t=>h+='<div class="grid'+(t.zero?" zero":"")+'" style="top:'+t.y+'px"></div>');
   h+='<div class="bars">';
-  monthlyData.forEach((m,i)=>{
-    const val=m.v; const col=val<0?"var(--red)":"var(--green)";
+  v.forEach((val,i)=>{
+    const col=mode==="ex"?"var(--orange)":(val<0?"var(--red)":"var(--green)");
     let ph=0,nh=0;
     if(span){ if(val>0)ph=Math.max(2,Math.round(posH*(val/maxP))); else if(val<0)nh=Math.max(2,Math.round(negH*(val/minN))); }
     h+='<div class="col" onclick="UI.chartSel=(UI.chartSel==='+i+'?-1:'+i+');render()">'+
@@ -801,8 +809,10 @@ function chartHTML(monthlyData,isUSD){
   h+="</div>";
   if(UI.chartSel>=0){
     const val=v[UI.chartSel];
+    const dispVal=mode==="ex"?-val:val;
+    const tcol=mode==="ex"?"var(--orange)":(val<0?"var(--red)":"var(--green)");
     const lx=Math.min(83,Math.max(17,(UI.chartSel+0.5)/12*100));
-    h+='<div class="tip" style="left:'+lx+'%;transform:translateX(-50%)"><b>'+(UI.chartSel+1)+"月</b><s class=\"num\" style=\"color:"+(val<0?"var(--red)":"var(--green)")+'">'+(isUSD?fmtUSD(val):fmtJPY(val))+"</s></div>";
+    h+='<div class="tip" style="left:'+lx+'%;transform:translateX(-50%)"><b>'+(UI.chartSel+1)+"月</b><s class=\"num\" style=\"color:"+tcol+'">'+(isUSD?fmtUSD(dispVal):fmtJPY(dispVal))+"</s></div>";
   }
   h+='<div class="xax">'; for(let i=0;i<12;i++)h+="<span>"+(i+1)+"月</span>"; h+="</div>";
   return h;
@@ -899,13 +909,25 @@ function renderHome(){
   }else{
     const netDisp=isUSD?c.netUSD+c.yForexUSD:c.netJPY;
     h+='<div class="card"><div class="between" style="align-items:flex-start"><div><div class="lbl">年間純利益</div><p class="big '+(netDisp>=0?"g":"r")+'">'+(isUSD?fmtUSDFloor(c.netUSD+c.yForexUSD):fmtJPYFloor(c.netJPY))+'</p></div>'+
-       '<div style="text-align:right"><div class="lbl">推定税額 ('+DB.taxRate+'%)</div><p class="mid r" style="font-size:17px">'+fmtJPYFloor(c.taxEst)+"</p></div></div></div>";
-    h+='<div class="card"><div class="lbl">経費合計</div><p class="mid o" style="font-size:17px">'+(isUSD?fmtUSDFloor(c.totalExpUSD):fmtJPYFloor(c.totalExpJPY))+"</p></div>";
-    h+='<div class="card" style="border-left:3px solid var(--violet)"><div class="lbl">課税所得</div><p class="mid p" style="font-size:17px">'+fmtJPYFloor(c.taxable)+'</p><p class="hint">純利益 − 経費</p></div>';
+       '<div style="text-align:right"><div class="lbl">推定税額 ('+DB.taxRate+'%)</div><p class="mid r" style="font-size:18px">'+fmtJPYFloor(c.taxEst)+"</p></div></div></div>";
+    h+='<div class="card"><div class="lbl">経費合計</div><p class="mid o" style="font-size:18px">'+(isUSD?fmtUSDFloor(c.totalExpUSD):fmtJPYFloor(c.totalExpJPY))+"</p></div>";
+    h+='<div class="card" style="border-left:3px solid var(--violet)"><div class="lbl">課税所得</div><p class="mid p" style="font-size:18px">'+fmtJPYFloor(c.taxable)+'</p><p class="hint">純利益 − 経費</p></div>';
   }
 
-  if(c.allHistTxs.length>0){
-    h+='<div class="card"><p class="mid" style="margin:0 0 8px">月別損益（'+UI.dispCur+'）</p><div class="chartwrap">'+chartHTML(c.monthlyData,isUSD)+"</div></div>";
+  if(c.allHistTxs.length>0||c.yExps.length>0){
+    const modeLbl={pl:"損益",ex:"経費",net:"実質損益"}[UI.chartMode];
+    const series=c.chartSeries[UI.chartMode][UI.dispCur];
+    const total=series.reduce((s,v)=>s+v,0);
+    const dispTotal=UI.chartMode==="ex"?-total:total;
+    const totalCls=UI.chartMode==="ex"?"o":(dispTotal>=0?"g":"r");
+    h+='<div class="card"><p class="mid" style="margin:0 0 8px">月別'+modeLbl+'（'+UI.dispCur+'）</p>'+
+       '<div class="seg3" style="border-radius:12px;overflow:hidden;border:1px solid var(--line2)">'+
+       [["pl","損益"],["ex","経費"],["net","実質損益"]].map(([id,label])=>
+         '<button class="'+(UI.chartMode===id?(id==="ex"?"on exp":"on tx"):"")+'" onclick="UI.chartMode=\''+id+'\';UI.chartSel=-1;render()">'+label+"</button>").join("")+
+       "</div>"+
+       '<div class="chartwrap">'+chartHTML(series,isUSD,UI.chartMode)+"</div>"+
+       '<div class="between" style="margin-top:10px"><span class="hint">年間'+modeLbl+'合計</span><span class="mid '+totalCls+'" style="font-size:16px">'+
+       (isUSD?fmtUSD(dispTotal):fmtJPY(dispTotal))+"</span></div></div>";
   }
 
   if(c.allHistTxs.length>0){
@@ -951,7 +973,7 @@ function renderHome(){
        (c.corruptedExps.length>0?'<span class="cnt am">⚠️ '+c.corruptedExps.length+"件要確認</span>":"")+
        '<span class="amt o">'+(isUSD?fmtUSD(c.totalExpUSD):fmtJPY(c.totalExpJPY))+'</span><span class="chev">'+(UI.expSection?"▲":"▼")+"</span></button>";
     if(UI.expSection){
-      if(c.corruptedExps.length>0)h+='<div class="warnbox"><p class="am" style="font-weight:700;font-size:11.5px;margin:0 0 4px">⚠️ データ要確認: '+c.corruptedExps.length+'件</p><p class="hint">過去バージョンの不具合により一部の経費でUSD金額・為替レートが正しく記録されていない可能性があります。「要修正」の項目を編集して金額を再入力してください（現在は¥150換算の概算値）。</p></div>';
+      if(c.corruptedExps.length>0)h+='<div class="warnbox"><p class="am" style="font-weight:700;font-size:13px;margin:0 0 4px">⚠️ データ要確認: '+c.corruptedExps.length+'件</p><p class="hint">過去バージョンの不具合により一部の経費でUSD金額・為替レートが正しく記録されていない可能性があります。「要修正」の項目を編集して金額を再入力してください（現在は¥150換算の概算値）。</p></div>';
       h+='<div class="subtabs">'+[["month","月別"],["cat","カテゴリ別"],["proj","プロジェクト別"]].map(([v,l])=>'<button class="'+(UI.expView===v?"on orange":"")+'" onclick="UI.expView=\''+v+'\';render()">'+l+"</button>").join("")+"</div>";
       if(UI.expView==="month"){
         c.sortedExpMK.forEach(key=>{
@@ -1024,11 +1046,11 @@ function renderTax(){
    ["円転済み","-"+c.usdc.totalConverted.toFixed(2)+" USDC",""],
    ["現在保有（推定）",c.usdc.holdings.toFixed(2)+" USDC","g"],
    ["平均取得レート","¥"+c.avgRate.toFixed(2)+"/$",""]].forEach(([k,v,cls])=>{
-    h+='<div class="between" style="font-size:13px;margin-bottom:4px"><span class="hint">'+k+'</span><span style="font-weight:600" class="'+cls+'">'+v+"</span></div>";
+    h+='<div class="between" style="font-size:14.5px;margin-bottom:4px"><span class="hint">'+k+'</span><span style="font-weight:600" class="'+cls+'">'+v+"</span></div>";
   });
-  h+='<div class="divline between"><span class="mid" style="font-size:13px">'+UI.year+'年 為替損益</span><span class="mid" style="font-size:13px" class="'+(c.yForex>=0?"g":"r")+'">'+fmtJPY(c.yForex)+"</span></div></div>";
+  h+='<div class="divline between"><span class="mid" style="font-size:14.5px">'+UI.year+'年 為替損益</span><span class="mid" style="font-size:14.5px" class="'+(c.yForex>=0?"g":"r")+'">'+fmtJPY(c.yForex)+"</span></div></div>";
 
-  h+='<div><p class="mid" style="margin:0 0 8px;font-size:13.5px">USDC円転履歴</p><div class="card tight">';
+  h+='<div><p class="mid" style="margin:0 0 8px;font-size:15px">USDC円転履歴</p><div class="card tight">';
   if(DB.convs.length===0)h+='<p class="hint" style="text-align:center;padding:16px 0">データなし</p>';
   DB.convs.slice().sort((a,b)=>b.created_at.localeCompare(a.created_at)).forEach(cv=>{
     const pnl=(cv.usd_jpy_rate-c.avgRate)*cv.amount_usdc;
@@ -1039,26 +1061,26 @@ function renderTax(){
   });
   h+="</div></div>";
 
-  h+='<div class="card"><p class="mid" style="margin:0 0 8px;font-size:13.5px">'+UI.year+'年 損益計算</p>';
+  h+='<div class="card"><p class="mid" style="margin:0 0 8px;font-size:15px">'+UI.year+'年 損益計算</p>';
   [["取引総利益",fmtJPY(c.tProfJPY),"g"],["取引総損失","−"+fmtJPY(c.tLossJPY),"r"],["USDC為替損益",fmtJPY(c.yForex),c.yForex>=0?"g":"r"],["経費合計","−"+fmtJPY(c.totalExpJPY),"o"]].forEach(([k,v,cls])=>{
-    h+='<div class="between" style="font-size:13px;margin-bottom:4px"><span class="hint">'+k+'</span><span class="'+cls+'" style="font-weight:600">'+v+"</span></div>";
+    h+='<div class="between" style="font-size:14.5px;margin-bottom:4px"><span class="hint">'+k+'</span><span class="'+cls+'" style="font-weight:600">'+v+"</span></div>";
   });
-  h+='<div class="divline between"><span class="mid" style="font-size:13px">課税所得</span><span class="p mid" style="font-size:13px">'+fmtJPY(c.taxable)+"</span></div></div>";
+  h+='<div class="divline between"><span class="mid" style="font-size:14.5px">課税所得</span><span class="p mid" style="font-size:14.5px">'+fmtJPY(c.taxable)+"</span></div></div>";
 
-  h+='<div class="card"><p class="mid" style="font-size:13.5px;margin:0 0 8px">推定税額</p>'+
-     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:11px;font-weight:600;margin:0 0 3px">📐 計算方法</p>'+
+  h+='<div class="card"><p class="mid" style="font-size:15px;margin:0 0 8px">推定税額</p>'+
+     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:12.5px;font-weight:600;margin:0 0 3px">📐 計算方法</p>'+
      '<p class="hint">推定税額 ＝ 課税所得 × <span class="am" style="font-weight:700">'+DB.taxRate+'%</span>（固定税率）</p>'+
      '<p class="hint">暗号資産取引では所得税＋住民税を合わせると概ね30%前後になることが多いため、デフォルトを30%に設定しています。</p></div>'+
-     '<div class="between" style="font-size:13px;margin-bottom:6px"><span class="hint">適用税率</span><span class="am" style="font-weight:700">'+DB.taxRate+'%</span></div>'+
-     '<div class="divline between"><span class="mid" style="font-size:14px">推定税額</span><span class="r" style="font-size:19px;font-weight:700">'+fmtJPYFloor(c.taxEst)+"</span></div>";
-  h+='<div style="border:1px solid var(--line2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:11px;font-weight:600;margin:0 0 6px">税率を手動変更</p>';
-  if(!UI.editingRate)h+='<button style="display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:6px 11px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=true;UI.rateInput=String(DB.taxRate);render()">現在 '+DB.taxRate+"% → 変更する</button>";
+     '<div class="between" style="font-size:14.5px;margin-bottom:6px"><span class="hint">適用税率</span><span class="am" style="font-weight:700">'+DB.taxRate+'%</span></div>'+
+     '<div class="divline between"><span class="mid" style="font-size:15.5px">推定税額</span><span class="r" style="font-size:20px;font-weight:700">'+fmtJPYFloor(c.taxEst)+"</span></div>";
+  h+='<div style="border:1px solid var(--line2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:12.5px;font-weight:600;margin:0 0 6px">税率を手動変更</p>';
+  if(!UI.editingRate)h+='<button style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;padding:6px 11px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=true;UI.rateInput=String(DB.taxRate);render()">現在 '+DB.taxRate+"% → 変更する</button>";
   else h+='<div style="display:flex;align-items:center;gap:8px"><input type="number" style="width:70px;text-align:center;padding:6px" value="'+esc(UI.rateInput)+'" oninput="UI.rateInput=this.value"><span style="font-weight:700">%</span>'+
-     '<button style="font-size:11px;padding:6px 11px;border-radius:9px;background:var(--green);color:#fff;font-weight:700" onclick="commitRate()">確定</button>'+
-     '<button style="font-size:11px;padding:6px 9px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=false;render()">✕</button></div>';
+     '<button style="font-size:12.5px;padding:6px 11px;border-radius:9px;background:var(--green);color:#fff;font-weight:700" onclick="commitRate()">確定</button>'+
+     '<button style="font-size:12.5px;padding:6px 9px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=false;render()">✕</button></div>';
   h+='</div><p class="hint" style="margin-top:8px">※ 簡易計算。復興特別所得税・各種控除等は含みません。実際は税理士にご確認ください。</p></div>';
 
-  h+='<div class="card"><p style="font-size:11px;font-weight:700;margin:0 0 6px">参考：所得税 累進税率テーブル</p>';
+  h+='<div class="card"><p style="font-size:12.5px;font-weight:700;margin:0 0 6px">参考：所得税 累進税率テーブル</p>';
   [[0,1950000,"5%","15%"],[1950000,3300000,"10%","20%"],[3300000,6950000,"20%","30%"],[6950000,9000000,"23%","33%"],[9000000,18000000,"33%","43%"],[18000000,40000000,"40%","50%"],[40000000,Infinity,"45%","55%"]].forEach(([lo,hi,it,total])=>{
     h+='<div class="taxtablerow"><span class="hint">'+fmtJPYFloor(lo)+" 〜 "+(hi===Infinity?"∞":fmtJPYFloor(hi))+'</span><div style="display:flex;gap:10px"><span class="hint">所得税 '+it+'</span><span style="font-weight:700">合計 '+total+"</span></div></div>";
   });
@@ -1084,21 +1106,21 @@ function renderSettings(){
      '<p class="mid g" style="margin:0 0 6px">🔒 データは完全にあなたの端末に保存</p>'+
      '<p class="hint" style="margin-bottom:10px">すべてのデータはお使いのiPhone・端末のSafariストレージ内にのみ保存されます。外部サーバーへのデータ送信は一切ありません。</p>'+
      '<div class="card tight" style="background:var(--card2)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 13px" onclick="UI._secPanel=!UI._secPanel;render()">'+
-     '<span style="font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px">🛡️ セキュリティ監査レポート（詳細）<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(16,185,129,.2);color:var(--green);font-weight:700">'+SEC_CHECKS.length+'項目確認済み</span></span>'+
+     '<span style="font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:6px">🛡️ セキュリティ監査レポート（詳細）<span style="font-size:11.5px;padding:2px 7px;border-radius:99px;background:rgba(16,185,129,.2);color:var(--green);font-weight:700">'+SEC_CHECKS.length+'項目確認済み</span></span>'+
      (UI._secPanel?"▲":"▼")+"</button>";
   if(UI._secPanel){
     h+='<p class="hint" style="padding:0 12px 6px">Claude（AI）がソースコードを実際に検索し、攻撃者の視点で検証した監査結果です。</p>';
     SEC_CHECKS.forEach(cc=>h+=renderSecItem(cc));
     h+='<p class="hint" style="padding:8px 12px">※ ソースコードはGitHubで公開されており誰でも確認できます。</p>';
   }
-  h+='</div><div class="divline"><p style="font-size:11px;font-weight:700;margin:0 0 4px">🌐 外部通信（為替レート取得）が安全な理由</p>'+
+  h+='</div><div class="divline"><p style="font-size:12.5px;font-weight:700;margin:0 0 4px">🌐 外部通信（為替レート取得）が安全な理由</p>'+
      '<p class="hint">外部への通信は為替レート取得（open.er-api.com）の1件のみ。①HTTPS暗号化、②個人情報送信なし、③異常値（50円未満・300円超）を自動排除。他のサーバーへの通信はブラウザが強制ブロックします。</p></div></div>';
 
   h+='<div class="card" style="background:rgba(96,165,250,.08);border-color:rgba(96,165,250,.35)">'+
      '<p class="mid bl" style="margin:0 0 6px">🏢 インフラについて</p>'+
      '<p class="hint" style="margin-bottom:10px">このアプリは <b>GitHub</b>（コード管理）と <b>Vercel</b>（ホスティング）を利用して公開・運用されています。いずれも世界中の企業・開発者が採用する大手プラットフォームです。</p>'+
-     '<div class="row2"><div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:11px;font-weight:700;margin:0 0 3px">GitHub</p><p class="hint">ソースコードを公開。誰でもコードを確認できるため、不正な処理がないことを透明性をもって確認できます。</p></div>'+
-     '<div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:11px;font-weight:700;margin:0 0 3px">Vercel</p><p class="hint">世界中の大企業・有名サービスが採用するホスティング基盤。常時HTTPS通信で安全にアクセスできます。</p></div></div></div>';
+     '<div class="row2"><div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:12.5px;font-weight:700;margin:0 0 3px">GitHub</p><p class="hint">ソースコードを公開。誰でもコードを確認できるため、不正な処理がないことを透明性をもって確認できます。</p></div>'+
+     '<div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:12.5px;font-weight:700;margin:0 0 3px">Vercel</p><p class="hint">世界中の大企業・有名サービスが採用するホスティング基盤。常時HTTPS通信で安全にアクセスできます。</p></div></div></div>';
 
   h+='<div class="card"><p class="mid" style="margin:0 0 8px">📋 利用規約・免責事項</p><div class="stack" style="gap:9px">'+
     [["1. 本アプリについて","本アプリ「📒損益台帳」は、暗号資産取引の損益管理を補助することを目的とした個人向けツールです。すべてのデータはお使いの端末内にのみ保存され、開発者のサーバーには一切送信されません。"],
@@ -1106,27 +1128,27 @@ function renderSettings(){
      ["3. データの保全について","localStorageに保存されたデータは、アプリの削除・端末初期化・ブラウザのデータクリア等によって消去される場合があります。定期的なCSVエクスポートによるバックアップをご自身の責任で実施してください。データ消失による損害について開発者は責任を負いません。"],
      ["4. 為替レートについて","本アプリが使用する為替レート（ExchangeRate-API）は市場中間値であり、実際の取引レートと異なる場合があります。レートの精度・可用性について開発者は保証しません。"],
      ["5. 免責事項","技術的な安全性に最大限配慮して設計されていますが、絶対的な安全を保証するものではありません。本アプリの利用によって生じたいかなる損害（データ消失・計算誤り・税務上の不利益等）についても、開発者は責任を負いかねます。ご理解の上でご使用ください。"]
-    ].map(([t,d])=>'<div><p style="font-size:11.5px;font-weight:700;margin:0 0 3px">'+t+'</p><p class="hint">'+d+"</p></div>").join("")+
+    ].map(([t,d])=>'<div><p style="font-size:13px;font-weight:700;margin:0 0 3px">'+t+'</p><p class="hint">'+d+"</p></div>").join("")+
     "</div></div>";
 
   h+='<div class="card" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.35)">'+
      '<p class="mid p" style="margin:0 0 8px">📜 為替レートの法的根拠</p>'+
      '<div class="card tight" style="background:var(--card2);padding:10px;margin-bottom:8px"><p class="hint" style="font-style:italic">「電信売相場、電信買相場及び電信売買相場の仲値については、原則として、その者の主たる取引金融機関のものによることとするが、<b>合理的なものを継続して使用している場合には、これを認める。</b>」</p>'+
      '<p class="hint" style="margin-top:6px;opacity:.7">— 所得税基本通達 法第57条の3《外貨建取引の換算》関係 3-2</p></div>'+
-     '<div class="card tight" style="background:var(--card2);padding:10px"><p style="font-size:11px;font-weight:700;margin:0 0 3px">📡 使用API：ExchangeRate-API</p>'+
+     '<div class="card tight" style="background:var(--card2);padding:10px"><p style="font-size:12.5px;font-weight:700;margin:0 0 3px">📡 使用API：ExchangeRate-API</p>'+
      '<p class="hint" style="font-family:ui-monospace,monospace;word-break:break-all">https://open.er-api.com/v6/latest/USD</p>'+
      '<p class="hint" style="margin-top:4px">Reuters・主要金融機関など複数ソースから集約した市場中間値（数時間ごと更新）。APIキー不要・HTTPS対応のサービスです。</p></div></div>';
 
   h+='<div class="card"><p class="mid" style="margin:0 0 10px">💾 データ使用量</p>'+
-     '<div class="between" style="font-size:11px;margin-bottom:6px"><span class="hint">このアプリの使用容量</span><span style="font-weight:700;color:'+barColor+'">'+fmtBytes(bytes)+" / 5MB</span></div>"+
+     '<div class="between" style="font-size:12.5px;margin-bottom:6px"><span class="hint">このアプリの使用容量</span><span style="font-weight:700;color:'+barColor+'">'+fmtBytes(bytes)+" / 5MB</span></div>"+
      '<div style="height:8px;border-radius:99px;background:var(--card2);overflow:hidden;margin-bottom:6px"><div style="height:8px;background:'+barColor+";width:"+pct+'%"></div></div>'+
-     '<div class="between" style="font-size:11px;margin-bottom:8px"><span class="hint">損益'+DB.txs.length+"件・経費"+DB.exps.length+"件・円転"+DB.convs.length+'件</span><span class="hint">'+pct+"%</span></div>"+
-     (isAlert?'<p class="r" style="font-size:11px;font-weight:700">⚠️ 容量限界！今すぐCSVバックアップを</p>':isWarn?'<p class="am" style="font-size:11px">⚠️ 容量70%超。バックアップを推奨します</p>':"")+
-     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:11px;font-weight:700;margin:0 0 6px">📍 データはどこに保存されているか</p>'+
+     '<div class="between" style="font-size:12.5px;margin-bottom:8px"><span class="hint">損益'+DB.txs.length+"件・経費"+DB.exps.length+"件・円転"+DB.convs.length+'件</span><span class="hint">'+pct+"%</span></div>"+
+     (isAlert?'<p class="r" style="font-size:12.5px;font-weight:700">⚠️ 容量限界！今すぐCSVバックアップを</p>':isWarn?'<p class="am" style="font-size:12.5px">⚠️ 容量70%超。バックアップを推奨します</p>':"")+
+     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:12.5px;font-weight:700;margin:0 0 6px">📍 データはどこに保存されているか</p>'+
      '<p class="hint">ホーム画面に追加済みの場合、このアプリ専用のストレージ領域が確保されています。</p>'+
      '<p class="hint" style="background:#000;padding:8px 10px;border-radius:8px;font-family:ui-monospace,monospace;margin:6px 0">設定 → 一般 → iPhoneストレージ<br>→ <b>このアプリ名</b> → 書類とデータ</p>'+
      '<p class="hint">上記が実際のiPhoneストレージ上の占有量です。上限は<b>5MB</b>（WebKit固定）のため、100MBや100GBになることはありません。</p></div>'+
-     '<div style="background:rgba(245,158,11,.12);border-radius:12px;padding:10px;margin-top:8px"><p class="am" style="font-size:11px;font-weight:700">📌 ホーム画面への追加を推奨</p>'+
+     '<div style="background:rgba(245,158,11,.12);border-radius:12px;padding:10px;margin-top:8px"><p class="am" style="font-size:12.5px;font-weight:700">📌 ホーム画面への追加を推奨</p>'+
      '<p class="hint">共有 →「ホーム画面に追加」でアプリとして使えます。</p></div></div>';
 
   h+='<div class="card" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.35)">'+
@@ -1134,27 +1156,27 @@ function renderSettings(){
      '<p class="hint" style="margin-bottom:10px">アプリの削除・機種変更・ブラウザキャッシュのクリアでデータが消えます。定期的にCSV出力してください。</p>'+
      '<button class="savebtn exp" onclick="exportCSV()">⬇ '+UI.year+"年 CSVをエクスポート</button></div>";
 
-  h+='<div class="card tight"><div style="padding:13px 16px;border-bottom:1px solid var(--line)"><p class="mid" style="font-size:13.5px">CSVインポート</p><p class="hint" style="margin-top:2px">エクスポートしたCSVから復元</p></div>'+
+  h+='<div class="card tight"><div style="padding:13px 16px;border-bottom:1px solid var(--line)"><p class="mid" style="font-size:15px">CSVインポート</p><p class="hint" style="margin-top:2px">エクスポートしたCSVから復元</p></div>'+
      '<div style="padding:14px"><input type="file" accept=".csv" id="importFile" style="display:none" onchange="handleImportFile(event)">'+
      '<button class="savebtn" style="background:transparent;border:1px solid var(--line2);color:var(--txt)" onclick="triggerImport()">⬆ CSVファイルをインポート</button>'+
-     (UI.importMsg?'<p style="text-align:center;font-size:11px;margin-top:8px" class="'+(UI.importMsg.ok?"g":"r")+'">'+esc(UI.importMsg.msg)+"</p>":"")+"</div></div>";
+     (UI.importMsg?'<p style="text-align:center;font-size:12.5px;margin-top:8px" class="'+(UI.importMsg.ok?"g":"r")+'">'+esc(UI.importMsg.msg)+"</p>":"")+"</div></div>";
 
   h+='<div class="card" style="background:rgba(244,63,94,.08);border-color:rgba(244,63,94,.35)">'+
      '<p class="mid r" style="margin:0 0 6px">🗑️ 全データ削除</p>'+
      '<p class="hint" style="margin-bottom:10px">インポート前にデータを初期化したい場合に使用してください。削除したデータは元に戻せません。必ずCSVをエクスポートしてからご使用ください。</p>';
   if(!UI.confirmDelete)h+='<button class="savebtn" style="background:transparent;border:1px solid rgba(244,63,94,.5);color:var(--red)" onclick="UI.confirmDelete=true;render()">全データを削除する</button>';
   else h+='<div style="background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.4);border-radius:12px;padding:12px">'+
-     '<p class="r" style="text-align:center;font-weight:700;font-size:13px;margin:0 0 6px">⚠️ 本当に削除しますか？</p>'+
+     '<p class="r" style="text-align:center;font-weight:700;font-size:14.5px;margin:0 0 6px">⚠️ 本当に削除しますか？</p>'+
      '<p class="hint" style="text-align:center;margin-bottom:10px">損益 '+DB.txs.length+"件・経費 "+DB.exps.length+"件・円転 "+DB.convs.length+'件がすべて削除されます</p>'+
      '<div class="row2"><button class="savebtn" style="background:var(--card2)" onclick="UI.confirmDelete=false;render()">キャンセル</button>'+
      '<button class="savebtn" style="background:var(--red)" onclick="handleDeleteAll()">削除する</button></div></div>';
   h+="</div>";
 
-  h+='<div class="card tight"><div class="between" style="padding:14px 16px"><span style="font-size:13.5px;font-weight:600">ダークモード</span>'+
+  h+='<div class="card tight"><div class="between" style="padding:14px 16px"><span style="font-size:15px;font-weight:600">ダークモード</span>'+
      '<button class="dot '+(DB.dark?"on":"")+'" style="width:44px;height:24px;border-radius:99px" onclick="toggleDark()"><i style="width:18px;height:18px;top:3px;left:3px;position:absolute;border-radius:50%;background:#fff;transition:transform .15s;'+(DB.dark?"transform:translateX(20px)":"")+'"></i></button></div></div>';
 
-  h+='<div style="text-align:center;padding:10px 0;color:var(--sub)"><p style="font-size:11px;margin:2px">📒損益台帳 Ver 1.00</p>'+
-     '<p style="font-size:11px;margin:2px">開発: <a href="https://x.com/babucrypter" target="_blank" rel="noopener noreferrer">𝕏 @babucrypter</a></p></div>';
+  h+='<div style="text-align:center;padding:10px 0;color:var(--sub)"><p style="font-size:12.5px;margin:2px">📒損益台帳 Ver 1.00</p>'+
+     '<p style="font-size:12.5px;margin:2px">開発: <a href="https://x.com/babucrypter" target="_blank" rel="noopener noreferrer">𝕏 @babucrypter</a></p></div>';
   h+="</div>";
   document.getElementById("v-settings").innerHTML=h;
 }
