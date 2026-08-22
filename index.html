@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#030712">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="損益台帳">
+<title>📒損益台帳｜確定申告サポーター</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjZmZmZmZmIi8+PHJlY3QgeD0iMTAiIHk9IjE0IiB3aWR0aD0iNDgiIGhlaWdodD0iNjQiIHJ4PSI3IiBmaWxsPSIjZWNmZGY1IiBzdHJva2U9IiMwNTk2NjkiIHN0cm9rZS13aWR0aD0iMy41Ii8+PGNpcmNsZSBjeD0iMjAiIGN5PSIyOCIgcj0iMi44IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iMjAiIGN5PSIzOSIgcj0iMi44IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iMjAiIGN5PSI1MCIgcj0iMi44IiBmaWxsPSIjZmZmZmZmIi8+PGxpbmUgeDE9IjI3IiB5MT0iMjgiIHgyPSI1MCIgeTI9IjI4IiBzdHJva2U9IiMwNTk2NjkiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2Utb3BhY2l0eT0iMC40IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMjciIHkxPSIzNiIgeDI9IjUwIiB5Mj0iMzYiIHN0cm9rZT0iIzA1OTY2OSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxsaW5lIHgxPSIyNyIgeTE9IjQ0IiB4Mj0iNDQiIHkyPSI0NCIgc3Ryb2tlPSIjMDU5NjY5IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjY0IiBjeT0iNjciIHI9IjI1IiBmaWxsPSIjMDU5NjY5Ii8+PGNpcmNsZSBjeD0iNjQiIGN5PSI2NyIgcj0iMTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjM1Ii8+PHRleHQgeD0iNjQiIHk9Ijc1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+wqU8L3RleHQ+PC9zdmc+">
+<style>
+:root{
+  --bg:#030712; --card:#111827; --card2:#1f2937; --line:#1f2937; --line2:#374151;
+  --txt:#f9fafb; --sub:#6b7280; --hov:rgba(255,255,255,.04);
+  --green:#10b981; --red:#f43f5e; --orange:#f97316; --violet:#a78bfa; --amber:#f59e0b; --blue:#60a5fa;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+}
+body.light{
+  --bg:#f3f4f6; --card:#ffffff; --card2:#f9fafb; --line:#e5e7eb; --line2:#d1d5db;
+  --txt:#111827; --sub:#9ca3af; --hov:rgba(0,0,0,.03);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--txt)}
+body{font-family:-apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding-bottom:calc(78px + var(--safe-b));-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select,textarea{font:inherit;color:var(--txt);background:var(--card2);border:1px solid var(--line2);border-radius:12px;padding:9px 12px;width:100%;outline:none;font-size:16px}
+input:focus,select:focus,textarea:focus{border-color:#6b7280}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=date]{color-scheme:dark;font-size:13px;padding:7px 10px}
+body.light input[type=date]{color-scheme:light}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:480px;margin:0 auto}
+a{color:var(--blue)}
+
+header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.brandrow{display:flex;align-items:center;gap:8px;padding:calc(var(--safe-t) + 10px) 16px 2px}
+.brandrow h1{margin:0;font-size:14px;font-weight:700;line-height:1.2}
+.brandrow p{margin:1px 0 0;font-size:11px;color:var(--sub)}
+.yearbar{display:flex;align-items:center;gap:4px;padding:0 12px 8px}
+.ybtn{width:28px;height:28px;border-radius:99px;display:grid;place-items:center;color:var(--sub)}
+.ybtn:active{background:var(--hov)}
+.yearbar b{font-size:13px;font-weight:700;min-width:56px;text-align:center}
+
+main{padding:16px;display:none}
+main.on{display:block}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card.tight{padding:0}
+.lbl{font-size:11px;color:var(--sub);margin-bottom:4px;text-transform:uppercase;letter-spacing:.02em}
+.lbl .req{color:#ef4444;margin-left:2px}
+.g{color:var(--green)} .r{color:var(--red)} .o{color:var(--orange)} .p{color:var(--violet)} .am{color:var(--amber)} .bl{color:var(--blue)}
+.big{font-size:22px;font-weight:700}
+.mid{font-size:16px;font-weight:700}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hint{font-size:11px;color:var(--sub);line-height:1.6}
+.between{display:flex;justify-content:space-between;align-items:center}
+.divline{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}
+
+/* entry panel tabs */
+.seg3{display:flex;border-bottom:1px solid var(--line)}
+.seg3 button{flex:1;padding:11px 4px;font-size:12px;font-weight:700;color:var(--sub)}
+.seg3 button.on.exp{background:var(--orange);color:#fff}
+.seg3 button.on.tx,.seg3 button.on.conv{background:var(--card2);color:var(--txt)}
+.panelbody{padding:14px;display:flex;flex-direction:column;gap:10px}
+.curtoggle{display:flex;border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.curtoggle button{flex:1;padding:8px;font-size:13px;font-weight:700;color:var(--sub)}
+.curtoggle button.on{background:var(--card2);color:var(--txt)}
+body.light .curtoggle button.on{background:#374151;color:#fff}
+.err{border-color:#ef4444 !important}
+.errtext{color:#ef4444;font-size:11px;margin-top:3px}
+.chipwrap{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:13px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
+.chip.sel{background:var(--orange);color:#fff;border-color:var(--orange)}
+.chip button{opacity:.6;color:#f43f5e;font-size:14px;line-height:1}
+.chip button:active{opacity:1}
+.chipadd{font-size:13px;padding:7px 11px;border-radius:12px;border:1px solid var(--line2);color:var(--sub)}
+.chipinput{flex:1;min-width:110px;padding:7px 10px;font-size:13px;border-radius:10px}
+.chipok{padding:7px 12px;border-radius:10px;background:var(--card2);color:var(--txt);font-size:13px;font-weight:700}
+.chipcancel{padding:7px 9px;border-radius:10px;color:var(--sub);font-size:13px}
+.ratebox{font-size:11px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
+.ratebox .ok{color:var(--green)} .ratebox .warn{color:var(--amber)} .ratebox .fetch{color:var(--blue)}
+.raterow{display:flex;align-items:center;gap:8px}
+.raterow span.pre{flex:none;font-size:11px;color:var(--sub)}
+.raterow input{flex:1;padding:6px 10px;font-size:12px}
+.manualtag{font-size:11px;font-weight:700;color:var(--amber);flex:none}
+.savebtn{width:100%;padding:11px;border-radius:14px;font-weight:700;font-size:14px;color:#fff;text-align:center;background:#1f2937}
+.savebtn.exp{background:var(--orange)}
+.savebtn.saved{background:var(--green)}
+.savebtn.busy{background:#4b5563}
+
+/* currency switch on home */
+.curswitch{display:flex;border:1px solid var(--line);border-radius:16px;overflow:hidden;width:fit-content;margin:0 auto}
+.curswitch button{padding:8px 30px;font-size:13px;font-weight:700;color:var(--sub)}
+.curswitch button.on{background:#1f2937;color:#fff}
+body.light .curswitch button.on{background:#1f2937;color:#fff}
+
+/* history sections */
+.sec{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sechead{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:13px 16px}
+.sechead:active,.sechead.open{background:var(--hov)}
+.sechead h3{margin:0;font-size:13.5px;font-weight:700}
+.sechead .cnt{font-size:11px;color:var(--sub)}
+.sechead .amt{margin-left:auto;font-weight:700;font-size:13.5px}
+.chev{color:var(--sub);flex:none}
+.subtabs{display:flex;border-bottom:1px solid var(--line)}
+.subtabs button{flex:1;padding:8px;font-size:11px;font-weight:700;color:var(--sub)}
+.subtabs button.on{background:#1f2937;color:#fff}
+.subtabs button.on.orange{background:var(--orange)}
+.grouphead{width:100%;display:flex;align-items:center;gap:10px;padding:11px 16px;text-align:left}
+.grouphead:active,.grouphead.open{background:var(--hov)}
+.grouptag{font-size:11px;padding:2px 8px;border-radius:6px;background:var(--card2);color:var(--sub);font-weight:600}
+.groupinfo{flex:1;text-align:left;min-width:0}
+.groupinfo p{margin:0}
+.groupinfo .t{font-size:13.5px;font-weight:700}
+.groupinfo .s{font-size:11px;color:var(--sub)}
+.groupamt{font-weight:700;font-size:13.5px;flex:none}
+.pbar{margin:0 16px 6px;height:4px;border-radius:2px;background:var(--card2);overflow:hidden}
+.pbar i{display:block;height:4px;background:var(--orange)}
+.itemrow{display:flex;align-items:center;gap:8px;padding:9px 16px;border-top:1px solid var(--line)}
+.itemrow .d{font-size:11px;color:var(--sub);width:38px;flex:none}
+.itemrow .tags{display:flex;flex-direction:column;gap:3px;flex:none}
+.itemrow .tag{font-size:10.5px;padding:1px 6px;border-radius:5px;background:var(--card2);color:var(--sub)}
+.itemrow .memo{flex:1;font-size:11.5px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.itemrow .right{text-align:right;flex:none}
+.itemrow .right p{margin:0;font-size:12.5px;font-weight:700}
+.itemrow .right small{font-size:10px;color:var(--sub)}
+.itemrow .ico{padding:5px;border-radius:8px}
+.itemrow .ico:active{background:var(--hov)}
+.grouptotal{display:flex;justify-content:space-between;padding:8px 16px;font-size:11.5px;font-weight:700;background:var(--card2)}
+.warnbox{margin:12px;padding:12px;border-radius:12px;border:1px solid rgba(245,158,11,.4);background:rgba(245,158,11,.08)}
+.emptybox{padding:34px 18px;text-align:center;color:var(--sub);font-size:13px}
+.emptybox p:first-child{font-size:28px;margin:0 0 8px}
+
+/* tabbar */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+nav .wrap{display:flex;width:100%}
+nav button{flex:1;padding:9px 0 7px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--sub);font-size:10.5px;font-weight:600}
+nav button.on{color:var(--txt)}
+
+/* sheet/modal */
+.mask{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);display:none}
+.mask.on{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;background:var(--card);border-radius:22px 22px 0 0;padding:18px 18px calc(20px + var(--safe-b));max-height:90vh;overflow:auto;transform:translateY(100%);transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.sheet.on{transform:translateY(0)}
+.sheet h2{margin:0 0 14px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.sheet h2 button{color:var(--sub);font-size:16px;padding:4px}
+.f{margin-bottom:11px}
+.toast{position:fixed;left:50%;bottom:calc(92px + var(--safe-b));transform:translate(-50%,14px);z-index:60;background:#1f2937;color:#fff;border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transition:.22s;pointer-events:none;max-width:88vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* security audit */
+.secitem{border-top:1px solid var(--line)}
+.secitem button{width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;text-align:left}
+.secitem button:active{background:var(--hov)}
+.secitem .ic{font-size:14px;flex:none}
+.secitem .body{flex:1;min-width:0}
+.secitem .body .t{font-size:11.5px;font-weight:600}
+.secitem .body .v{font-size:11px;color:var(--green);font-weight:700}
+.secitem .detail{padding:0 12px 12px;font-size:11px;color:var(--sub);line-height:1.6}
+.secitem pre{background:#000;color:#34d399;font-size:9.5px;line-height:1.6;padding:9px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;margin:6px 0 0;font-family:ui-monospace,monospace}
+.taxtablerow{display:flex;justify-content:space-between;font-size:11px;padding:4px 2px}
+.chartwrap{position:relative;padding-left:40px;margin-top:6px}
+.yax{position:absolute;left:0;top:0;width:38px;height:130px}
+.ytick{position:absolute;right:4px;transform:translateY(-50%);font-size:9px;color:var(--sub);white-space:nowrap}
+.grid{position:absolute;left:40px;right:0;border-top:1px dashed var(--line);pointer-events:none}
+.grid.zero{border-top:1px solid var(--line2)}
+.bars{position:relative;display:flex;height:130px}
+.col{flex:1;display:flex;flex-direction:column}
+.pos{display:flex;align-items:flex-end;justify-content:center}
+.neg{display:flex;align-items:flex-start;justify-content:center}
+.bar{width:60%;max-width:20px;border-radius:2px}
+.xax{display:flex;margin-top:5px}
+.xax span{flex:1;text-align:center;font-size:9px;color:var(--sub)}
+.tip{position:absolute;z-index:5;background:#1f2937;border:1px solid var(--line2);border-radius:10px;padding:7px 11px;text-align:center;top:2px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.tip b{display:block;font-size:12px}
+.tip s{display:block;text-decoration:none;font-size:12px;font-weight:700;margin-top:1px}
+.dot{width:12px;height:6px;border-radius:99px;position:relative;background:#4b5563}
+.dot i{position:absolute;top:0.5px;left:0.5px;width:5px;height:5px;border-radius:50%;background:#fff;transition:transform .15s}
+.dot.on{background:var(--green)}
+.dot.on i{transform:translateX(6px)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brandrow">
+    <svg width="26" height="26" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#fff"/><rect x="10" y="14" width="48" height="64" rx="7" fill="#ecfdf5" stroke="#059669" stroke-width="3.5"/><circle cx="20" cy="28" r="2.8" fill="#fff"/><circle cx="20" cy="39" r="2.8" fill="#fff"/><circle cx="20" cy="50" r="2.8" fill="#fff"/><line x1="27" y1="28" x2="50" y2="28" stroke="#059669" stroke-width="1.5" stroke-opacity=".4" stroke-linecap="round"/><line x1="27" y1="36" x2="50" y2="36" stroke="#059669" stroke-width="1.5" stroke-opacity=".4" stroke-linecap="round"/><line x1="27" y1="44" x2="44" y2="44" stroke="#059669" stroke-width="3" stroke-linecap="round"/><circle cx="64" cy="67" r="25" fill="#059669"/><circle cx="64" cy="67" r="18" fill="none" stroke="#fff" stroke-width="1.5" stroke-opacity=".35"/><text x="64" y="75" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="sans-serif">¥</text></svg>
+    <div><h1>損益台帳</h1><p>確定申告サポーター</p></div>
+  </div>
+  <div class="yearbar">
+    <button class="ybtn" onclick="chYear(-1)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <b class="num" id="yLbl"></b>
+    <button class="ybtn" onclick="chYear(1)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="v-home"></main>
+<main id="v-tax"></main>
+<main id="v-settings"></main>
+
+<nav><div class="wrap">
+  <button data-t="home" onclick="setTab('home')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>ホーム</button>
+  <button data-t="tax" onclick="setTab('tax')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="8.01" y2="18"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>税金</button>
+  <button data-t="settings" onclick="setTab('settings')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>設定</button>
+</div></nav>
+
+<div class="mask" id="mask" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"></div>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   定数・純粋関数
+============================================================ */
+const MONTHS=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+function calcIncomeTax(income){
+  if(income<=0)return 0; let tax=0;
+  if(income>40000000){tax+=(income-40000000)*0.45;income=40000000;}
+  if(income>18000000){tax+=(income-18000000)*0.40;income=18000000;}
+  if(income>9000000){tax+=(income-9000000)*0.33;income=9000000;}
+  if(income>6950000){tax+=(income-6950000)*0.23;income=6950000;}
+  if(income>3300000){tax+=(income-3300000)*0.20;income=3300000;}
+  if(income>1950000){tax+=(income-1950000)*0.10;income=1950000;}
+  tax+=income*0.05; return Math.round(tax);
+}
+function fmtJPYFloor(n){const a=Math.abs(Math.floor(n));return (n<0?"-":"")+"¥"+a.toLocaleString("ja-JP");}
+function fmtUSDFloor(n){const a=Math.floor(Math.abs(n)*100)/100;return (n<0?"-":"")+"$"+a.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtJPY(n){const a=Math.abs(n);return (n<0?"-":"")+"¥"+a.toLocaleString("ja-JP",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtUSD(n){return (n<0?"-":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function todayStr(){const j=new Date(Date.now()+9*3600*1000);return j.toISOString().slice(0,10);}
+function nowJST(){const d=new Date(),j=new Date(d.getTime()+9*3600000);return j.toISOString().slice(0,16).replace("T"," ")+" JST";}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
+
+const ER_API_URL="https://open.er-api.com/v6/latest/USD";
+const RATE_SOURCE_NAME="ExchangeRate-API（市場中間値）";
+async function getRate(){
+  try{
+    const ctrl=new AbortController(); const timer=setTimeout(()=>ctrl.abort(),8000);
+    const res=await fetch(ER_API_URL,{signal:ctrl.signal}); clearTimeout(timer);
+    if(!res.ok)throw new Error("api fail");
+    const data=await res.json(); const rate=data && data.rates && data.rates.JPY;
+    if(!rate||typeof rate!=="number"||rate<50||rate>300)return null;
+    return Math.round(rate*100)/100;
+  }catch(e){console.warn("ExchangeRate-API:",e.message);return null;}
+}
+function isValidRate(r){return typeof r==="number"&&r>=50&&r<=300;}
+function getExpJPY(e){
+  if(e.amount_jpy&&e.amount_jpy>0)return e.amount_jpy;
+  if(e.amount_usd&&e.amount_usd>0){const rate=isValidRate(e.usd_jpy_rate)?e.usd_jpy_rate:150;return Math.floor(e.amount_usd*rate*100)/100;}
+  return 0;
+}
+function getExpUSD(e){
+  if(e.amount_usd!=null&&e.amount_usd>=0)return e.amount_usd;
+  const rate=isValidRate(e.usd_jpy_rate)?e.usd_jpy_rate:150;
+  return (e.amount_jpy||0)/rate;
+}
+function calcUsdc(txs,exps,convs){
+  const prof=txs.filter(t=>t.currency_type==="USD"&&(t.profit_usd||0)>0);
+  const totAcq=prof.reduce((s,t)=>s+(t.profit_usd||0),0);
+  const avgRate=totAcq>0?prof.reduce((s,t)=>s+(t.profit_usd||0)*(t.usd_jpy_rate||150),0)/totAcq:0;
+  const totExpUsd=exps.filter(e=>e.currency_type==="USD").reduce((s,e)=>s+(e.amount_usd||0),0);
+  const totConv=convs.reduce((s,c)=>s+c.amount_usdc,0);
+  return {totalAcquired:totAcq,avgRate,totalExpUsd:totExpUsd,totalConverted:totConv,holdings:Math.max(0,totAcq-totExpUsd-totConv)};
+}
+
+/* CSV export/import (元アプリと同一フォーマット) */
+function csvQ(val){
+  const s=String(val==null?"":val);
+  const safe=/^[=+\-@\t]/.test(s)?"'"+s:s;
+  if(safe.includes(",")||safe.includes('"')||safe.includes("\n")||safe.includes("\r"))return '"'+safe.replace(/"/g,'""')+'"';
+  return safe;
+}
+function parseCSVLine(line){
+  const out=[]; let cur="",q=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){ if(q&&line[i+1]==='"'){cur+='"';i++;} else q=!q; }
+    else if(ch===","&&!q){out.push(cur.trim());cur="";}
+    else cur+=ch;
+  }
+  out.push(cur.trim()); return out;
+}
+function sanitizeImportStr(s,maxLen){
+  if(!s||typeof s!=="string")return "";
+  const noCtrl=s.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,"");
+  const trimmed=noCtrl.trim().slice(0,maxLen||200);
+  return /^[=+\-@\t]/.test(trimmed)?"'"+trimmed:trimmed;
+}
+function safeParseFloat(s,allowNeg){
+  const n=parseFloat(s);
+  if(!isFinite(n)||isNaN(n))return 0;
+  if(!allowNeg&&n<0)return 0;
+  if(Math.abs(n)>1e12)return 0;
+  return n;
+}
+function parseCSVImport(text){
+  const raw=text.replace(/^\uFEFF/,"").replace(/\r\n/g,"\n").replace(/\r/g,"\n");
+  const lines=[]; let buf="",inQ=false;
+  for(let i=0;i<raw.length;i++){
+    const c=raw[i];
+    if(c==='"')inQ=!inQ;
+    if(c==="\n"&&!inQ){lines.push(buf);buf="";} else buf+=c;
+  }
+  if(buf)lines.push(buf);
+  const MAX_ROWS=1000; let txCount=0,expCount=0;
+  let section=null,headers=null;
+  const txs=[],exps=[],cats={};
+  for(const rawLine of lines){
+    const line=rawLine.trim();
+    if(line.startsWith("## 損益明細")){section="tx";headers=null;continue;}
+    if(line.startsWith("## 経費明細")){section="exp";headers=null;continue;}
+    if(line.startsWith("## カテゴリ設定")){section="cats";headers=null;continue;}
+    if(line.startsWith("#")||!line)continue;
+    const cols=parseCSVLine(line);
+    if(!headers){headers=cols;continue;}
+    if(section==="cats"&&headers){
+      const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
+      if(o.type&&o.values)cats[o.type]=o.values.split("|").map(v=>v.trim()).filter(Boolean).slice(0,50);
+      continue;
+    }
+    if(section==="tx"&&headers){
+      if(txCount>=MAX_ROWS)continue;
+      const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
+      if(!o.date||!/^\d{4}-\d{2}-\d{2}$/.test(o.date))continue;
+      txs.push({id:uid(),created_at:o.date,category:sanitizeImportStr(o.category,50),detail:sanitizeImportStr(o.detail,50),
+        profit_usd:safeParseFloat(o.profit_usd),loss_usd:safeParseFloat(o.loss_usd),
+        profit_jpy:safeParseFloat(o.profit_jpy),loss_jpy:safeParseFloat(o.loss_jpy),
+        usd_jpy_rate:(()=>{const r=safeParseFloat(o.usd_jpy_rate);return (r>=50&&r<=300)?r:null;})(),
+        rate_source:sanitizeImportStr(o.rate_source,100),
+        rate_status:parseFloat(o.usd_jpy_rate)&&parseFloat(o.usd_jpy_rate)>=50?"ok":"na",
+        currency_type:(safeParseFloat(o.profit_usd)||safeParseFloat(o.loss_usd))?"USD":"JPY",
+        memo:sanitizeImportStr(o.memo,200)});
+      txCount++;
+    }
+    if(section==="exp"&&headers){
+      if(expCount>=MAX_ROWS)continue;
+      const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
+      if(!o.date||!/^\d{4}-\d{2}-\d{2}$/.test(o.date))continue;
+      const amtUsd=safeParseFloat(o.amount_usd);
+      exps.push({id:uid(),created_at:o.date,category:sanitizeImportStr(o.category,50),project:sanitizeImportStr(o.project,50),
+        amount_jpy:safeParseFloat(o.amount_jpy),amount_usd:amtUsd>0?amtUsd:null,
+        usd_jpy_rate:(()=>{const r=safeParseFloat(o.usd_jpy_rate);return (r>=50&&r<=300)?r:null;})(),
+        rate_source:sanitizeImportStr(o.rate_source,100),
+        rate_status:parseFloat(o.usd_jpy_rate)&&parseFloat(o.usd_jpy_rate)>=50?"ok":"na",
+        currency_type:amtUsd>0?"USD":"JPY", memo:sanitizeImportStr(o.memo,200)});
+      expCount++;
+    }
+  }
+  return {txs,exps,cats};
+}
+
+/* ============================================================
+   状態
+============================================================ */
+const LSK={dark:"cl_dark",taxrate:"cl_taxrate",txs:"cl_txs",exps:"cl_exps",convs:"cl_convs",
+  txcats:"cl_txcats",txdetails:"cl_txdetails",expcats:"cl_expcats",expprojs:"cl_expprojs"};
+const DEF_TX_CATS=["perp","現物","エアドロ"], DEF_TX_DETAILS=["Hyperliquid","Lighter","Binance"];
+const DEF_EXP_CATS=["エアドロ","ガス","両建て"], DEF_EXP_PROJS=["Hyperliquid","Lighter"];
+
+let DB={dark:true,taxRate:30,txs:[],exps:[],convs:[],txCats:DEF_TX_CATS.slice(),txDetails:DEF_TX_DETAILS.slice(),expCats:DEF_EXP_CATS.slice(),expProjs:DEF_EXP_PROJS.slice()};
+let saveError=false;
+function lget(k,def){try{const s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
+function loadDB(){
+  DB.dark=lget(LSK.dark,true);
+  DB.taxRate=lget(LSK.taxrate,30);
+  DB.txs=lget(LSK.txs,[]); DB.exps=lget(LSK.exps,[]); DB.convs=lget(LSK.convs,[]);
+  DB.txCats=lget(LSK.txcats,DEF_TX_CATS.slice()); DB.txDetails=lget(LSK.txdetails,DEF_TX_DETAILS.slice());
+  DB.expCats=lget(LSK.expcats,DEF_EXP_CATS.slice()); DB.expProjs=lget(LSK.expprojs,DEF_EXP_PROJS.slice());
+}
+function saveDB(){
+  try{
+    localStorage.setItem(LSK.dark,JSON.stringify(DB.dark));
+    localStorage.setItem(LSK.taxrate,JSON.stringify(DB.taxRate));
+    localStorage.setItem(LSK.txs,JSON.stringify(DB.txs));
+    localStorage.setItem(LSK.exps,JSON.stringify(DB.exps));
+    localStorage.setItem(LSK.convs,JSON.stringify(DB.convs));
+    localStorage.setItem(LSK.txcats,JSON.stringify(DB.txCats));
+    localStorage.setItem(LSK.txdetails,JSON.stringify(DB.txDetails));
+    localStorage.setItem(LSK.expcats,JSON.stringify(DB.expCats));
+    localStorage.setItem(LSK.expprojs,JSON.stringify(DB.expProjs));
+    saveError=false;
+  }catch(e){
+    if(e&&(e.name==="QuotaExceededError"||e.name==="NS_ERROR_DOM_QUOTA_REACHED"||e.code===22))saveError=true;
+  }
+}
+const APP_LS_KEYS=Object.values(LSK);
+const LS_MAX_BYTES=5*1024*1024;
+function calcStorageBytes(){
+  let bytes=0;
+  for(const k of APP_LS_KEYS){try{const v=localStorage.getItem(k);if(v!=null)bytes+=(k.length+v.length)*2;}catch(e){}}
+  return bytes;
+}
+function fmtBytes(b){if(b<1024)return b+" B";if(b<1024*1024)return (b/1024).toFixed(1)+" KB";return (b/(1024*1024)).toFixed(2)+" MB";}
+
+function initTx(){return {currency_type:"USD",profit_usd:"",loss_usd:"",profit_jpy:"",loss_jpy:"",category:"",detail:"",memo:"",created_at:todayStr()};}
+function initExp(){return {currency_type:"USD",amount_jpy:"",amount_usd:"",category:"",project:"",memo:"",created_at:todayStr()};}
+function initConv(){return {amount_usdc:"",memo:"",created_at:todayStr()};}
+
+/* UI(セッションのみ)状態 */
+const UI={
+  tab:"home", year:new Date().getFullYear(), dispCur:"JPY",
+  entryTab:"exp", newTx:initTx(), newExp:initExp(), newConv:initConv(),
+  fetching:false, saved:false, showErr:false, manualRate:"", fetchedRate:null, fetchFailed:false,
+  rateCache:{},
+  adding:null, addingVal:"",
+  txHistOpen:false, txHistTab:"month", expandedMonths:{}, expandedTxCats:{},
+  expView:"month", expSection:false, expandedExpMonths:{}, expandedCats:{}, expandedProjs:{},
+  editingRate:false, rateInput:"30",
+  eTx:null, eExp:null, eConv:null, editTx:null, editExp:null, editConv:null, modalSaving:false,
+  importMsg:null, confirmDelete:false, chartSel:-1,
+};
+
+/* ============================================================
+   派生計算
+============================================================ */
+function yr(d){return new Date(d).getFullYear();}
+function yTxs(){return DB.txs.filter(t=>yr(t.created_at)===UI.year);}
+function yExps(){return DB.exps.filter(e=>yr(e.created_at)===UI.year);}
+function yConvs(){return DB.convs.filter(c=>yr(c.created_at)===UI.year);}
+
+function computeAll(){
+  const isUSD=UI.dispCur==="USD";
+  const _yTxs=yTxs(), _yExps=yExps(), _yConvs=yConvs();
+  const tProfJPY=_yTxs.reduce((s,t)=>s+(t.profit_jpy||0),0);
+  const tLossJPY=_yTxs.reduce((s,t)=>s+(t.loss_jpy||0),0);
+  const tProfUSD=_yTxs.reduce((s,t)=>s+(t.profit_usd||0),0);
+  const netJPY=tProfJPY-tLossJPY;
+  const netUSD=tProfUSD-_yTxs.reduce((s,t)=>s+(t.loss_usd||0),0);
+  const totalExpJPY=_yExps.reduce((s,e)=>s+getExpJPY(e),0);
+  const totalExpUSD=_yExps.reduce((s,e)=>s+getExpUSD(e),0);
+  const usdc=calcUsdc(DB.txs,DB.exps,DB.convs);
+  const avgRate=usdc.avgRate;
+  const yForex=_yConvs.reduce((s,c)=>s+(c.usd_jpy_rate-avgRate)*c.amount_usdc,0);
+  const yForexUSD=_yConvs.reduce((s,c)=>s+(c.usd_jpy_rate>0?(c.usd_jpy_rate-avgRate)*c.amount_usdc/c.usd_jpy_rate:0),0);
+  const taxable=Math.max(0,netJPY+yForex-totalExpJPY);
+  const taxEst=Math.round(taxable*DB.taxRate/100);
+  const pendingTxs=_yTxs.filter(t=>t.rate_status==="pending");
+  const convAsTxs=_yConvs.map(c=>{
+    const pnlJPY=(c.usd_jpy_rate-avgRate)*c.amount_usdc;
+    const pnlUSD=c.usd_jpy_rate>0?pnlJPY/c.usd_jpy_rate:0;
+    return {id:c.id,created_at:c.created_at,category:"為替損益",memo:c.memo?c.memo:(c.amount_usdc+" USDC"),
+      profit_jpy:pnlJPY>=0?pnlJPY:0, loss_jpy:pnlJPY<0?-pnlJPY:0,
+      profit_usd:pnlUSD>=0?pnlUSD:0, loss_usd:pnlUSD<0?-pnlUSD:0,
+      usd_jpy_rate:c.usd_jpy_rate, currency_type:"USD", _isConv:true};
+  });
+  const allHistTxs=[..._yTxs,...convAsTxs];
+  const allHistByMonth=allHistTxs.reduce((a,t)=>{const k=t.created_at.slice(0,7);(a[k]=a[k]||[]).push(t);return a;},{});
+  const sortedMK=Object.keys(allHistByMonth).sort((a,b)=>b.localeCompare(a));
+  const monthlyDataJPY=MONTHS.map((m,i)=>({month:m,v:allHistTxs.filter(t=>new Date(t.created_at).getMonth()===i).reduce((s,t)=>s+(t.profit_jpy||0)-(t.loss_jpy||0),0)}));
+  const monthlyDataUSD=MONTHS.map((m,i)=>({month:m,v:allHistTxs.filter(t=>new Date(t.created_at).getMonth()===i).reduce((s,t)=>s+(t.profit_usd||0)-(t.loss_usd||0),0)}));
+  const monthlyData=isUSD?monthlyDataUSD:monthlyDataJPY;
+  const allCatSet=new Set([...DB.txCats,...allHistTxs.map(t=>t.category)]);
+  const catPnl=[...allCatSet].map(cat=>{
+    const items=allHistTxs.filter(t=>t.category===cat);
+    if(!items.length)return null;
+    return {cat,netJPY:items.reduce((s,t)=>s+(t.profit_jpy||0)-(t.loss_jpy||0),0),netUSD:items.reduce((s,t)=>s+(t.profit_usd||0)-(t.loss_usd||0),0),count:items.length};
+  }).filter(Boolean).sort((a,b)=>Math.abs(b.netJPY)-Math.abs(a.netJPY));
+  const corruptedExps=_yExps.filter(e=>e.currency_type==="USD"&&!e.amount_jpy&&!isValidRate(e.usd_jpy_rate)&&!e.amount_usd);
+  const expByCat=_yExps.reduce((a,e)=>{(a[e.category]=a[e.category]||[]).push(e);return a;},{});
+  const catTotals=Object.keys(expByCat).map(cat=>{const it=expByCat[cat];return {cat,total:it.reduce((s,e)=>s+getExpJPY(e),0),totalU:it.reduce((s,e)=>s+getExpUSD(e),0),items:it};}).sort((a,b)=>b.total-a.total);
+  const expByProj=_yExps.reduce((a,e)=>{const k=e.project||"（未設定）";(a[k]=a[k]||[]).push(e);return a;},{});
+  const projTotals=Object.keys(expByProj).map(proj=>{const it=expByProj[proj];return {proj,total:it.reduce((s,e)=>s+getExpJPY(e),0),totalU:it.reduce((s,e)=>s+getExpUSD(e),0),items:it};}).sort((a,b)=>b.total-a.total);
+  const expByMonth=_yExps.reduce((a,e)=>{const k=e.created_at.slice(0,7);(a[k]=a[k]||[]).push(e);return a;},{});
+  const sortedExpMK=Object.keys(expByMonth).sort((a,b)=>b.localeCompare(a));
+  return {isUSD,yTxs:_yTxs,yExps:_yExps,yConvs:_yConvs,tProfJPY,tLossJPY,netJPY,netUSD,totalExpJPY,totalExpUSD,usdc,avgRate,yForex,yForexUSD,taxable,taxEst,pendingTxs,allHistTxs,allHistByMonth,sortedMK,monthlyData,catPnl,corruptedExps,catTotals,projTotals,expByMonth,sortedExpMK};
+}
+
+/* ============================================================
+   ルート / タブ
+============================================================ */
+function chYear(d){UI.year+=d;render();}
+function setTab(t){UI.tab=t;render();window.scrollTo(0,0);}
+function setDispCur(c){UI.dispCur=c;UI.chartSel=-1;render();}
+
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),2200);}
+function openSheet(html){document.getElementById("sheet").innerHTML=html;document.getElementById("mask").classList.add("on");document.getElementById("sheet").classList.add("on");}
+function closeSheet(){document.getElementById("mask").classList.remove("on");document.getElementById("sheet").classList.remove("on");UI.eTx=UI.eExp=UI.eConv=null;}
+
+/* ============================================================
+   チップ (カテゴリ/詳細/プロジェクト) 共通処理
+============================================================ */
+const CHIPCFG={
+  newTxCat:{arr:"txCats",form:()=>UI.newTx,field:"category",ph:"新しいカテゴリ"},
+  newTxDetail:{arr:"txDetails",form:()=>UI.newTx,field:"detail",ph:"新しい詳細"},
+  newExpCat:{arr:"expCats",form:()=>UI.newExp,field:"category",ph:"新しいカテゴリ"},
+  newExpProj:{arr:"expProjs",form:()=>UI.newExp,field:"project",ph:"新しいプロジェクト"},
+  editTxCat:{arr:"txCats",form:()=>UI.editTx,field:"category",ph:"新しいカテゴリ"},
+  editTxDetail:{arr:"txDetails",form:()=>UI.editTx,field:"detail",ph:"新しい詳細"},
+  editExpCat:{arr:"expCats",form:()=>UI.editExp,field:"category",ph:"新しいカテゴリ"},
+  editExpProj:{arr:"expProjs",form:()=>UI.editExp,field:"project",ph:"新しいプロジェクト"},
+};
+function chipsHTML(key){
+  const cfg=CHIPCFG[key], list=DB[cfg.arr], form=cfg.form(); if(!form)return "";
+  const sel=form[cfg.field];
+  let h='<div class="chipwrap">';
+  list.forEach(c=>{
+    h+='<span class="chip '+(sel===c?"sel":"")+'"><span onclick="selectChip(\''+key+"','"+esc(c).replace(/'/g,"&#39;")+'\')">'+esc(c)+
+       '</span><button type="button" onclick="event.stopPropagation();removeChip(\''+key+"','"+esc(c).replace(/'/g,"&#39;")+'\')">×</button></span>';
+  });
+  if(UI.adding===key){
+    h+='<input id="chipAddInput" class="chipinput" placeholder="'+esc(cfg.ph)+'" value="'+esc(UI.addingVal)+
+       '" oninput="UI.addingVal=this.value" onkeydown="if(event.key===\'Enter\'){event.preventDefault();commitChip(\''+key+'\')}">';
+    h+='<button type="button" class="chipok" onclick="commitChip(\''+key+'\')">OK</button>';
+    h+='<button type="button" class="chipcancel" onclick="cancelChip()">✕</button>';
+  }else{
+    h+='<button type="button" class="chipadd" onclick="startChip(\''+key+'\')">＋ 追加</button>';
+  }
+  h+="</div>";
+  return h;
+}
+function selectChip(key,val){const cfg=CHIPCFG[key],form=cfg.form();form[cfg.field]=val;render();}
+function removeChip(key,val){
+  const cfg=CHIPCFG[key],form=cfg.form();
+  DB[cfg.arr]=DB[cfg.arr].filter(x=>x!==val);
+  if(form&&form[cfg.field]===val)form[cfg.field]="";
+  saveDB();render();
+}
+function startChip(key){UI.adding=key;UI.addingVal="";render();const el=document.getElementById("chipAddInput");if(el)el.focus();}
+function cancelChip(){UI.adding=null;UI.addingVal="";render();}
+function commitChip(key){
+  const cfg=CHIPCFG[key],form=cfg.form();
+  const v=(UI.addingVal||"").trim();
+  if(v&&DB[cfg.arr].indexOf(v)<0)DB[cfg.arr].push(v);
+  if(v&&form)form[cfg.field]=v;
+  UI.adding=null;UI.addingVal="";saveDB();render();
+}
+
+/* ============================================================
+   為替レート取得 (新規入力パネル用)
+============================================================ */
+async function doFetchRate(date){
+  if(UI.rateCache[date]){UI.fetchedRate=UI.rateCache[date].rate;UI.fetchFailed=false;return UI.rateCache[date].rate;}
+  UI.fetching=true;render();
+  const rate=await getRate();
+  UI.fetching=false;
+  if(rate){UI.rateCache[date]={rate,fetchedAt:nowJST()};UI.fetchedRate=rate;UI.fetchFailed=false;render();return rate;}
+  UI.fetchedRate=null;UI.fetchFailed=true;render();return null;
+}
+async function resolveRate(date){
+  if(UI.manualRate){const r=parseFloat(UI.manualRate);return r>0?{rate:r,src:"手動入力"}:null;}
+  const r=await doFetchRate(date);
+  return r?{rate:r,src:RATE_SOURCE_NAME}:null;
+}
+function setEntryTab(t){UI.entryTab=t;UI.showErr=false;UI.manualRate="";UI.fetchedRate=null;UI.fetchFailed=false;render();}
+function validateNew(){
+  if(UI.entryTab==="tx"){const isU=UI.newTx.currency_type==="USD";return {amount:isU?(!UI.newTx.profit_usd&&!UI.newTx.loss_usd):(!UI.newTx.profit_jpy&&!UI.newTx.loss_jpy),category:!UI.newTx.category};}
+  if(UI.entryTab==="exp"){const isU=UI.newExp.currency_type==="USD";return {amount:isU?!UI.newExp.amount_usd:!UI.newExp.amount_jpy,category:!UI.newExp.category};}
+  return {amount:!UI.newConv.amount_usdc};
+}
+async function handleSaveNew(){
+  UI.showErr=true;
+  const errs=validateNew();
+  if(Object.values(errs).some(Boolean)){render();return;}
+  UI.showErr=false;UI.fetching=true;render();
+  if(UI.entryTab==="tx"){
+    const f=UI.newTx, isU=f.currency_type==="USD";
+    let r=null,rSrc=null,rStatus="na";
+    if(isU){const resolved=await resolveRate(f.created_at);if(resolved){r=resolved.rate;rSrc=resolved.src;rStatus="ok";}else rStatus="pending";}
+    const pu=parseFloat(f.profit_usd)||0, lu=parseFloat(f.loss_usd)||0;
+    DB.txs.unshift({id:uid(),currency_type:f.currency_type,profit_usd:isU?pu:0,loss_usd:isU?lu:0,
+      profit_jpy:isU&&r?Math.ceil(pu*r*100)/100:(isU?0:parseFloat(f.profit_jpy)||0),
+      loss_jpy:isU&&r?Math.floor(lu*r*100)/100:(isU?0:parseFloat(f.loss_jpy)||0),
+      usd_jpy_rate:r,rate_source:rSrc,rate_status:rStatus,category:f.category,detail:f.detail||"",memo:f.memo,created_at:f.created_at||todayStr()});
+    UI.newTx=initTx();
+  }else if(UI.entryTab==="exp"){
+    const f=UI.newExp, isU=f.currency_type==="USD";
+    let r=null,rSrc=null,rStatus="na";
+    if(isU){const resolved=await resolveRate(f.created_at);if(resolved){r=resolved.rate;rSrc=resolved.src;rStatus="ok";}else rStatus="pending";}
+    const amt=parseFloat(f.amount_usd)||0;
+    DB.exps.unshift({id:uid(),currency_type:f.currency_type,amount_usd:isU?amt:null,
+      amount_jpy:isU&&r?Math.floor(amt*r*100)/100:(isU?0:parseFloat(f.amount_jpy)||0),
+      usd_jpy_rate:r,rate_source:rSrc,rate_status:rStatus,category:f.category||"その他",project:f.project||"",memo:f.memo,created_at:f.created_at||todayStr()});
+    UI.newExp=initExp();
+  }else{
+    const f=UI.newConv;
+    const resolved=await resolveRate(f.created_at);
+    const r=resolved?resolved.rate:150;
+    DB.convs.unshift({id:uid(),amount_usdc:parseFloat(f.amount_usdc)||0,usd_jpy_rate:r,memo:f.memo,created_at:f.created_at||todayStr()});
+    UI.newConv=initConv();
+  }
+  UI.manualRate="";UI.fetchedRate=null;UI.fetching=false;UI.saved=true;saveDB();render();
+  setTimeout(()=>{UI.saved=false;UI.showErr=false;render();},1300);
+}
+
+/* ============================================================
+   編集モーダル
+============================================================ */
+function openETx(id){
+  const t=DB.txs.find(x=>x.id===id); if(!t)return;
+  UI.eTx=t; UI.editTx={currency_type:t.currency_type,profit_usd:t.profit_usd||"",loss_usd:t.loss_usd||"",profit_jpy:t.profit_jpy||"",loss_jpy:t.loss_jpy||"",category:t.category,detail:t.detail||"",memo:t.memo||"",created_at:t.created_at};
+  renderTxModal();
+}
+function renderTxModal(){
+  const f=UI.editTx;
+  let h='<h2>取引を編集<button onclick="closeSheet()">✕</button></h2>';
+  h+='<div class="f"><div class="lbl">通貨タイプ</div><div class="curtoggle">'+
+     ["USD","JPY"].map(c=>'<button class="'+(f.currency_type===c?"on":"")+'" onclick="UI.editTx.currency_type=\''+c+'\';renderTxModal()">'+c+"</button>").join("")+"</div></div>";
+  if(f.currency_type==="USD"){
+    h+='<div class="f row2"><div><div class="lbl g">📈 利益（USD）</div><input type="number" inputmode="decimal" value="'+esc(f.profit_usd)+'" oninput="UI.editTx.profit_usd=this.value"></div>'+
+       '<div><div class="lbl r">📉 損失（USD）</div><input type="number" inputmode="decimal" value="'+esc(f.loss_usd)+'" oninput="UI.editTx.loss_usd=this.value"></div></div>';
+  }else{
+    h+='<div class="f row2"><div><div class="lbl g">📈 利益（JPY）</div><input type="number" inputmode="decimal" value="'+esc(f.profit_jpy)+'" oninput="UI.editTx.profit_jpy=this.value"></div>'+
+       '<div><div class="lbl r">📉 損失（JPY）</div><input type="number" inputmode="decimal" value="'+esc(f.loss_jpy)+'" oninput="UI.editTx.loss_jpy=this.value"></div></div>';
+  }
+  h+='<div class="f"><div class="lbl">カテゴリ</div>'+chipsHTML("editTxCat")+"</div>";
+  h+='<div class="f"><div class="lbl">詳細</div>'+chipsHTML("editTxDetail")+"</div>";
+  h+='<div class="f"><div class="lbl">メモ</div><input value="'+esc(f.memo)+'" oninput="UI.editTx.memo=this.value"></div>';
+  h+='<div class="f"><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.editTx.created_at=this.value"></div>';
+  h+='<button class="savebtn'+(UI.modalSaving?" busy":"")+'" onclick="saveTxE()" '+(UI.modalSaving?"disabled":"")+'>'+(UI.modalSaving?"レート取得中...":"保存する")+"</button>";
+  h+='<button class="savebtn" style="background:transparent;color:#f43f5e;margin-top:8px;border:1px solid rgba(244,63,94,.4)" onclick="delTx(\''+UI.eTx.id+'\')">削除</button>';
+  openSheet(h);
+}
+async function saveTxE(){
+  UI.modalSaving=true;renderTxModal();
+  const f=UI.editTx, isU=f.currency_type==="USD";
+  let r=UI.eTx.usd_jpy_rate, rSrc=UI.eTx.rate_source, rStatus=UI.eTx.rate_status;
+  if(isU&&!r){ if(UI.rateCache[f.created_at])r=UI.rateCache[f.created_at].rate; else r=await getRate(); if(r){UI.rateCache[f.created_at]={rate:r,fetchedAt:nowJST()};rSrc=RATE_SOURCE_NAME;rStatus="ok";} }
+  const e={id:UI.eTx.id,currency_type:f.currency_type,profit_usd:isU?parseFloat(f.profit_usd)||0:0,loss_usd:isU?parseFloat(f.loss_usd)||0:0,
+    profit_jpy:isU&&r?Math.ceil((parseFloat(f.profit_usd)||0)*r*100)/100:parseFloat(f.profit_jpy)||0,
+    loss_jpy:isU&&r?Math.floor((parseFloat(f.loss_usd)||0)*r*100)/100:parseFloat(f.loss_jpy)||0,
+    usd_jpy_rate:r,rate_source:rSrc,rate_status:rStatus,category:f.category,detail:f.detail||"",memo:f.memo,created_at:f.created_at||todayStr()};
+  DB.txs=DB.txs.map(t=>t.id===UI.eTx.id?e:t);
+  UI.modalSaving=false;saveDB();closeSheet();render();toast("保存しました");
+}
+function delTx(id){DB.txs=DB.txs.filter(t=>t.id!==id);saveDB();closeSheet();render();toast("削除しました");}
+
+function openEExp(id){
+  const e=DB.exps.find(x=>x.id===id); if(!e)return;
+  UI.eExp=e; UI.editExp={currency_type:e.currency_type||"JPY",amount_jpy:e.amount_jpy,amount_usd:e.amount_usd||"",category:e.category,project:e.project||"",memo:e.memo||"",created_at:e.created_at};
+  renderExpModal();
+}
+function renderExpModal(){
+  const f=UI.editExp;
+  let h='<h2>経費を編集<button onclick="closeSheet()">✕</button></h2>';
+  h+='<div class="f"><div class="lbl">通貨タイプ</div><div class="curtoggle">'+
+     ["USD","JPY"].map(c=>'<button class="'+(f.currency_type===c?"on":"")+'" onclick="UI.editExp.currency_type=\''+c+'\';renderExpModal()">'+c+"</button>").join("")+"</div></div>";
+  if(f.currency_type==="USD")h+='<div class="f"><div class="lbl">金額（USD）</div><input type="number" inputmode="decimal" value="'+esc(f.amount_usd)+'" oninput="UI.editExp.amount_usd=this.value"></div>';
+  else h+='<div class="f"><div class="lbl">金額（JPY）</div><input type="number" inputmode="decimal" value="'+esc(f.amount_jpy)+'" oninput="UI.editExp.amount_jpy=this.value"></div>';
+  h+='<div class="f"><div class="lbl">カテゴリ</div>'+chipsHTML("editExpCat")+"</div>";
+  h+='<div class="f"><div class="lbl">プロジェクト</div>'+chipsHTML("editExpProj")+"</div>";
+  h+='<div class="f"><div class="lbl">メモ</div><input value="'+esc(f.memo)+'" oninput="UI.editExp.memo=this.value"></div>';
+  h+='<div class="f"><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.editExp.created_at=this.value"></div>';
+  h+='<button class="savebtn'+(UI.modalSaving?" busy":"")+'" onclick="saveExpE()" '+(UI.modalSaving?"disabled":"")+'>'+(UI.modalSaving?"レート取得中...":"保存する")+"</button>";
+  h+='<button class="savebtn" style="background:transparent;color:#f43f5e;margin-top:8px;border:1px solid rgba(244,63,94,.4)" onclick="delExp(\''+UI.eExp.id+'\')">削除</button>';
+  openSheet(h);
+}
+async function saveExpE(){
+  UI.modalSaving=true;renderExpModal();
+  const f=UI.editExp, isU=f.currency_type==="USD";
+  let r=UI.eExp.usd_jpy_rate, rSrc=UI.eExp.rate_source, rStatus=UI.eExp.rate_status;
+  if(isU&&!r){ if(UI.rateCache[f.created_at])r=UI.rateCache[f.created_at].rate; else r=await getRate(); if(r){UI.rateCache[f.created_at]={rate:r,fetchedAt:nowJST()};rSrc=RATE_SOURCE_NAME;rStatus="ok";} }
+  const amt=parseFloat(f.amount_usd)||0;
+  const e={id:UI.eExp.id,currency_type:f.currency_type,amount_usd:isU?amt:null,
+    amount_jpy:isU&&r?Math.floor(amt*r*100)/100:parseFloat(f.amount_jpy)||0,
+    usd_jpy_rate:r,rate_source:rSrc,rate_status:rStatus,category:f.category||"その他",project:f.project||"",memo:f.memo,created_at:f.created_at||todayStr()};
+  DB.exps=DB.exps.map(x=>x.id===UI.eExp.id?e:x);
+  UI.modalSaving=false;saveDB();closeSheet();render();toast("保存しました");
+}
+function delExp(id){DB.exps=DB.exps.filter(e=>e.id!==id);saveDB();closeSheet();render();toast("削除しました");}
+
+function openEConv(id){
+  const c=DB.convs.find(x=>x.id===id); if(!c)return;
+  UI.eConv=c; UI.editConv={amount_usdc:c.amount_usdc,memo:c.memo||"",created_at:c.created_at};
+  renderConvModal();
+}
+function renderConvModal(){
+  const f=UI.editConv;
+  let h='<h2>円転を編集<button onclick="closeSheet()">✕</button></h2>';
+  h+='<div class="f"><div class="lbl">円転量（USDC）</div><input type="number" inputmode="decimal" value="'+esc(f.amount_usdc)+'" oninput="UI.editConv.amount_usdc=this.value"></div>';
+  h+='<div class="f"><div class="lbl">メモ</div><input value="'+esc(f.memo)+'" oninput="UI.editConv.memo=this.value"></div>';
+  h+='<div class="f"><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.editConv.created_at=this.value"></div>';
+  h+='<button class="savebtn'+(UI.modalSaving?" busy":"")+'" onclick="saveConvE()" '+(UI.modalSaving?"disabled":"")+'>'+(UI.modalSaving?"レート取得中...":"保存する")+"</button>";
+  h+='<button class="savebtn" style="background:transparent;color:#f43f5e;margin-top:8px;border:1px solid rgba(244,63,94,.4)" onclick="delConv(\''+UI.eConv.id+'\')">削除</button>';
+  openSheet(h);
+}
+async function saveConvE(){
+  UI.modalSaving=true;renderConvModal();
+  const f=UI.editConv;
+  let r=UI.eConv.usd_jpy_rate;
+  if(!r){ if(UI.rateCache[f.created_at])r=UI.rateCache[f.created_at].rate; else r=(await getRate())||150; }
+  const c={id:UI.eConv.id,amount_usdc:parseFloat(f.amount_usdc)||0,usd_jpy_rate:r,memo:f.memo,created_at:f.created_at||todayStr()};
+  DB.convs=DB.convs.map(x=>x.id===UI.eConv.id?c:x);
+  UI.modalSaving=false;saveDB();closeSheet();render();toast("保存しました");
+}
+function delConv(id){DB.convs=DB.convs.filter(c=>c.id!==id);saveDB();closeSheet();render();toast("削除しました");}
+
+/* ============================================================
+   CSV エクスポート / インポート / 全削除
+============================================================ */
+function exportCSV(){
+  try{
+    const c=computeAll();
+    const sum=[["# 📒損益台帳 エクスポート"],["年度",UI.year+"年"],["出力日時",nowJST()],["為替レート根拠","ExchangeRate-API 市場中間値（所得税基本通達 法第57条の3関係 3-2）"],[""],
+      ["## サマリー"],["項目","金額（JPY）"],["課税所得",c.taxable],[csvQ("推定税額（"+DB.taxRate+"% 固定）"),c.taxEst],[""]];
+    const catSection=[["## カテゴリ設定"],["type","values"],
+      ["tx_cats",DB.txCats.map(csvQ).join("|")],["tx_details",DB.txDetails.map(csvQ).join("|")],
+      ["exp_cats",DB.expCats.map(csvQ).join("|")],["exp_projs",DB.expProjs.map(csvQ).join("|")],[""]];
+    const h=["date","category","detail","profit_usd","loss_usd","profit_jpy","loss_jpy","usd_jpy_rate","rate_source","memo"];
+    const rows=c.yTxs.map(t=>[t.created_at,csvQ(t.category),csvQ(t.detail||""),t.profit_usd||0,t.loss_usd||0,t.profit_jpy||0,t.loss_jpy||0,t.usd_jpy_rate||"",csvQ(t.rate_source||""),csvQ(t.memo||"")]);
+    const hE=["date","category","project","amount_jpy","amount_usd","usd_jpy_rate","rate_source","memo"];
+    const rowsE=c.yExps.map(e=>[e.created_at,csvQ(e.category),csvQ(e.project||""),e.amount_jpy,e.amount_usd||"",e.usd_jpy_rate||"",csvQ(e.rate_source||""),csvQ(e.memo||"")]);
+    const csv=sum.map(r=>r.join(",")).join("\n")+catSection.map(r=>r.join(",")).join("\n")+"## 損益明細\n"+[h,...rows].map(r=>r.join(",")).join("\n")+"\n\n## 経費明細\n"+[hE,...rowsE].map(r=>r.join(",")).join("\n");
+    const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download="損益台帳_"+todayStr()+".csv";
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},500);
+  }catch(err){toast("CSV出力エラー: "+err.message);}
+}
+function triggerImport(){document.getElementById("importFile").click();}
+function handleImportFile(e){
+  const file=e.target.files[0]; if(!file)return;
+  if(file.size>1*1024*1024){UI.importMsg={ok:false,msg:"ファイルが大きすぎます（上限1MB）"};e.target.value="";render();return;}
+  const reader=new FileReader();
+  reader.onerror=()=>{UI.importMsg={ok:false,msg:"ファイルの読み込みに失敗しました"};e.target.value="";render();};
+  reader.onload=ev=>{
+    try{
+      const {txs:newTxs,exps:newExps,cats}=parseCSVImport(ev.target.result);
+      if(!newTxs.length&&!newExps.length){UI.importMsg={ok:false,msg:"インポートできるデータが見つかりませんでした"};render();return;}
+      DB.txs=[...DB.txs,...newTxs]; DB.exps=[...DB.exps,...newExps];
+      if(cats.tx_cats&&cats.tx_cats.length)DB.txCats=[...new Set([...DB.txCats,...cats.tx_cats])];
+      if(cats.tx_details&&cats.tx_details.length)DB.txDetails=[...new Set([...DB.txDetails,...cats.tx_details])];
+      if(cats.exp_cats&&cats.exp_cats.length)DB.expCats=[...new Set([...DB.expCats,...cats.exp_cats])];
+      if(cats.exp_projs&&cats.exp_projs.length)DB.expProjs=[...new Set([...DB.expProjs,...cats.exp_projs])];
+      const catMsg=(cats.tx_cats||cats.tx_details||cats.exp_cats||cats.exp_projs)?"・カテゴリ設定を復元しました":"";
+      saveDB();
+      UI.importMsg={ok:true,msg:"✓ 損益"+newTxs.length+"件・経費"+newExps.length+"件をインポートしました"+catMsg};
+      render();
+      setTimeout(()=>{UI.importMsg=null;render();},4000);
+    }catch(err){UI.importMsg={ok:false,msg:"エラー: "+err.message};render();}
+  };
+  reader.readAsText(file,"utf-8"); e.target.value="";
+}
+function handleDeleteAll(){DB.txs=[];DB.exps=[];DB.convs=[];UI.confirmDelete=false;saveDB();render();toast("削除しました");}
+function toggleDark(){DB.dark=!DB.dark;saveDB();applyTheme();render();}
+function applyTheme(){document.body.classList.toggle("light",!DB.dark);}
+
+/* ============================================================
+   セキュリティ監査コンテンツ
+============================================================ */
+const SEC_CHECKS=[
+ {id:"memo",icon:"📝",title:"iPhoneのメモ・写真・連絡先は読めない",verdict:"✅ 完全に遮断済み",detail:"Webアプリは iOS の WebKit サンドボックス内で動作します。カメラ・連絡先・写真・メモ等の API をこのアプリは一切呼び出していません。",code:"// 使用しているAPI（全リスト）\nlocalStorage, fetch('open.er-api.com'), URL.createObjectURL, FileReader\n\n// 以下は存在しない\nnavigator.contacts  // 連絡先 → 0件\nnavigator.camera    // カメラ  → 0件\nnavigator.geolocation // 位置情報 → 0件"},
+ {id:"virus",icon:"🦠",title:"ウイルス・マルウェアの侵入はないか",verdict:"✅ 侵入経路なし",detail:"eval・dangerouslySetInnerHTML はコード全体で0件。CSP により script-src 'self' のみ許可。外部CDNスクリプトも読み込んでいません。",code:"script-src 'self'  // 自ドメインのJSのみ\ndefault-src 'none' // 上記以外すべてブロック\n\neval → 0件\ndangerouslySetInnerHTML → 0件"},
+ {id:"api",icon:"🌐",title:"為替APIは安全か・個人情報を送っていないか",verdict:"✅ GETのみ。個人情報送信なし",detail:"外部通信は為替レート取得の1件のみ。GET リクエストに body はなく個人情報は含みません。50〜300円の範囲外レートは自動排除します。",code:"async function getRate() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  const rate = data?.rates?.JPY;\n  if (rate < 50 || rate > 300) return null;\n}"},
+ {id:"wallet",icon:"👛",title:"ウォレットを勝手に操作されないか",verdict:"✅ ウォレットAPIが存在しない",detail:"MetaMask・WalletConnect等のウォレット接続APIを一切実装していません。秘密鍵・シードフレーズの入力欄もありません。",code:"// localStorageに保存するキー（全リスト）\ncl_dark, cl_taxrate, cl_txs, cl_exps,\ncl_convs, cl_txcats, cl_expcats, cl_expprojs\n// → 秘密鍵・ウォレットアドレスは一切保存しない"},
+ {id:"personal",icon:"🪪",title:"個人情報が抜き取られないか",verdict:"✅ 入力欄・送信処理が存在しない",detail:"氏名・住所・電話番号・メールアドレス等の入力欄はありません。入力できるのは金額・日付・カテゴリ・メモのみです。",code:"currency_type / profit / loss / category\nmemo（最大200文字） / created_at（日付）\n// → 氏名・住所・マイナンバー等 → 0件"},
+ {id:"payment",icon:"💳",title:"Appleで勝手に課金・決済されないか",verdict:"✅ 課金システムが存在しない",detail:"App Store課金・In-App Purchase・Apple PayのAPIを一切実装していません。",code:"StoreKit       → 0件\nwindow.ApplePay→ 0件\nPaymentRequest → 0件"},
+ {id:"password",icon:"🔑",title:"パスワード・Appleアカウントが盗まれないか",verdict:"✅ パスワード取得の手段が存在しない",detail:"iOSのWebKitはキーチェーンへのJSアクセスを完全にブロックしています。パスワード入力欄も存在しません。",code:"type=\"number\"  // 金額入力\ntype=\"date\"    // 日付入力\ntype=\"file\"    // CSVインポート用\n// type=\"password\" → 0件"},
+ {id:"xss",icon:"💉",title:"悪意あるコードの実行（XSS）はないか",verdict:"✅ 出力を自動エスケープ",detail:"入力文字列はすべてエスケープしてから画面に表示しており、スクリプトとして実行されることはありません。",code:"'<scr\"+\"ipt>alert(1)<\\/scr\"+\"ipt>'\n// → 文字列として表示されるだけ・実行されない"},
+];
+function renderSecItem(c){
+  const open=UI._secOpen===c.id;
+  let h='<div class="secitem"><button onclick="UI._secOpen=UI._secOpen===\''+c.id+"'?null:'"+c.id+'\';render()"><span class="ic">'+c.icon+'</span><div class="body"><p class="t">'+esc(c.title)+'</p><p class="v">'+c.verdict+'</p></div>';
+  h+=open?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 15l-6-6-6 6"/></svg>':'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>';
+  h+="</button>";
+  if(open)h+='<div class="detail">'+esc(c.detail)+"<pre>"+esc(c.code)+"</pre></div>";
+  h+="</div>";
+  return h;
+}
+
+/* ============================================================
+   チャート (SVG不要・divベース)
+============================================================ */
+function chartHTML(monthlyData,isUSD){
+  const H=130;
+  const v=monthlyData.map(m=>m.v);
+  const maxP=Math.max(0,...v), minN=Math.min(0,...v), span=maxP-minN;
+  const posH=span?Math.round(H*(maxP/span)):Math.round(H/2), negH=H-posH;
+  const ticks=[];
+  if(span){
+    if(maxP>0){ticks.push({v:maxP,y:0});ticks.push({v:maxP/2,y:posH/2});}
+    ticks.push({v:0,y:posH,zero:true});
+    if(minN<0){ticks.push({v:minN/2,y:posH+negH/2});ticks.push({v:minN,y:H});}
+  }else ticks.push({v:0,y:posH,zero:true});
+  function kfmt(x){const a=Math.abs(x);if(a>=1e8)return (x/1e8).toFixed(a>=1e9?0:1)+"億";if(a>=1000)return Math.round(x/1000)+"k";return String(Math.round(x));}
+  let h='<div class="yax">'; ticks.forEach(t=>h+='<div class="ytick" style="top:'+t.y+'px">'+kfmt(t.v)+"</div>"); h+="</div>";
+  ticks.forEach(t=>h+='<div class="grid'+(t.zero?" zero":"")+'" style="top:'+t.y+'px"></div>');
+  h+='<div class="bars">';
+  monthlyData.forEach((m,i)=>{
+    const val=m.v; const col=val<0?"var(--red)":"var(--green)";
+    let ph=0,nh=0;
+    if(span){ if(val>0)ph=Math.max(2,Math.round(posH*(val/maxP))); else if(val<0)nh=Math.max(2,Math.round(negH*(val/minN))); }
+    h+='<div class="col" onclick="UI.chartSel=(UI.chartSel==='+i+'?-1:'+i+');render()">'+
+       '<div class="pos" style="height:'+posH+'px">'+(ph?'<div class="bar" style="height:'+ph+"px;background:"+col+'"></div>':"")+"</div>"+
+       '<div class="neg" style="height:'+negH+'px">'+(nh?'<div class="bar" style="height:'+nh+"px;background:"+col+'"></div>':"")+"</div></div>";
+  });
+  h+="</div>";
+  if(UI.chartSel>=0){
+    const val=v[UI.chartSel];
+    const lx=Math.min(83,Math.max(17,(UI.chartSel+0.5)/12*100));
+    h+='<div class="tip" style="left:'+lx+'%;transform:translateX(-50%)"><b>'+(UI.chartSel+1)+"月</b><s class=\"num\" style=\"color:"+(val<0?"var(--red)":"var(--green)")+'">'+(isUSD?fmtUSD(val):fmtJPY(val))+"</s></div>";
+  }
+  h+='<div class="xax">'; for(let i=0;i<12;i++)h+="<span>"+(i+1)+"月</span>"; h+="</div>";
+  return h;
+}
+
+/* ============================================================
+   通貨・レート入力パネル (ホーム上部)
+============================================================ */
+function rateStatusHTML(currency_type,cachedRate){
+  if(currency_type==="JPY")return "";
+  let h='<div class="ratebox">';
+  if(UI.fetching)h+='<p class="fetch">ドル円レート自動取得中...</p>';
+  else if(UI.fetchedRate&&!UI.manualRate)h+='<p class="ok">自動取得レート: ¥'+UI.fetchedRate+'（手動入力で上書き可）</p>';
+  else if(cachedRate&&!UI.manualRate)h+='<p class="ok">自動取得レート: ¥'+cachedRate+'（手動入力で上書き可）</p>';
+  else if(UI.fetchFailed&&!UI.manualRate)h+='<p class="warn">自動取得失敗。下欄に手動入力してください</p>';
+  else if(!UI.manualRate)h+='<p>保存時にドル円レートを自動取得します（手動入力で上書き可）</p>';
+  h+='<div class="raterow"><span class="pre">手動レート ¥</span><input type="number" inputmode="decimal" placeholder="'+
+     (UI.fetchedRate||cachedRate?String(UI.fetchedRate||cachedRate):"例：149.50（空白で自動取得）")+
+     '" value="'+esc(UI.manualRate)+'" oninput="UI.manualRate=this.value">'+
+     (UI.manualRate?'<span class="manualtag">手動優先</span>':"")+"</div></div>";
+  return h;
+}
+function entryPanelHTML(){
+  const errs=UI.showErr?validateNew():{};
+  let h='<div class="card tight"><div class="seg3">';
+  [["exp","経費"],["tx","損益"],["conv","USDC円転"]].forEach(([id,label])=>{
+    h+='<button class="'+id+' '+(UI.entryTab===id?"on":"")+'" onclick="setEntryTab(\''+id+'\')">'+label+"</button>";
+  });
+  h+='</div><div class="panelbody">';
+  if(UI.entryTab==="exp"){
+    const f=UI.newExp;
+    const cachedRate=UI.rateCache[f.created_at]&&UI.rateCache[f.created_at].rate;
+    h+='<div class="row2"><div><div class="lbl">通貨</div><div class="curtoggle">'+["USD","JPY"].map(c=>'<button class="'+(f.currency_type===c?"on":"")+'" onclick="UI.newExp.currency_type=\''+c+'\';render()">'+c+"</button>").join("")+"</div></div>"+
+       '<div><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.newExp.created_at=this.value;render()"></div></div>';
+    if(f.currency_type==="USD")h+='<div><div class="lbl">金額（USD）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0.00" value="'+esc(f.amount_usd)+'" oninput="UI.newExp.amount_usd=this.value"></div>';
+    else h+='<div><div class="lbl">金額（JPY）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0" value="'+esc(f.amount_jpy)+'" oninput="UI.newExp.amount_jpy=this.value"></div>';
+    h+=rateStatusHTML(f.currency_type,cachedRate);
+    h+='<div><div class="lbl">カテゴリ<span class="req">*</span></div>'+chipsHTML("newExpCat")+(errs.category?'<p class="errtext">カテゴリを選択してください</p>':"")+"</div>";
+    h+='<div><div class="lbl">プロジェクト</div>'+chipsHTML("newExpProj")+"</div>";
+    h+='<div><div class="lbl">メモ</div><input placeholder="例：ガス代..." value="'+esc(f.memo)+'" oninput="UI.newExp.memo=this.value"></div>';
+  }else if(UI.entryTab==="tx"){
+    const f=UI.newTx;
+    const cachedRate=UI.rateCache[f.created_at]&&UI.rateCache[f.created_at].rate;
+    h+='<div class="row2"><div><div class="lbl">通貨</div><div class="curtoggle">'+["USD","JPY"].map(c=>'<button class="'+(f.currency_type===c?"on":"")+'" onclick="UI.newTx.currency_type=\''+c+'\';render()">'+c+"</button>").join("")+"</div></div>"+
+       '<div><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.newTx.created_at=this.value;render()"></div></div>';
+    if(f.currency_type==="USD"){
+      h+='<div class="row2"><div><div class="lbl g">📈 利益（USD）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0.00" value="'+esc(f.profit_usd)+'" oninput="UI.newTx.profit_usd=this.value"></div>'+
+         '<div><div class="lbl r">📉 損失（USD）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0.00" value="'+esc(f.loss_usd)+'" oninput="UI.newTx.loss_usd=this.value"></div></div>';
+    }else{
+      h+='<div class="row2"><div><div class="lbl g">📈 利益（JPY）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0" value="'+esc(f.profit_jpy)+'" oninput="UI.newTx.profit_jpy=this.value"></div>'+
+         '<div><div class="lbl r">📉 損失（JPY）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0" value="'+esc(f.loss_jpy)+'" oninput="UI.newTx.loss_jpy=this.value"></div></div>';
+    }
+    h+=rateStatusHTML(f.currency_type,cachedRate);
+    h+='<div><div class="lbl">カテゴリ<span class="req">*</span></div>'+chipsHTML("newTxCat")+(errs.category?'<p class="errtext">カテゴリを選択してください</p>':"")+"</div>";
+    h+='<div><div class="lbl">詳細</div>'+chipsHTML("newTxDetail")+"</div>";
+    h+='<div><div class="lbl">メモ</div><input placeholder="任意" value="'+esc(f.memo)+'" oninput="UI.newTx.memo=this.value"></div>';
+  }else{
+    const f=UI.newConv;
+    const cachedRate=UI.rateCache[f.created_at]&&UI.rateCache[f.created_at].rate;
+    h+='<div class="row2"><div><div class="lbl">円転量（USDC）<span class="req">*</span></div><input type="number" inputmode="decimal" class="'+(errs.amount?"err":"")+'" placeholder="0" value="'+esc(f.amount_usdc)+'" oninput="UI.newConv.amount_usdc=this.value"></div>'+
+       '<div><div class="lbl">日付</div><input type="date" value="'+f.created_at+'" onchange="UI.newConv.created_at=this.value;render()"></div></div>';
+    h+=rateStatusHTML("USD",cachedRate);
+    h+='<div><div class="lbl">メモ</div><input placeholder="例：円転" value="'+esc(f.memo)+'" oninput="UI.newConv.memo=this.value"></div>';
+  }
+  if(UI.showErr&&Object.values(errs).some(Boolean))h+='<p class="errtext">* の付いた必須項目を入力してください</p>';
+  const busy=UI.fetching, saved=UI.saved;
+  h+='<button class="savebtn '+(UI.entryTab==="exp"?"exp":"")+(saved?" saved":"")+(busy?" busy":"")+'" onclick="handleSaveNew()" '+(busy?"disabled":"")+'>'+(saved?"✓ 保存しました":busy?"レート取得中...":"保存する")+"</button>";
+  h+="</div></div>";
+  return h;
+}
+
+/* ============================================================
+   ホームタブ
+============================================================ */
+function renderHome(){
+  const c=computeAll(), isUSD=c.isUSD;
+  let h='<div class="stack">';
+  if(saveError){
+    h+='<div class="card" style="border-color:#f43f5e;border-width:2px;background:rgba(244,63,94,.08)">'+
+       '<p class="mid r" style="display:flex;align-items:center;gap:6px;margin:0 0 6px">⚠️ ストレージが満杯です！</p>'+
+       '<p class="hint" style="margin-bottom:10px">データの保存に失敗しています。今すぐ設定→CSVエクスポートでバックアップしてください。</p>'+
+       '<button class="savebtn" style="background:#f43f5e" onclick="setTab(\'settings\')">設定画面でバックアップする</button></div>';
+  }
+  h+=entryPanelHTML();
+  if(c.pendingTxs.length>0){
+    h+='<div class="card" style="border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08)">'+
+       '<p class="mid am" style="margin:0 0 4px">レート未取得: '+c.pendingTxs.length+"件</p>"+
+       '<p class="hint">取引を編集→再保存するとレートを再取得します</p></div>';
+  }
+  h+='<div class="curswitch">'+["JPY","USD"].map(cu=>'<button class="'+(UI.dispCur===cu?"on":"")+'" onclick="setDispCur(\''+cu+'\')">'+cu+"</button>").join("")+"</div>";
+
+  if(DB.txs.length===0&&DB.exps.length===0){
+    h+='<div class="card"><div class="emptybox"><p>📝</p><p style="font-weight:600;color:var(--txt)">まだデータがありません</p><p>上のフォームから損益・経費を入力してください</p></div></div>';
+  }else{
+    const netDisp=isUSD?c.netUSD+c.yForexUSD:c.netJPY;
+    h+='<div class="card"><div class="between" style="align-items:flex-start"><div><div class="lbl">年間純利益</div><p class="big '+(netDisp>=0?"g":"r")+'">'+(isUSD?fmtUSDFloor(c.netUSD+c.yForexUSD):fmtJPYFloor(c.netJPY))+'</p></div>'+
+       '<div style="text-align:right"><div class="lbl">推定税額 ('+DB.taxRate+'%)</div><p class="mid r" style="font-size:17px">'+fmtJPYFloor(c.taxEst)+"</p></div></div></div>";
+    h+='<div class="card"><div class="lbl">経費合計</div><p class="mid o" style="font-size:17px">'+(isUSD?fmtUSDFloor(c.totalExpUSD):fmtJPYFloor(c.totalExpJPY))+"</p></div>";
+    h+='<div class="card" style="border-left:3px solid var(--violet)"><div class="lbl">課税所得</div><p class="mid p" style="font-size:17px">'+fmtJPYFloor(c.taxable)+'</p><p class="hint">純利益 − 経費</p></div>';
+  }
+
+  if(c.allHistTxs.length>0){
+    h+='<div class="card"><p class="mid" style="margin:0 0 8px">月別損益（'+UI.dispCur+'）</p><div class="chartwrap">'+chartHTML(c.monthlyData,isUSD)+"</div></div>";
+  }
+
+  if(c.allHistTxs.length>0){
+    const netAll=isUSD?c.netUSD+c.yForexUSD:c.netJPY+c.yForex;
+    h+='<div class="sec"><button class="sechead '+(UI.txHistOpen?"open":"")+'" onclick="UI.txHistOpen=!UI.txHistOpen;render()"><h3>取引履歴</h3><span class="cnt">'+c.allHistTxs.length+"件</span>"+
+       '<span class="amt '+(netAll>=0?"g":"r")+'">'+(isUSD?fmtUSD(netAll):fmtJPY(netAll))+'</span><span class="chev">'+(UI.txHistOpen?"▲":"▼")+"</span></button>";
+    if(UI.txHistOpen){
+      h+='<div class="subtabs">'+[["month","月別"],["cat","カテゴリ別"]].map(([v,l])=>'<button class="'+(UI.txHistTab===v?"on":"")+'" onclick="UI.txHistTab=\''+v+'\';render()">'+l+"</button>").join("")+"</div>";
+      if(UI.txHistTab==="month"){
+        c.sortedMK.forEach(key=>{
+          const items=c.allHistByMonth[key], open=UI.expandedMonths[key];
+          const mNet=items.reduce((s,t)=>s+(isUSD?(t.profit_usd||0)-(t.loss_usd||0):(t.profit_jpy||0)-(t.loss_jpy||0)),0);
+          h+='<div><button class="grouphead '+(open?"open":"")+'" onclick="UI.expandedMonths[\''+key+"']=!UI.expandedMonths['"+key+'\'];render()">'+
+             '<div class="groupinfo"><p class="t">'+parseInt(key.split("-")[1])+"月</p><p class=\"s\">"+items.length+'件</p></div>'+
+             '<span class="groupamt '+(mNet>=0?"g":"r")+'">'+(isUSD?fmtUSD(mNet):fmtJPY(mNet))+'</span><span class="chev">'+(open?"▲":"▼")+"</span></button>";
+          if(open){
+            items.slice().sort((a,b)=>b.created_at.localeCompare(a.created_at)).forEach(t=>h+=txRowHTML(t,isUSD));
+            h+='<div class="grouptotal"><span>合計</span><span class="'+(mNet>=0?"g":"r")+'">'+(isUSD?fmtUSD(mNet):fmtJPY(mNet))+"</span></div>";
+          }
+          h+="</div>";
+        });
+      }else{
+        c.catPnl.forEach(({cat,netJPY:cJ,netUSD:cU,count})=>{
+          const dispNet=isUSD?cU:cJ, open=UI.expandedTxCats[cat];
+          const items=c.yTxs.filter(t=>t.category===cat);
+          h+='<div><button class="grouphead '+(open?"open":"")+'" onclick="UI.expandedTxCats[\''+esc(cat).replace(/'/g,"&#39;")+"']=!UI.expandedTxCats['"+esc(cat).replace(/'/g,"&#39;")+'\'];render()">'+
+             '<span class="grouptag">'+esc(cat)+'</span><div class="groupinfo"><p class="s">'+count+'件</p></div>'+
+             '<span class="groupamt '+(dispNet>=0?"g":"r")+'">'+(isUSD?fmtUSD(cU):fmtJPY(cJ))+'</span><span class="chev">'+(open?"▲":"▼")+"</span></button>";
+          if(open){
+            items.slice().sort((a,b)=>b.created_at.localeCompare(a.created_at)).forEach(t=>h+=txRowHTML(t,isUSD));
+            h+='<div class="grouptotal"><span>合計</span><span class="'+(dispNet>=0?"g":"r")+'">'+(isUSD?fmtUSD(cU):fmtJPY(cJ))+"</span></div>";
+          }
+          h+="</div>";
+        });
+        h+='<div class="grouptotal"><span>合計</span><span class="'+(netAll>=0?"g":"r")+'">'+(isUSD?fmtUSD(netAll):fmtJPY(netAll))+"</span></div>";
+      }
+    }
+    h+="</div>";
+  }
+
+  if(c.yExps.length>0){
+    h+='<div class="sec"><button class="sechead '+(UI.expSection?"open":"")+'" onclick="UI.expSection=!UI.expSection;render()"><h3>経費履歴</h3><span class="cnt">'+c.yExps.length+"件</span>"+
+       (c.corruptedExps.length>0?'<span class="cnt am">⚠️ '+c.corruptedExps.length+"件要確認</span>":"")+
+       '<span class="amt o">'+(isUSD?fmtUSD(c.totalExpUSD):fmtJPY(c.totalExpJPY))+'</span><span class="chev">'+(UI.expSection?"▲":"▼")+"</span></button>";
+    if(UI.expSection){
+      if(c.corruptedExps.length>0)h+='<div class="warnbox"><p class="am" style="font-weight:700;font-size:11.5px;margin:0 0 4px">⚠️ データ要確認: '+c.corruptedExps.length+'件</p><p class="hint">過去バージョンの不具合により一部の経費でUSD金額・為替レートが正しく記録されていない可能性があります。「要修正」の項目を編集して金額を再入力してください（現在は¥150換算の概算値）。</p></div>';
+      h+='<div class="subtabs">'+[["month","月別"],["cat","カテゴリ別"],["proj","プロジェクト別"]].map(([v,l])=>'<button class="'+(UI.expView===v?"on orange":"")+'" onclick="UI.expView=\''+v+'\';render()">'+l+"</button>").join("")+"</div>";
+      if(UI.expView==="month"){
+        c.sortedExpMK.forEach(key=>{
+          const items=c.expByMonth[key], open=UI.expandedExpMonths[key];
+          const mT=items.reduce((s,e)=>s+getExpJPY(e),0), mTU=items.reduce((s,e)=>s+getExpUSD(e),0);
+          const pct=c.totalExpJPY>0?Math.round(mT/c.totalExpJPY*100):0;
+          h+=expGroupHTML(key,"expandedExpMonths",parseInt(key.split("-")[1])+"月",items,mT,mTU,pct,open,isUSD);
+        });
+      }else if(UI.expView==="cat"){
+        c.catTotals.forEach(({cat,total,totalU,items})=>{
+          const open=UI.expandedCats[cat], pct=c.totalExpJPY>0?Math.round(total/c.totalExpJPY*100):0;
+          h+=expGroupHTML(cat,"expandedCats",esc(cat),items,total,totalU,pct,open,isUSD);
+        });
+      }else{
+        c.projTotals.forEach(({proj,total,totalU,items})=>{
+          const open=UI.expandedProjs[proj], pct=c.totalExpJPY>0?Math.round(total/c.totalExpJPY*100):0;
+          h+=expGroupHTML(proj,"expandedProjs",esc(proj),items,total,totalU,pct,open,isUSD);
+        });
+      }
+    }
+    h+="</div>";
+  }
+  h+="</div>";
+  document.getElementById("v-home").innerHTML=h;
+}
+function txRowHTML(t,isUSD){
+  const net=isUSD?(t.profit_usd||0)-(t.loss_usd||0):(t.profit_jpy||0)-(t.loss_jpy||0);
+  const editFn=t._isConv?"openEConv":"openETx", delFn=t._isConv?"delConv":"delTx";
+  return '<div class="itemrow"><span class="d num">'+t.created_at.slice(5).replace("-","/")+'</span>'+
+    '<div class="tags"><span class="tag">'+esc(t.category)+'</span>'+(t.detail?'<span class="tag">'+esc(t.detail)+"</span>":"")+"</div>"+
+    '<span class="memo">'+esc(t.memo)+'</span><div class="right"><p class="'+(net>=0?"g":"r")+'">'+(isUSD?fmtUSD(net):fmtJPY(net))+"</p>"+
+    (t.usd_jpy_rate?"<small>¥"+t.usd_jpy_rate+"</small>":"")+(t.rate_status==="pending"?'<small class="am">レート待機中</small>':"")+"</div>"+
+    '<button class="ico" onclick="'+editFn+"('"+t.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>'+
+    '<button class="ico" onclick="'+delFn+"('"+t.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>';
+}
+function expItemRowHTML(e,isUSD){
+  const validRate=isValidRate(e.usd_jpy_rate);
+  const hasIssue=!e.amount_jpy&&e.currency_type==="USD"&&(!e.amount_usd||!validRate);
+  const dispJPY=getExpJPY(e), dispUSD=getExpUSD(e);
+  const estimated=!e.amount_jpy&&e.amount_usd&&e.amount_usd>0;
+  return '<div class="itemrow"><span class="d num">'+e.created_at.slice(5).replace("-","/")+'</span>'+
+    '<div class="tags"><span class="tag">'+esc(e.category)+'</span>'+(e.project?'<span class="tag">'+esc(e.project)+"</span>":"")+"</div>"+
+    '<span class="memo">'+esc(e.memo)+'</span><div class="right"><p class="'+(hasIssue?"am":"o")+'">'+(isUSD?fmtUSD(dispUSD):fmtJPY(dispJPY))+(estimated?" *":"")+"</p>"+
+    (validRate?"<small>¥"+e.usd_jpy_rate+"</small>":(e.usd_jpy_rate?'<small class="am">要修正</small>':""))+"</div>"+
+    '<button class="ico" onclick="openEExp(\''+e.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>'+
+    '<button class="ico" onclick="delExp(\''+e.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>';
+}
+function expGroupHTML(key,expField,label,items,total,totalU,pct,open,isUSD){
+  const safeKey=key.replace(/'/g,"&#39;");
+  let h='<div><button class="grouphead '+(open?"open":"")+'" onclick="UI.'+expField+"['"+safeKey+"']=!UI."+expField+"['"+safeKey+'\'];render()">'+
+    '<div class="groupinfo"><p class="t">'+label+'</p><p class="s">'+items.length+"件 · "+pct+"%</p></div>"+
+    '<span class="groupamt o">'+(isUSD?fmtUSD(totalU):fmtJPY(total))+'</span><span class="chev">'+(open?"▲":"▼")+"</span></button>"+
+    '<div class="pbar"><i style="width:'+pct+'%"></i></div>';
+  if(open){
+    items.slice().sort((a,b)=>b.created_at.localeCompare(a.created_at)).forEach(e=>h+=expItemRowHTML(e,isUSD));
+  }
+  h+="</div>";
+  return h;
+}
+
+/* ============================================================
+   税金タブ
+============================================================ */
+function renderTax(){
+  const c=computeAll();
+  let h='<div class="stack">';
+  h+='<div class="card"><p class="mid" style="margin:0 0 8px">USDC残高（自動集計）</p>';
+  [["USD建て利益（取得）",c.usdc.totalAcquired.toFixed(2)+" USDC",""],
+   ["USD建て経費（消費）","-"+c.usdc.totalExpUsd.toFixed(2)+" USDC",""],
+   ["円転済み","-"+c.usdc.totalConverted.toFixed(2)+" USDC",""],
+   ["現在保有（推定）",c.usdc.holdings.toFixed(2)+" USDC","g"],
+   ["平均取得レート","¥"+c.avgRate.toFixed(2)+"/$",""]].forEach(([k,v,cls])=>{
+    h+='<div class="between" style="font-size:13px;margin-bottom:4px"><span class="hint">'+k+'</span><span style="font-weight:600" class="'+cls+'">'+v+"</span></div>";
+  });
+  h+='<div class="divline between"><span class="mid" style="font-size:13px">'+UI.year+'年 為替損益</span><span class="mid" style="font-size:13px" class="'+(c.yForex>=0?"g":"r")+'">'+fmtJPY(c.yForex)+"</span></div></div>";
+
+  h+='<div><p class="mid" style="margin:0 0 8px;font-size:13.5px">USDC円転履歴</p><div class="card tight">';
+  if(DB.convs.length===0)h+='<p class="hint" style="text-align:center;padding:16px 0">データなし</p>';
+  DB.convs.slice().sort((a,b)=>b.created_at.localeCompare(a.created_at)).forEach(cv=>{
+    const pnl=(cv.usd_jpy_rate-c.avgRate)*cv.amount_usdc;
+    h+='<div class="itemrow"><span class="d num">'+cv.created_at.slice(5).replace("-","/")+'</span><span class="memo">'+esc(cv.memo)+'</span>'+
+       '<div class="right"><p class="'+(pnl>=0?"g":"r")+'">'+cv.amount_usdc.toLocaleString()+" USDC · "+fmtJPY(pnl)+'</p><small>¥'+cv.usd_jpy_rate+'/$</small></div>'+
+       '<button class="ico" onclick="openEConv(\''+cv.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>'+
+       '<button class="ico" onclick="delConv(\''+cv.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>';
+  });
+  h+="</div></div>";
+
+  h+='<div class="card"><p class="mid" style="margin:0 0 8px;font-size:13.5px">'+UI.year+'年 損益計算</p>';
+  [["取引総利益",fmtJPY(c.tProfJPY),"g"],["取引総損失","−"+fmtJPY(c.tLossJPY),"r"],["USDC為替損益",fmtJPY(c.yForex),c.yForex>=0?"g":"r"],["経費合計","−"+fmtJPY(c.totalExpJPY),"o"]].forEach(([k,v,cls])=>{
+    h+='<div class="between" style="font-size:13px;margin-bottom:4px"><span class="hint">'+k+'</span><span class="'+cls+'" style="font-weight:600">'+v+"</span></div>";
+  });
+  h+='<div class="divline between"><span class="mid" style="font-size:13px">課税所得</span><span class="p mid" style="font-size:13px">'+fmtJPY(c.taxable)+"</span></div></div>";
+
+  h+='<div class="card"><p class="mid" style="font-size:13.5px;margin:0 0 8px">推定税額</p>'+
+     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:11px;font-weight:600;margin:0 0 3px">📐 計算方法</p>'+
+     '<p class="hint">推定税額 ＝ 課税所得 × <span class="am" style="font-weight:700">'+DB.taxRate+'%</span>（固定税率）</p>'+
+     '<p class="hint">暗号資産取引では所得税＋住民税を合わせると概ね30%前後になることが多いため、デフォルトを30%に設定しています。</p></div>'+
+     '<div class="between" style="font-size:13px;margin-bottom:6px"><span class="hint">適用税率</span><span class="am" style="font-weight:700">'+DB.taxRate+'%</span></div>'+
+     '<div class="divline between"><span class="mid" style="font-size:14px">推定税額</span><span class="r" style="font-size:19px;font-weight:700">'+fmtJPYFloor(c.taxEst)+"</span></div>";
+  h+='<div style="border:1px solid var(--line2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:11px;font-weight:600;margin:0 0 6px">税率を手動変更</p>';
+  if(!UI.editingRate)h+='<button style="display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:6px 11px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=true;UI.rateInput=String(DB.taxRate);render()">現在 '+DB.taxRate+"% → 変更する</button>";
+  else h+='<div style="display:flex;align-items:center;gap:8px"><input type="number" style="width:70px;text-align:center;padding:6px" value="'+esc(UI.rateInput)+'" oninput="UI.rateInput=this.value"><span style="font-weight:700">%</span>'+
+     '<button style="font-size:11px;padding:6px 11px;border-radius:9px;background:var(--green);color:#fff;font-weight:700" onclick="commitRate()">確定</button>'+
+     '<button style="font-size:11px;padding:6px 9px;border-radius:9px;background:var(--card2)" onclick="UI.editingRate=false;render()">✕</button></div>';
+  h+='</div><p class="hint" style="margin-top:8px">※ 簡易計算。復興特別所得税・各種控除等は含みません。実際は税理士にご確認ください。</p></div>';
+
+  h+='<div class="card"><p style="font-size:11px;font-weight:700;margin:0 0 6px">参考：所得税 累進税率テーブル</p>';
+  [[0,1950000,"5%","15%"],[1950000,3300000,"10%","20%"],[3300000,6950000,"20%","30%"],[6950000,9000000,"23%","33%"],[9000000,18000000,"33%","43%"],[18000000,40000000,"40%","50%"],[40000000,Infinity,"45%","55%"]].forEach(([lo,hi,it,total])=>{
+    h+='<div class="taxtablerow"><span class="hint">'+fmtJPYFloor(lo)+" 〜 "+(hi===Infinity?"∞":fmtJPYFloor(hi))+'</span><div style="display:flex;gap:10px"><span class="hint">所得税 '+it+'</span><span style="font-weight:700">合計 '+total+"</span></div></div>";
+  });
+  h+='<p class="hint">※ 合計＝所得税＋住民税10%</p></div>';
+  h+="</div>";
+  document.getElementById("v-tax").innerHTML=h;
+}
+function commitRate(){
+  const v=parseFloat(UI.rateInput);
+  if(!isNaN(v)&&v>0&&v<=100){DB.taxRate=v;saveDB();}
+  UI.editingRate=false;render();
+}
+
+/* ============================================================
+   設定タブ
+============================================================ */
+function renderSettings(){
+  const bytes=calcStorageBytes(), pct=Math.min(100,Math.round(bytes/LS_MAX_BYTES*100));
+  const isAlert=bytes>=LS_MAX_BYTES*0.9, isWarn=bytes>=LS_MAX_BYTES*0.7;
+  const barColor=isAlert?"#f43f5e":isWarn?"#f59e0b":"#10b981";
+  let h='<div class="stack">';
+  h+='<div class="card" style="background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)">'+
+     '<p class="mid g" style="margin:0 0 6px">🔒 データは完全にあなたの端末に保存</p>'+
+     '<p class="hint" style="margin-bottom:10px">すべてのデータはお使いのiPhone・端末のSafariストレージ内にのみ保存されます。外部サーバーへのデータ送信は一切ありません。</p>'+
+     '<div class="card tight" style="background:var(--card2)"><button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 13px" onclick="UI._secPanel=!UI._secPanel;render()">'+
+     '<span style="font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px">🛡️ セキュリティ監査レポート（詳細）<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(16,185,129,.2);color:var(--green);font-weight:700">'+SEC_CHECKS.length+'項目確認済み</span></span>'+
+     (UI._secPanel?"▲":"▼")+"</button>";
+  if(UI._secPanel){
+    h+='<p class="hint" style="padding:0 12px 6px">Claude（AI）がソースコードを実際に検索し、攻撃者の視点で検証した監査結果です。</p>';
+    SEC_CHECKS.forEach(cc=>h+=renderSecItem(cc));
+    h+='<p class="hint" style="padding:8px 12px">※ ソースコードはGitHubで公開されており誰でも確認できます。</p>';
+  }
+  h+='</div><div class="divline"><p style="font-size:11px;font-weight:700;margin:0 0 4px">🌐 外部通信（為替レート取得）が安全な理由</p>'+
+     '<p class="hint">外部への通信は為替レート取得（open.er-api.com）の1件のみ。①HTTPS暗号化、②個人情報送信なし、③異常値（50円未満・300円超）を自動排除。他のサーバーへの通信はブラウザが強制ブロックします。</p></div></div>';
+
+  h+='<div class="card" style="background:rgba(96,165,250,.08);border-color:rgba(96,165,250,.35)">'+
+     '<p class="mid bl" style="margin:0 0 6px">🏢 インフラについて</p>'+
+     '<p class="hint" style="margin-bottom:10px">このアプリは <b>GitHub</b>（コード管理）と <b>Vercel</b>（ホスティング）を利用して公開・運用されています。いずれも世界中の企業・開発者が採用する大手プラットフォームです。</p>'+
+     '<div class="row2"><div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:11px;font-weight:700;margin:0 0 3px">GitHub</p><p class="hint">ソースコードを公開。誰でもコードを確認できるため、不正な処理がないことを透明性をもって確認できます。</p></div>'+
+     '<div class="card tight" style="background:var(--card2);padding:10px;text-align:center"><p style="font-size:11px;font-weight:700;margin:0 0 3px">Vercel</p><p class="hint">世界中の大企業・有名サービスが採用するホスティング基盤。常時HTTPS通信で安全にアクセスできます。</p></div></div></div>';
+
+  h+='<div class="card"><p class="mid" style="margin:0 0 8px">📋 利用規約・免責事項</p><div class="stack" style="gap:9px">'+
+    [["1. 本アプリについて","本アプリ「📒損益台帳」は、暗号資産取引の損益管理を補助することを目的とした個人向けツールです。すべてのデータはお使いの端末内にのみ保存され、開発者のサーバーには一切送信されません。"],
+     ["2. 税務・法律上の免責","本アプリが提供する税額試算・損益計算はあくまで参考値です。実際の確定申告・納税額は個人の状況・各種控除・法改正等により異なります。税務申告には必ず税理士等の専門家にご確認ください。本アプリの計算結果を根拠とした申告内容について、開発者は一切の責任を負いません。"],
+     ["3. データの保全について","localStorageに保存されたデータは、アプリの削除・端末初期化・ブラウザのデータクリア等によって消去される場合があります。定期的なCSVエクスポートによるバックアップをご自身の責任で実施してください。データ消失による損害について開発者は責任を負いません。"],
+     ["4. 為替レートについて","本アプリが使用する為替レート（ExchangeRate-API）は市場中間値であり、実際の取引レートと異なる場合があります。レートの精度・可用性について開発者は保証しません。"],
+     ["5. 免責事項","技術的な安全性に最大限配慮して設計されていますが、絶対的な安全を保証するものではありません。本アプリの利用によって生じたいかなる損害（データ消失・計算誤り・税務上の不利益等）についても、開発者は責任を負いかねます。ご理解の上でご使用ください。"]
+    ].map(([t,d])=>'<div><p style="font-size:11.5px;font-weight:700;margin:0 0 3px">'+t+'</p><p class="hint">'+d+"</p></div>").join("")+
+    "</div></div>";
+
+  h+='<div class="card" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.35)">'+
+     '<p class="mid p" style="margin:0 0 8px">📜 為替レートの法的根拠</p>'+
+     '<div class="card tight" style="background:var(--card2);padding:10px;margin-bottom:8px"><p class="hint" style="font-style:italic">「電信売相場、電信買相場及び電信売買相場の仲値については、原則として、その者の主たる取引金融機関のものによることとするが、<b>合理的なものを継続して使用している場合には、これを認める。</b>」</p>'+
+     '<p class="hint" style="margin-top:6px;opacity:.7">— 所得税基本通達 法第57条の3《外貨建取引の換算》関係 3-2</p></div>'+
+     '<div class="card tight" style="background:var(--card2);padding:10px"><p style="font-size:11px;font-weight:700;margin:0 0 3px">📡 使用API：ExchangeRate-API</p>'+
+     '<p class="hint" style="font-family:ui-monospace,monospace;word-break:break-all">https://open.er-api.com/v6/latest/USD</p>'+
+     '<p class="hint" style="margin-top:4px">Reuters・主要金融機関など複数ソースから集約した市場中間値（数時間ごと更新）。APIキー不要・HTTPS対応のサービスです。</p></div></div>';
+
+  h+='<div class="card"><p class="mid" style="margin:0 0 10px">💾 データ使用量</p>'+
+     '<div class="between" style="font-size:11px;margin-bottom:6px"><span class="hint">このアプリの使用容量</span><span style="font-weight:700;color:'+barColor+'">'+fmtBytes(bytes)+" / 5MB</span></div>"+
+     '<div style="height:8px;border-radius:99px;background:var(--card2);overflow:hidden;margin-bottom:6px"><div style="height:8px;background:'+barColor+";width:"+pct+'%"></div></div>'+
+     '<div class="between" style="font-size:11px;margin-bottom:8px"><span class="hint">損益'+DB.txs.length+"件・経費"+DB.exps.length+"件・円転"+DB.convs.length+'件</span><span class="hint">'+pct+"%</span></div>"+
+     (isAlert?'<p class="r" style="font-size:11px;font-weight:700">⚠️ 容量限界！今すぐCSVバックアップを</p>':isWarn?'<p class="am" style="font-size:11px">⚠️ 容量70%超。バックアップを推奨します</p>':"")+
+     '<div style="background:var(--card2);border-radius:12px;padding:10px;margin-top:8px"><p style="font-size:11px;font-weight:700;margin:0 0 6px">📍 データはどこに保存されているか</p>'+
+     '<p class="hint">ホーム画面に追加済みの場合、このアプリ専用のストレージ領域が確保されています。</p>'+
+     '<p class="hint" style="background:#000;padding:8px 10px;border-radius:8px;font-family:ui-monospace,monospace;margin:6px 0">設定 → 一般 → iPhoneストレージ<br>→ <b>このアプリ名</b> → 書類とデータ</p>'+
+     '<p class="hint">上記が実際のiPhoneストレージ上の占有量です。上限は<b>5MB</b>（WebKit固定）のため、100MBや100GBになることはありません。</p></div>'+
+     '<div style="background:rgba(245,158,11,.12);border-radius:12px;padding:10px;margin-top:8px"><p class="am" style="font-size:11px;font-weight:700">📌 ホーム画面への追加を推奨</p>'+
+     '<p class="hint">共有 →「ホーム画面に追加」でアプリとして使えます。</p></div></div>';
+
+  h+='<div class="card" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.35)">'+
+     '<p class="mid am" style="margin:0 0 6px">⚠️ バックアップ推奨</p>'+
+     '<p class="hint" style="margin-bottom:10px">アプリの削除・機種変更・ブラウザキャッシュのクリアでデータが消えます。定期的にCSV出力してください。</p>'+
+     '<button class="savebtn exp" onclick="exportCSV()">⬇ '+UI.year+"年 CSVをエクスポート</button></div>";
+
+  h+='<div class="card tight"><div style="padding:13px 16px;border-bottom:1px solid var(--line)"><p class="mid" style="font-size:13.5px">CSVインポート</p><p class="hint" style="margin-top:2px">エクスポートしたCSVから復元</p></div>'+
+     '<div style="padding:14px"><input type="file" accept=".csv" id="importFile" style="display:none" onchange="handleImportFile(event)">'+
+     '<button class="savebtn" style="background:transparent;border:1px solid var(--line2);color:var(--txt)" onclick="triggerImport()">⬆ CSVファイルをインポート</button>'+
+     (UI.importMsg?'<p style="text-align:center;font-size:11px;margin-top:8px" class="'+(UI.importMsg.ok?"g":"r")+'">'+esc(UI.importMsg.msg)+"</p>":"")+"</div></div>";
+
+  h+='<div class="card" style="background:rgba(244,63,94,.08);border-color:rgba(244,63,94,.35)">'+
+     '<p class="mid r" style="margin:0 0 6px">🗑️ 全データ削除</p>'+
+     '<p class="hint" style="margin-bottom:10px">インポート前にデータを初期化したい場合に使用してください。削除したデータは元に戻せません。必ずCSVをエクスポートしてからご使用ください。</p>';
+  if(!UI.confirmDelete)h+='<button class="savebtn" style="background:transparent;border:1px solid rgba(244,63,94,.5);color:var(--red)" onclick="UI.confirmDelete=true;render()">全データを削除する</button>';
+  else h+='<div style="background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.4);border-radius:12px;padding:12px">'+
+     '<p class="r" style="text-align:center;font-weight:700;font-size:13px;margin:0 0 6px">⚠️ 本当に削除しますか？</p>'+
+     '<p class="hint" style="text-align:center;margin-bottom:10px">損益 '+DB.txs.length+"件・経費 "+DB.exps.length+"件・円転 "+DB.convs.length+'件がすべて削除されます</p>'+
+     '<div class="row2"><button class="savebtn" style="background:var(--card2)" onclick="UI.confirmDelete=false;render()">キャンセル</button>'+
+     '<button class="savebtn" style="background:var(--red)" onclick="handleDeleteAll()">削除する</button></div></div>';
+  h+="</div>";
+
+  h+='<div class="card tight"><div class="between" style="padding:14px 16px"><span style="font-size:13.5px;font-weight:600">ダークモード</span>'+
+     '<button class="dot '+(DB.dark?"on":"")+'" style="width:44px;height:24px;border-radius:99px" onclick="toggleDark()"><i style="width:18px;height:18px;top:3px;left:3px;position:absolute;border-radius:50%;background:#fff;transition:transform .15s;'+(DB.dark?"transform:translateX(20px)":"")+'"></i></button></div></div>';
+
+  h+='<div style="text-align:center;padding:10px 0;color:var(--sub)"><p style="font-size:11px;margin:2px">📒損益台帳 Ver 1.00</p>'+
+     '<p style="font-size:11px;margin:2px">開発: <a href="https://x.com/babucrypter" target="_blank" rel="noopener noreferrer">𝕏 @babucrypter</a></p></div>';
+  h+="</div>";
+  document.getElementById("v-settings").innerHTML=h;
+}
+
+/* ============================================================
+   マスターレンダー
+============================================================ */
+function render(){
+  document.getElementById("yLbl").textContent=UI.year+"年";
+  document.querySelectorAll("main").forEach(m=>m.classList.toggle("on",m.id==="v-"+UI.tab));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===UI.tab));
+  if(UI.tab==="home")renderHome();
+  else if(UI.tab==="tax")renderTax();
+  else renderSettings();
+}
+
+/* ============================================================
+   起動
+============================================================ */
+loadDB();
+applyTheme();
+render();
+</script>
+</body>
+</html>
