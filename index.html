@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://open.er-api.com https://api.frankfurter.dev; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#030712">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,6 +15,8 @@
   --bg:#030712; --card:#111827; --card2:#1f2937; --line:#1f2937; --line2:#374151;
   --txt:#f9fafb; --sub:#6b7280; --hov:rgba(255,255,255,.04);
   --green:#10b981; --red:#f43f5e; --orange:#f97316; --violet:#a78bfa; --amber:#f59e0b; --blue:#60a5fa;
+  /* グラフの棒の色（ダーク・ライト両方で色覚チェック済み） */
+  --m-pl:#059669; --m-loss:#e11d48; --m-exp:#ea580c; --m-tax:#8b5cf6;
   --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
 }
 body.light{
@@ -169,16 +172,39 @@ nav button.on{color:var(--txt)}
 .chartwrap{position:relative;padding-left:40px;margin-top:6px}
 .yax{position:absolute;left:0;top:0;width:38px;height:130px}
 .ytick{position:absolute;right:4px;transform:translateY(-50%);font-size:10.5px;color:var(--sub);white-space:nowrap}
-.grid{position:absolute;left:40px;right:0;border-top:1px dashed var(--line);pointer-events:none}
+.grid{position:absolute;left:40px;right:0;border-top:1px solid var(--line);pointer-events:none}
 .grid.zero{border-top:1px solid var(--line2)}
 .bars{position:relative;display:flex;height:130px}
 .col{flex:1;display:flex;flex-direction:column}
 .pos{display:flex;align-items:flex-end;justify-content:center}
 .neg{display:flex;align-items:flex-start;justify-content:center}
-.bar{width:60%;max-width:20px;border-radius:2px}
+.bar{display:block;width:60%;max-width:20px}
+.bar.up{border-radius:4px 4px 0 0}
+.bar.dn{border-radius:0 0 4px 4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 8px;font-size:12.5px;color:var(--sub)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none;vertical-align:-1px}
+.ygrp{flex:1;display:flex;justify-content:center;gap:2px;padding:0 6px;border-radius:8px}
+.ygrp.sel{background:rgba(127,127,127,.12)}
+.ycol{flex:1;max-width:22px;display:flex;flex-direction:column}
+.ycol .bar{width:100%;max-width:none}
+.xax span.on{color:var(--txt);font-weight:700}
+.ytable tr.sel td{background:rgba(127,127,127,.12)}
+.ytable{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:12px;font-size:13px}
+.ytable th{font-size:11.5px;color:var(--sub);font-weight:600;text-align:right;padding:6px 2px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ytable th .sw{margin-right:4px}
+.ytable th:first-child,.ytable td:first-child{text-align:left;width:21%}
+.ytable td{text-align:right;padding:8px 2px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.ytable td small{display:block;font-size:10.5px;color:var(--sub);font-weight:600;margin-top:1px}
+.ytable tr.manual{cursor:pointer}
+.ytable tr.manual:active td{background:var(--hov)}
+.ytable tfoot td{font-weight:700;border-bottom:0}
+.linkbtn{display:block;width:100%;margin-top:12px;padding:10px;border-radius:12px;border:1px solid var(--line2);color:var(--sub);font-size:13.5px;font-weight:600;text-align:center}
+.linkbtn:active{background:var(--hov)}
+#yearErr:empty{display:none}
 .xax{display:flex;margin-top:5px}
 .xax span{flex:1;text-align:center;font-size:10.5px;color:var(--sub)}
-.tip{position:absolute;z-index:5;background:#1f2937;border:1px solid var(--line2);border-radius:10px;padding:7px 11px;text-align:center;top:2px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.tip{position:absolute;z-index:5;background:var(--card2);color:var(--txt);border:1px solid var(--line2);border-radius:10px;padding:7px 11px;text-align:center;top:2px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
 .tip b{display:block;font-size:13.5px}
 .tip s{display:block;text-decoration:none;font-size:13.5px;font-weight:700;margin-top:1px}
 .dot{width:12px;height:6px;border-radius:99px;position:relative;background:#4b5563}
@@ -247,6 +273,9 @@ function fmtUSD(n){return (n<0?"-":"")+"$"+Math.abs(n).toLocaleString("en-US",{m
 function todayStr(){const j=new Date(Date.now()+9*3600*1000);return j.toISOString().slice(0,10);}
 function nowJST(){const d=new Date(),j=new Date(d.getTime()+9*3600000);return j.toISOString().slice(0,16).replace("T"," ")+" JST";}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+/* onclick 属性に文字列を渡すとき用：JSの文字列にしてからHTML用にエスケープ（「'」や「"」を含む名前でも壊れない） */
+function jsArg(v){return esc(JSON.stringify(String(v)));}
+function toggleOpen(field,key){UI[field][key]=!UI[field][key];render();}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 
 const ER_API_URL="https://open.er-api.com/v6/latest/USD";
@@ -360,15 +389,21 @@ function parseCSVImport(text){
   if(buf)lines.push(buf);
   const MAX_ROWS=1000; let txCount=0,expCount=0;
   let section=null,headers=null;
-  const txs=[],exps=[],cats={};
+  const txs=[],exps=[],cats={},yearly={};
   for(const rawLine of lines){
     const line=rawLine.trim();
+    if(line.startsWith("## 年次手入力")){section="yearly";headers=null;continue;}
     if(line.startsWith("## 損益明細")){section="tx";headers=null;continue;}
     if(line.startsWith("## 経費明細")){section="exp";headers=null;continue;}
     if(line.startsWith("## カテゴリ設定")){section="cats";headers=null;continue;}
     if(line.startsWith("#")||!line)continue;
     const cols=parseCSVLine(line);
     if(!headers){headers=cols;continue;}
+    if(section==="yearly"&&headers){
+      const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
+      if(/^\d{4}$/.test(o.year))yearly[o.year]={pl:safeParseFloat(o.pl_jpy,true),exp:safeParseFloat(o.exp_jpy),taxable:o.taxable_jpy===""?null:safeParseFloat(o.taxable_jpy)};
+      continue;
+    }
     if(section==="cats"&&headers){
       const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
       if(o.type&&o.values)cats[o.type]=o.values.split("|").map(v=>v.trim()).filter(Boolean).slice(0,50);
@@ -402,18 +437,18 @@ function parseCSVImport(text){
       expCount++;
     }
   }
-  return {txs,exps,cats};
+  return {txs,exps,cats,yearly};
 }
 
 /* ============================================================
    状態
 ============================================================ */
 const LSK={dark:"cl_dark",taxrate:"cl_taxrate",txs:"cl_txs",exps:"cl_exps",convs:"cl_convs",
-  txcats:"cl_txcats",txdetails:"cl_txdetails",expcats:"cl_expcats",expprojs:"cl_expprojs"};
+  txcats:"cl_txcats",txdetails:"cl_txdetails",expcats:"cl_expcats",expprojs:"cl_expprojs",yearly:"cl_yearly"};
 const DEF_TX_CATS=["perp","現物","エアドロ"], DEF_TX_DETAILS=["Hyperliquid","Lighter","Binance"];
 const DEF_EXP_CATS=["エアドロ","ガス","両建て"], DEF_EXP_PROJS=["Hyperliquid","Lighter"];
 
-let DB={dark:true,taxRate:30,txs:[],exps:[],convs:[],txCats:DEF_TX_CATS.slice(),txDetails:DEF_TX_DETAILS.slice(),expCats:DEF_EXP_CATS.slice(),expProjs:DEF_EXP_PROJS.slice()};
+let DB={dark:true,taxRate:30,txs:[],exps:[],convs:[],txCats:DEF_TX_CATS.slice(),txDetails:DEF_TX_DETAILS.slice(),expCats:DEF_EXP_CATS.slice(),expProjs:DEF_EXP_PROJS.slice(),yearly:{}};
 let saveError=false;
 function lget(k,def){try{const s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
 function loadDB(){
@@ -422,6 +457,7 @@ function loadDB(){
   DB.txs=lget(LSK.txs,[]); DB.exps=lget(LSK.exps,[]); DB.convs=lget(LSK.convs,[]);
   DB.txCats=lget(LSK.txcats,DEF_TX_CATS.slice()); DB.txDetails=lget(LSK.txdetails,DEF_TX_DETAILS.slice());
   DB.expCats=lget(LSK.expcats,DEF_EXP_CATS.slice()); DB.expProjs=lget(LSK.expprojs,DEF_EXP_PROJS.slice());
+  const yv=lget(LSK.yearly,{}); DB.yearly=(yv&&typeof yv==="object"&&!Array.isArray(yv))?yv:{};
 }
 function saveDB(){
   try{
@@ -434,6 +470,7 @@ function saveDB(){
     localStorage.setItem(LSK.txdetails,JSON.stringify(DB.txDetails));
     localStorage.setItem(LSK.expcats,JSON.stringify(DB.expCats));
     localStorage.setItem(LSK.expprojs,JSON.stringify(DB.expProjs));
+    localStorage.setItem(LSK.yearly,JSON.stringify(DB.yearly));
     saveError=false;
   }catch(e){
     if(e&&(e.name==="QuotaExceededError"||e.name==="NS_ERROR_DOM_QUOTA_REACHED"||e.code===22))saveError=true;
@@ -464,6 +501,7 @@ const UI={
   editingRate:false, rateInput:"30", chartMode:"pl",
   eTx:null, eExp:null, eConv:null, editTx:null, editExp:null, editConv:null, modalSaving:false,
   importMsg:null, confirmDelete:false, chartSel:-1,
+  yearSel:null, editYear:null,
 };
 
 /* ============================================================
@@ -473,6 +511,27 @@ function yr(d){return new Date(d).getFullYear();}
 function yTxs(){return DB.txs.filter(t=>yr(t.created_at)===UI.year);}
 function yExps(){return DB.exps.filter(e=>yr(e.created_at)===UI.year);}
 function yConvs(){return DB.convs.filter(c=>yr(c.created_at)===UI.year);}
+
+/* 年次集計：明細がある年は明細から計算、手入力がある年は手入力を優先 */
+function detailYearTotals(y){
+  const txs=DB.txs.filter(t=>yr(t.created_at)===y), exps=DB.exps.filter(e=>yr(e.created_at)===y), convs=DB.convs.filter(c=>yr(c.created_at)===y);
+  const avg=calcUsdc(DB.txs,DB.exps,DB.convs).avgRate;
+  const net=txs.reduce((s,t)=>s+(t.profit_jpy||0)-(t.loss_jpy||0),0);
+  const fx=convs.reduce((s,c)=>s+(c.usd_jpy_rate-avg)*c.amount_usdc,0);
+  const exp=exps.reduce((s,e)=>s+getExpJPY(e),0);
+  return {pl:net+fx,exp,taxable:Math.max(0,net+fx-exp)};
+}
+function yearRows(){
+  const ys=new Set();
+  DB.txs.forEach(t=>ys.add(yr(t.created_at))); DB.exps.forEach(e=>ys.add(yr(e.created_at))); DB.convs.forEach(c=>ys.add(yr(c.created_at)));
+  Object.keys(DB.yearly).forEach(k=>ys.add(+k));
+  return [...ys].filter(y=>isFinite(y)).sort((a,b)=>a-b).map(y=>{
+    const m=DB.yearly[y];
+    if(m){const pl=+m.pl||0, exp=+m.exp||0;
+      return {y,src:"manual",pl,exp,taxable:(m.taxable!=null&&m.taxable!=="")?(+m.taxable||0):Math.max(0,pl-exp)};}
+    const d=detailYearTotals(y); return {y,src:"detail",pl:d.pl,exp:d.exp,taxable:d.taxable};
+  });
+}
 
 function computeAll(){
   const isUSD=UI.dispCur==="USD";
@@ -538,7 +597,7 @@ function setDispCur(c){UI.dispCur=c;UI.chartSel=-1;render();}
 
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),2200);}
 function openSheet(html){document.getElementById("sheet").innerHTML=html;document.getElementById("mask").classList.add("on");document.getElementById("sheet").classList.add("on");}
-function closeSheet(){document.getElementById("mask").classList.remove("on");document.getElementById("sheet").classList.remove("on");UI.eTx=UI.eExp=UI.eConv=null;}
+function closeSheet(){document.getElementById("mask").classList.remove("on");document.getElementById("sheet").classList.remove("on");UI.eTx=UI.eExp=UI.eConv=null;UI.editYear=null;}
 
 /* ============================================================
    チップ (カテゴリ/詳細/プロジェクト) 共通処理
@@ -558,8 +617,8 @@ function chipsHTML(key){
   const sel=form[cfg.field];
   let h='<div class="chipwrap">';
   list.forEach(c=>{
-    h+='<span class="chip '+(sel===c?"sel":"")+'"><span onclick="selectChip(\''+key+"','"+esc(c).replace(/'/g,"&#39;")+'\')">'+esc(c)+
-       '</span><button type="button" onclick="event.stopPropagation();removeChip(\''+key+"','"+esc(c).replace(/'/g,"&#39;")+'\')">×</button></span>';
+    h+='<span class="chip '+(sel===c?"sel":"")+'"><span onclick="selectChip(\''+key+'\','+jsArg(c)+')">'+esc(c)+
+       '</span><button type="button" onclick="event.stopPropagation();removeChip(\''+key+'\','+jsArg(c)+')">×</button></span>';
   });
   if(UI.adding===key){
     h+='<input id="chipAddInput" class="chipinput" placeholder="'+esc(cfg.ph)+'" value="'+esc(UI.addingVal)+
@@ -875,11 +934,14 @@ function exportCSV(){
     const catSection=[["## カテゴリ設定"],["type","values"],
       ["tx_cats",DB.txCats.map(csvQ).join("|")],["tx_details",DB.txDetails.map(csvQ).join("|")],
       ["exp_cats",DB.expCats.map(csvQ).join("|")],["exp_projs",DB.expProjs.map(csvQ).join("|")],[""]];
+    const yk=Object.keys(DB.yearly).sort();
+    const yearlySection=yk.length?[["## 年次手入力"],["year","pl_jpy","exp_jpy","taxable_jpy"],
+      ...yk.map(k=>[k,+DB.yearly[k].pl||0,+DB.yearly[k].exp||0,DB.yearly[k].taxable==null?"":DB.yearly[k].taxable]),[""]]:[];
     const h=["date","category","detail","profit_usd","loss_usd","profit_jpy","loss_jpy","usd_jpy_rate","rate_source","memo","currency_type"];
     const rows=c.yTxs.map(t=>[t.created_at,csvQ(t.category),csvQ(t.detail||""),t.profit_usd||0,t.loss_usd||0,t.profit_jpy||0,t.loss_jpy||0,t.usd_jpy_rate||"",csvQ(t.rate_source||""),csvQ(t.memo||""),t.currency_type||""]);
     const hE=["date","category","project","amount_jpy","amount_usd","usd_jpy_rate","rate_source","memo","currency_type"];
     const rowsE=c.yExps.map(e=>[e.created_at,csvQ(e.category),csvQ(e.project||""),e.amount_jpy,e.amount_usd||"",e.usd_jpy_rate||"",csvQ(e.rate_source||""),csvQ(e.memo||""),e.currency_type||""]);
-    const csv=sum.map(r=>r.join(",")).join("\n")+catSection.map(r=>r.join(",")).join("\n")+"## 損益明細\n"+[h,...rows].map(r=>r.join(",")).join("\n")+"\n\n## 経費明細\n"+[hE,...rowsE].map(r=>r.join(",")).join("\n");
+    const csv=sum.map(r=>r.join(",")).join("\n")+catSection.map(r=>r.join(",")).join("\n")+yearlySection.map(r=>r.join(",")).join("\n")+"## 損益明細\n"+[h,...rows].map(r=>r.join(",")).join("\n")+"\n\n## 経費明細\n"+[hE,...rowsE].map(r=>r.join(",")).join("\n");
     const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
     const url=URL.createObjectURL(blob);
     const a=document.createElement("a"); a.href=url; a.download="損益台帳_"+todayStr()+".csv";
@@ -895,16 +957,19 @@ function handleImportFile(e){
   reader.onerror=()=>{UI.importMsg={ok:false,msg:"ファイルの読み込みに失敗しました"};e.target.value="";render();};
   reader.onload=ev=>{
     try{
-      const {txs:newTxs,exps:newExps,cats}=parseCSVImport(ev.target.result);
-      if(!newTxs.length&&!newExps.length){UI.importMsg={ok:false,msg:"インポートできるデータが見つかりませんでした"};render();return;}
+      const {txs:newTxs,exps:newExps,cats,yearly}=parseCSVImport(ev.target.result);
+      const yKeys=Object.keys(yearly||{});
+      if(!newTxs.length&&!newExps.length&&!yKeys.length){UI.importMsg={ok:false,msg:"インポートできるデータが見つかりませんでした"};render();return;}
       DB.txs=[...DB.txs,...newTxs]; DB.exps=[...DB.exps,...newExps];
       if(cats.tx_cats&&cats.tx_cats.length)DB.txCats=[...new Set([...DB.txCats,...cats.tx_cats])];
       if(cats.tx_details&&cats.tx_details.length)DB.txDetails=[...new Set([...DB.txDetails,...cats.tx_details])];
       if(cats.exp_cats&&cats.exp_cats.length)DB.expCats=[...new Set([...DB.expCats,...cats.exp_cats])];
       if(cats.exp_projs&&cats.exp_projs.length)DB.expProjs=[...new Set([...DB.expProjs,...cats.exp_projs])];
       const catMsg=(cats.tx_cats||cats.tx_details||cats.exp_cats||cats.exp_projs)?"・カテゴリ設定を復元しました":"";
+      yKeys.forEach(k=>{DB.yearly[k]=yearly[k];});
+      const yMsg=yKeys.length?"・年次の手入力"+yKeys.length+"年分を復元しました":"";
       saveDB();
-      UI.importMsg={ok:true,msg:"✓ 損益"+newTxs.length+"件・経費"+newExps.length+"件をインポートしました"+catMsg};
+      UI.importMsg={ok:true,msg:"✓ 損益"+newTxs.length+"件・経費"+newExps.length+"件をインポートしました"+catMsg+yMsg};
       render();
       backfillRates();
       setTimeout(()=>{UI.importMsg=null;render();},4000);
@@ -912,7 +977,7 @@ function handleImportFile(e){
   };
   reader.readAsText(file,"utf-8"); e.target.value="";
 }
-function handleDeleteAll(){DB.txs=[];DB.exps=[];DB.convs=[];UI.confirmDelete=false;saveDB();render();toast("削除しました");}
+function handleDeleteAll(){DB.txs=[];DB.exps=[];DB.convs=[];DB.yearly={};UI.confirmDelete=false;saveDB();render();toast("削除しました");}
 function toggleDark(){DB.dark=!DB.dark;saveDB();applyTheme();render();}
 function applyTheme(){document.body.classList.toggle("light",!DB.dark);}
 
@@ -921,9 +986,9 @@ function applyTheme(){document.body.classList.toggle("light",!DB.dark);}
 ============================================================ */
 const SEC_CHECKS=[
  {id:"memo",icon:"📝",title:"iPhoneのメモ・写真・連絡先は読めない",verdict:"✅ 完全に遮断済み",detail:"Webアプリは iOS の WebKit サンドボックス内で動作します。カメラ・連絡先・写真・メモ等の API をこのアプリは一切呼び出していません。",code:"// 使用しているAPI（全リスト）\nlocalStorage, fetch('open.er-api.com'), fetch('api.frankfurter.dev'), URL.createObjectURL, FileReader\n\n// 以下は存在しない\nnavigator.contacts  // 連絡先 → 0件\nnavigator.camera    // カメラ  → 0件\nnavigator.geolocation // 位置情報 → 0件"},
- {id:"virus",icon:"🦠",title:"ウイルス・マルウェアの侵入はないか",verdict:"✅ 侵入経路なし",detail:"eval・dangerouslySetInnerHTML はコード全体で0件。CSP により script-src 'self' のみ許可。外部CDNスクリプトも読み込んでいません。",code:"script-src 'self'  // 自ドメインのJSのみ\ndefault-src 'none' // 上記以外すべてブロック\n\neval → 0件\ndangerouslySetInnerHTML → 0件"},
+ {id:"virus",icon:"🦠",title:"ウイルス・マルウェアの侵入はないか",verdict:"✅ 侵入経路なし",detail:"eval・new Function はコード全体で0件。外部のスクリプト（CDN等）は一切読み込みません。CSP で通信先を為替APIの2つに限定しているため、万一不正なコードが紛れ込んでも他のサーバーへデータを送れません。",code:"default-src 'none'  // 原則すべてブロック\nconnect-src open.er-api.com api.frankfurter.dev\n// 通信できるのは為替APIだけ\n\neval → 0件\n外部スクリプト → 0件"},
  {id:"api",icon:"🌐",title:"為替APIは安全か・個人情報を送っていないか",verdict:"✅ GETのみ。個人情報送信なし",detail:"外部通信は為替レート取得のみ（当日: open.er-api.com／過去の日付: api.frankfurter.dev）。GET リクエストに body はなく個人情報は含みません。50〜300円の範囲外レートは自動排除します。",code:"async function getRate() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  const rate = data?.rates?.JPY;\n  if (rate < 50 || rate > 300) return null;\n}"},
- {id:"wallet",icon:"👛",title:"ウォレットを勝手に操作されないか",verdict:"✅ ウォレットAPIが存在しない",detail:"MetaMask・WalletConnect等のウォレット接続APIを一切実装していません。秘密鍵・シードフレーズの入力欄もありません。",code:"// localStorageに保存するキー（全リスト）\ncl_dark, cl_taxrate, cl_txs, cl_exps,\ncl_convs, cl_txcats, cl_expcats, cl_expprojs\n// → 秘密鍵・ウォレットアドレスは一切保存しない"},
+ {id:"wallet",icon:"👛",title:"ウォレットを勝手に操作されないか",verdict:"✅ ウォレットAPIが存在しない",detail:"MetaMask・WalletConnect等のウォレット接続APIを一切実装していません。秘密鍵・シードフレーズの入力欄もありません。",code:"// localStorageに保存するキー（全リスト）\ncl_dark, cl_taxrate, cl_txs, cl_exps, cl_convs,\ncl_txcats, cl_txdetails, cl_expcats, cl_expprojs,\ncl_yearly\n// → 秘密鍵・ウォレットアドレスは一切保存しない"},
  {id:"personal",icon:"🪪",title:"個人情報が抜き取られないか",verdict:"✅ 入力欄・送信処理が存在しない",detail:"氏名・住所・電話番号・メールアドレス等の入力欄はありません。入力できるのは金額・日付・カテゴリ・メモのみです。",code:"currency_type / profit / loss / category\nmemo（最大200文字） / created_at（日付）\n// → 氏名・住所・マイナンバー等 → 0件"},
  {id:"payment",icon:"💳",title:"Appleで勝手に課金・決済されないか",verdict:"✅ 課金システムが存在しない",detail:"App Store課金・In-App Purchase・Apple PayのAPIを一切実装していません。",code:"StoreKit       → 0件\nwindow.ApplePay→ 0件\nPaymentRequest → 0件"},
  {id:"password",icon:"🔑",title:"パスワード・Appleアカウントが盗まれないか",verdict:"✅ パスワード取得の手段が存在しない",detail:"iOSのWebKitはキーチェーンへのJSアクセスを完全にブロックしています。パスワード入力欄も存在しません。",code:"type=\"number\"  // 金額入力\ntype=\"date\"    // 日付入力\ntype=\"file\"    // CSVインポート用\n// type=\"password\" → 0件"},
@@ -942,28 +1007,55 @@ function renderSecItem(c){
 /* ============================================================
    チャート (SVG不要・divベース)
 ============================================================ */
+/* 目盛り：きりのいい数字（25万・50万…）で、ラベルが重ならないものだけ表示 */
+function niceStep(raw){
+  if(!(raw>0))return 1;
+  const p=Math.pow(10,Math.floor(Math.log10(raw))), f=raw/p; let best=1;
+  [1,2,2.5,5,10].forEach(x=>{if(Math.abs(Math.log(x/f))<Math.abs(Math.log(best/f)))best=x;});
+  return best*p;
+}
+function niceScale(minV,maxV){
+  const lo0=Math.min(0,minV), hi0=Math.max(0,maxV);
+  if(!(hi0-lo0>0))return {lo:0,hi:1,ticks:[0]};
+  const step=niceStep((hi0-lo0)/4);
+  const hi=Math.ceil(hi0/step-1e-9)*step, lo=Math.floor(lo0/step+1e-9)*step, ticks=[];
+  for(let k=Math.round(lo/step);k<=Math.round(hi/step);k++)ticks.push(k*step);
+  return {lo,hi,ticks};
+}
+function axisFmt(ticks,isUSD){
+  const big=ticks.some(t=>Math.abs(t)>=10000), r1=x=>String(Math.round(x*10)/10);
+  return v=>{
+    const sg=v<0?"-":"", a=Math.abs(v);
+    if(!big)return sg+a.toLocaleString("en-US",{maximumFractionDigits:2});
+    if(isUSD)return sg+(a>=1e6?r1(a/1e6)+"M":r1(a/1e3)+"K");
+    return sg+(a>=1e8?r1(a/1e8)+"億":r1(a/1e4)+"万");
+  };
+}
+function axisHTML(sc,H,fmt){
+  const span=sc.hi-sc.lo, yOf=v=>Math.round((sc.hi-v)/span*H), zy=yOf(0), shown=[zy];
+  let lab='<div class="ytick" style="top:'+zy+'px">0</div>', grid="";
+  sc.ticks.forEach(t=>{
+    const y=yOf(t);
+    grid+='<div class="grid'+(t===0?" zero":"")+'" style="top:'+y+'px"></div>';
+    if(t!==0&&shown.every(s=>Math.abs(s-y)>=15)){shown.push(y);lab+='<div class="ytick" style="top:'+y+'px">'+fmt(t)+"</div>";}
+  });
+  return '<div class="yax">'+lab+"</div>"+grid;
+}
+function barPair(val,H,span,posH,negH,color,tag){
+  const ph=val>0?Math.max(2,Math.round(H*val/span)):0, nh=val<0?Math.max(2,Math.round(H*(-val)/span)):0, t=tag||"div";
+  return '<'+t+' class="pos" style="height:'+posH+'px">'+(ph?'<i class="bar up" style="height:'+ph+"px;background:"+color+'"></i>':"")+"</"+t+">"+
+         '<'+t+' class="neg" style="height:'+negH+'px">'+(nh?'<i class="bar dn" style="height:'+nh+"px;background:"+color+'"></i>':"")+"</"+t+">";
+}
+
 function chartHTML(series,isUSD,mode,otherSeries){
-  const H=130;
-  const v=series;
-  const maxP=Math.max(0,...v), minN=Math.min(0,...v), span=maxP-minN;
-  const posH=span?Math.round(H*(maxP/span)):Math.round(H/2), negH=H-posH;
-  const ticks=[];
-  if(span){
-    if(maxP>0){ticks.push({v:maxP,y:0});ticks.push({v:maxP/2,y:posH/2});}
-    ticks.push({v:0,y:posH,zero:true});
-    if(minN<0){ticks.push({v:minN/2,y:posH+negH/2});ticks.push({v:minN,y:H});}
-  }else ticks.push({v:0,y:posH,zero:true});
-  function kfmt(x){const a=Math.abs(x);if(a>=1e8)return (x/1e8).toFixed(a>=1e9?0:1)+"億";if(a>=1000)return Math.round(x/1000)+"k";return String(Math.round(x));}
-  let h='<div class="yax">'; ticks.forEach(t=>h+='<div class="ytick" style="top:'+t.y+'px">'+kfmt(t.v)+"</div>"); h+="</div>";
-  ticks.forEach(t=>h+='<div class="grid'+(t.zero?" zero":"")+'" style="top:'+t.y+'px"></div>');
+  const H=130, v=series;
+  const sc=niceScale(Math.min(0,...v),Math.max(0,...v)), span=sc.hi-sc.lo;
+  const posH=Math.round(H*sc.hi/span), negH=H-posH;
+  let h=axisHTML(sc,H,axisFmt(sc.ticks,isUSD));
   h+='<div class="bars">';
   v.forEach((val,i)=>{
-    const col=mode==="ex"?"var(--orange)":(val<0?"var(--red)":"var(--green)");
-    let ph=0,nh=0;
-    if(span){ if(val>0)ph=Math.max(2,Math.round(posH*(val/maxP))); else if(val<0)nh=Math.max(2,Math.round(negH*(val/minN))); }
-    h+='<div class="col" onclick="UI.chartSel=(UI.chartSel==='+i+'?-1:'+i+');render()">'+
-       '<div class="pos" style="height:'+posH+'px">'+(ph?'<div class="bar" style="height:'+ph+"px;background:"+col+'"></div>':"")+"</div>"+
-       '<div class="neg" style="height:'+negH+'px">'+(nh?'<div class="bar" style="height:'+nh+"px;background:"+col+'"></div>':"")+"</div></div>";
+    const col=mode==="ex"?"var(--m-exp)":(val<0?"var(--m-loss)":"var(--m-pl)");
+    h+='<div class="col" onclick="UI.chartSel=(UI.chartSel==='+i+'?-1:'+i+');render()">'+barPair(val,H,span,posH,negH,col)+"</div>";
   });
   h+="</div>";
   if(UI.chartSel>=0){
@@ -978,6 +1070,90 @@ function chartHTML(series,isUSD,mode,otherSeries){
   h+='<div class="xax">'; for(let i=0;i<12;i++)h+="<span>"+(i+1)+"月</span>"; h+="</div>";
   return h;
 }
+
+/* ============================================================
+   年次推移（損益・経費・課税所得、円）
+============================================================ */
+const YSERIES=[["損益","pl","--m-pl"],["経費","exp","--m-exp"],["課税所得","taxable","--m-tax"]];
+function yearChartHTML(rows){
+  const H=130, vals=[]; rows.forEach(r=>vals.push(r.pl,r.exp,r.taxable));
+  const sc=niceScale(Math.min(0,...vals),Math.max(0,...vals)), span=sc.hi-sc.lo;
+  const posH=Math.round(H*sc.hi/span), negH=H-posH;
+  let h=axisHTML(sc,H,axisFmt(sc.ticks,false));
+  h+='<div class="bars ybars">';
+  rows.forEach(r=>{
+    h+='<button type="button" class="ygrp'+(UI.yearSel===r.y?" sel":"")+'" onclick="UI.yearSel=(UI.yearSel==='+r.y+'?null:'+r.y+');render()" aria-label="'+
+       r.y+"年 "+YSERIES.map(([l,k])=>l+" "+fmtJPYFloor(r[k])).join("、")+'">';
+    YSERIES.forEach(([l,k,tok])=>{h+='<span class="ycol">'+barPair(r[k],H,span,posH,negH,"var("+tok+")","span")+"</span>";});
+    h+="</button>";
+  });
+  h+="</div>";
+  h+='<div class="xax">'+rows.map(r=>'<span'+(UI.yearSel===r.y?' class="on"':"")+">"+r.y+"</span>").join("")+"</div>";
+  return h;
+}
+function yearTableHTML(rows){
+  const cy=new Date().getFullYear();
+  let h='<table class="ytable"><thead><tr><th>年</th>'+YSERIES.map(([l,k,tok])=>'<th><i class="sw" style="background:var('+tok+')"></i>'+l+"</th>").join("")+"</tr></thead><tbody>";
+  rows.forEach(r=>{
+    const tag=r.src==="manual"?"手入力":(r.y===cy?"途中":"");
+    const cls=(r.src==="manual"?"manual":"")+(UI.yearSel===r.y?" sel":"");
+    h+="<tr"+(cls?' class="'+cls.trim()+'"':"")+(r.src==="manual"?' onclick="openYearSheet('+r.y+')"':"")+"><td>"+r.y+(tag?"<small>"+tag+"</small>":"")+"</td>"+
+       YSERIES.map(([l,k])=>"<td>"+fmtJPYFloor(r[k])+"</td>").join("")+"</tr>";
+  });
+  h+="</tbody>";
+  if(rows.length>1)h+="<tfoot><tr><td>合計</td>"+YSERIES.map(([l,k])=>"<td>"+fmtJPYFloor(rows.reduce((a,r)=>a+r[k],0))+"</td>").join("")+"</tr></tfoot>";
+  return h+"</table>";
+}
+function yearlyCardHTML(){
+  const rows=yearRows();
+  let h='<div class="card"><p class="mid" style="margin:0 0 4px">年次推移（円）</p>';
+  if(rows.length){
+    h+='<div class="legend">'+YSERIES.map(([l,k,tok])=>'<span><i class="sw" style="background:var('+tok+')"></i>'+l+"</span>").join("")+"</div>"+
+       '<div class="chartwrap">'+yearChartHTML(rows)+"</div>"+yearTableHTML(rows);
+    if(rows.some(r=>r.src==="manual"))h+='<p class="hint" style="margin-top:6px">手入力の年はタップすると編集できます</p>';
+  }else h+='<p class="hint" style="margin:6px 0 0">年ごとの結果はまだありません。過去の年は結果だけ手入力できます。</p>';
+  return h+'<button type="button" class="linkbtn" onclick="openYearSheet()">＋ 過去の年の結果を手入力</button></div>';
+}
+function openYearSheet(y){
+  const m=y!=null?DB.yearly[y]:null;
+  UI.editYear={orig:m?String(y):null,year:m?String(y):"",sign:m&&m.pl<0?"loss":"profit",
+    pl:m&&m.pl?String(Math.abs(m.pl)):"",exp:m&&m.exp?String(m.exp):"",taxable:m&&m.taxable!=null?String(m.taxable):"",err:""};
+  renderYearSheet();
+}
+function renderYearSheet(){
+  const f=UI.editYear; if(!f)return;
+  let h='<h2>'+(f.orig?f.orig+"年の結果を編集":"過去の年の結果を手入力")+'<button onclick="closeSheet()">✕</button></h2>';
+  h+='<div class="f"><div class="lbl">年<span class="req">*</span></div><input type="number" inputmode="numeric" placeholder="例：2024" value="'+esc(f.year)+'" oninput="UI.editYear.year=this.value"></div>';
+  h+='<div class="f"><div class="lbl">損益（円）</div><div class="curtoggle" style="margin-bottom:6px">'+
+     [["profit","利益"],["loss","損失"]].map(([v,l])=>'<button type="button" class="'+(f.sign===v?"on":"")+'" onclick="UI.editYear.sign=\''+v+'\';renderYearSheet()">'+l+"</button>").join("")+
+     '</div><input type="number" inputmode="decimal" placeholder="0" value="'+esc(f.pl)+'" oninput="UI.editYear.pl=this.value;updateYearPreview()"></div>';
+  h+='<div class="f"><div class="lbl">経費（円）</div><input type="number" inputmode="decimal" placeholder="0" value="'+esc(f.exp)+'" oninput="UI.editYear.exp=this.value;updateYearPreview()"></div>';
+  h+='<div class="f"><div class="lbl">課税所得（円）</div><input type="number" inputmode="decimal" placeholder="空欄なら 損益−経費 で計算" value="'+esc(f.taxable)+'" oninput="UI.editYear.taxable=this.value;updateYearPreview()"><p id="yearPreview" class="preview" style="margin-top:6px"></p></div>';
+  h+='<p class="hint" style="margin-bottom:12px">確定申告で出した数字を入れてください。明細がある年に入れた場合は、手入力の数字を優先して表示します（削除すると明細の集計に戻ります）。</p>';
+  h+='<p id="yearErr" class="errtext" style="margin:0 0 8px">'+esc(f.err)+"</p>";
+  h+='<button class="savebtn" onclick="saveYear()">保存する</button>';
+  if(f.orig)h+='<button class="savebtn" style="background:transparent;color:#f43f5e;margin-top:8px;border:1px solid rgba(244,63,94,.4)" onclick="deleteYear(\''+f.orig+'\')">削除</button>';
+  openSheet(h); updateYearPreview();
+}
+function updateYearPreview(){
+  const el=document.getElementById("yearPreview"), f=UI.editYear; if(!el||!f)return;
+  if(f.taxable!==""||(f.pl===""&&f.exp==="")){el.textContent="";return;}
+  const pl=(parseFloat(f.pl)||0)*(f.sign==="loss"?-1:1), ex=parseFloat(f.exp)||0;
+  el.textContent="課税所得 "+fmtJPYFloor(Math.max(0,pl-ex))+"（損益−経費）";
+}
+function saveYear(){
+  const f=UI.editYear; if(!f)return;
+  const fail=m=>{f.err=m;const el=document.getElementById("yearErr");if(el)el.textContent=m;};
+  const ys=String(f.year).trim(), y=parseInt(ys,10);
+  if(!/^\d{4}$/.test(ys)||y<2000||y>2100)return fail("年を4桁で入れてください（例：2024）");
+  if(f.pl===""&&f.exp===""&&f.taxable==="")return fail("金額を1つ以上入れてください");
+  if([f.pl,f.exp,f.taxable].filter(v=>v!=="").map(Number).some(n=>!isFinite(n)||n<0||n>1e12))return fail("金額は0以上の数字で入れてください");
+  if(DB.yearly[y]&&ys!==f.orig)return fail(y+"年はすでに手入力済みです。一覧からタップして編集してください");
+  if(f.orig&&f.orig!==ys)delete DB.yearly[f.orig];
+  DB.yearly[y]={pl:(Number(f.pl)||0)*(f.sign==="loss"?-1:1),exp:Number(f.exp)||0,taxable:f.taxable===""?null:Number(f.taxable)};
+  saveDB();closeSheet();render();toast(y+"年の結果を保存しました");
+}
+function deleteYear(y){delete DB.yearly[y];saveDB();closeSheet();render();toast(y+"年の手入力を削除しました");}
 
 /* ============================================================
    通貨・レート入力パネル (ホーム上部)
@@ -1086,6 +1262,8 @@ function renderHome(){
        (isUSD?fmtUSD(dispTotal):fmtJPY(dispTotal))+'</span><p class="alt">'+(isUSD?fmtJPY(otherTotal):fmtUSD(otherTotal))+"</p></div></div></div>";
   }
 
+  h+=yearlyCardHTML();
+
   if(c.allHistTxs.length>0){
     const netAll=isUSD?c.netUSD+c.yForexUSD:c.netJPY+c.yForex;
     h+='<div class="sec"><button class="sechead '+(UI.txHistOpen?"open":"")+'" onclick="UI.txHistOpen=!UI.txHistOpen;render()"><h3>取引履歴</h3><span class="cnt">'+c.allHistTxs.length+"件</span>"+
@@ -1109,7 +1287,7 @@ function renderHome(){
         c.catPnl.forEach(({cat,netJPY:cJ,netUSD:cU,count})=>{
           const dispNet=isUSD?cU:cJ, open=UI.expandedTxCats[cat];
           const items=c.yTxs.filter(t=>t.category===cat);
-          h+='<div><button class="grouphead '+(open?"open":"")+'" onclick="UI.expandedTxCats[\''+esc(cat).replace(/'/g,"&#39;")+"']=!UI.expandedTxCats['"+esc(cat).replace(/'/g,"&#39;")+'\'];render()">'+
+          h+='<div><button class="grouphead '+(open?"open":"")+'" onclick="toggleOpen(\'expandedTxCats\','+jsArg(cat)+')">'+
              '<span class="grouptag">'+esc(cat)+'</span><div class="groupinfo"><p class="s">'+count+'件</p></div>'+
              '<span class="groupamt '+(dispNet>=0?"g":"r")+'">'+(isUSD?fmtUSD(cU):fmtJPY(cJ))+'</span><span class="chev">'+(open?"▲":"▼")+"</span></button>";
           if(open){
@@ -1182,8 +1360,7 @@ function expItemRowHTML(e,isUSD){
     '<button class="ico" onclick="delExp(\''+e.id+'\')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>';
 }
 function expGroupHTML(key,expField,label,items,total,totalU,pct,open,isUSD){
-  const safeKey=key.replace(/'/g,"&#39;");
-  let h='<div><button class="grouphead '+(open?"open":"")+'" onclick="UI.'+expField+"['"+safeKey+"']=!UI."+expField+"['"+safeKey+'\'];render()">'+
+  let h='<div><button class="grouphead '+(open?"open":"")+'" onclick="toggleOpen(\''+expField+'\','+jsArg(key)+')">'+
     '<div class="groupinfo"><p class="t">'+label+'</p><p class="s">'+items.length+"件 · "+pct+"%</p></div>"+
     '<span class="groupamt o">'+(isUSD?fmtUSD(totalU):fmtJPY(total))+'</span><span class="chev">'+(open?"▲":"▼")+"</span></button>"+
     '<div class="pbar"><i style="width:'+pct+'%"></i></div>';
@@ -1330,7 +1507,7 @@ function renderSettings(){
   if(!UI.confirmDelete)h+='<button class="savebtn" style="background:transparent;border:1px solid rgba(244,63,94,.5);color:var(--red)" onclick="UI.confirmDelete=true;render()">全データを削除する</button>';
   else h+='<div style="background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.4);border-radius:12px;padding:12px">'+
      '<p class="r" style="text-align:center;font-weight:700;font-size:14.5px;margin:0 0 6px">⚠️ 本当に削除しますか？</p>'+
-     '<p class="hint" style="text-align:center;margin-bottom:10px">損益 '+DB.txs.length+"件・経費 "+DB.exps.length+"件・円転 "+DB.convs.length+'件がすべて削除されます</p>'+
+     '<p class="hint" style="text-align:center;margin-bottom:10px">損益 '+DB.txs.length+"件・経費 "+DB.exps.length+"件・円転 "+DB.convs.length+"件・年次の手入力 "+Object.keys(DB.yearly).length+'年分がすべて削除されます</p>'+
      '<div class="row2"><button class="savebtn" style="background:var(--card2)" onclick="UI.confirmDelete=false;render()">キャンセル</button>'+
      '<button class="savebtn" style="background:var(--red)" onclick="handleDeleteAll()">削除する</button></div></div>';
   h+="</div>";
