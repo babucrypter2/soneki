@@ -198,30 +198,41 @@ button.yrow:active{background:var(--hov)}
 .linkbtn{display:block;width:100%;margin-top:12px;padding:10px;border-radius:12px;border:1px solid var(--line2);color:var(--sub);font-size:13.5px;font-weight:600;text-align:center}
 .linkbtn:active{background:var(--hov)}
 #yearErr:empty,#pfErr:empty,#planErr:empty{display:none}
-:root{--c-btc:#d95926;--c-eth:#9085e9;--c-hype:#199e70;--c-near:#c98500;--c-usdc:#3987e5;--c-jpy:#6b7280;--c-x0:#d55181;--c-x1:#0ca30c;--c-oth:#9ca3af;--m-inv:#3987e5;--m-track:rgba(57,135,229,.22)}
-body.light{--c-btc:#eb6834;--c-eth:#6250d6;--c-hype:#1baf7a;--c-near:#eda100;--c-usdc:#2a78d6;--c-jpy:#9ca3af;--c-x0:#e87ba4;--c-x1:#008300;--c-oth:#d1d5db;--m-inv:#2a78d6;--m-track:rgba(42,120,214,.16)}
+:root{--m-inv:#3987e5;--m-track:rgba(57,135,229,.22)}
+body.light{--m-inv:#2a78d6;--m-track:rgba(42,120,214,.16)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none}
 .pfhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 4px}
 .pfref{font-size:12px;color:var(--sub);font-weight:600;padding:6px 8px;border-radius:8px;white-space:nowrap}
 .pfref:active{background:var(--hov)}
-.pfchart{display:flex;align-items:flex-start;gap:12px;margin:8px 0 6px}
+.pfchart{display:flex;align-items:flex-start;gap:10px;margin:8px 0 6px}
 .pfleg{flex:1;min-width:0;display:flex;flex-direction:column;padding-top:2px}
-.pfli{display:flex;align-items:center;gap:7px;width:100%;padding:4px 0;font-size:13px;line-height:17px;text-align:left;transition:opacity .15s}
+.pfli{display:flex;align-items:center;gap:5px;width:100%;padding:3px 0;font-size:11px;line-height:15px;text-align:left;transition:opacity .15s}
+.pfli .sw{width:8px;height:8px}
 .pfli span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .pfli b{font-weight:700;font-variant-numeric:tabular-nums}
 .pfli.dim{opacity:.4}
-.pfwrap{position:relative;width:176px;height:176px;flex:none}
-.pfwrap svg{width:176px;height:176px;display:block}
+.pfwrap{position:relative;flex:none;width:min(212px,calc(100% - 108px));container-type:inline-size}
+.pfwrap svg{width:100%;height:auto;display:block}
+.pfbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.pfbtns .linkbtn{margin:0;padding:10px 4px;font-size:13px}
+.pford{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.pford span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;font-weight:700}
+.pford button{width:40px;height:34px;flex:none;border:1px solid var(--line2);border-radius:10px;color:var(--sub);font-size:15px;font-weight:700}
+.pford button:active{background:var(--hov)}
+.pford button:disabled{opacity:.25}
+.pford input[type=color]{-webkit-appearance:none;appearance:none;width:34px;height:34px;min-width:34px;flex:none;padding:0;border:1px solid var(--line2);border-radius:9px;background:none;overflow:hidden;cursor:pointer}
+.pford input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+.pford input[type=color]::-webkit-color-swatch{border:none;border-radius:8px}
 .pfx{border:1px solid var(--line2);border-radius:12px;padding:10px;margin-bottom:10px}
 .pfxbar{display:flex;align-items:center;gap:10px;margin-top:8px}
 .pfxbar .curtoggle{flex:1}
 .pfxbar .curtoggle button{padding:6px}
 .pfxdel{color:#f43f5e;font-size:13px;font-weight:600;padding:8px 6px}
 .pfslice{cursor:pointer;transition:opacity .15s}
-.pfcenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 38px}
-.pfcenter small{font-size:11.5px;color:var(--sub);font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pfcenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 21%}
+.pfcenter small{font-size:11.5px;font-size:max(10px,5.3cqw);color:var(--sub);font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pfcenter b{font-size:19px;font-weight:700;margin-top:2px;white-space:nowrap}
-.pfcenter i{font-style:normal;font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap}
+.pfcenter i{font-style:normal;font-size:12px;font-size:max(10.5px,5.6cqw);color:var(--sub);margin-top:2px;white-space:nowrap}
 .yrow.sel{background:rgba(127,127,127,.10)}
 .yrow .yy .sw{margin-right:7px;vertical-align:0}
 .prow{display:block;width:100%;text-align:left;padding:11px 2px;border-bottom:1px solid var(--line)}
@@ -437,7 +448,7 @@ function parseCSVImport(text){
   const MAX_ROWS=50000, SECTIONS={"年次手入力":"yearly","損益明細":"tx","経費明細":"exp","カテゴリ設定":"cats","設定":"settings","円転明細":"conv","資産":"pf","資産（手入力）":"pfx","現物計画":"plan"};
   let section=null,headers=null,truncated=false;
   const txs=[],exps=[],convs=[],cats={},yearly={},settings={},meta={version:0},seen=new Set();
-  let pf=null,plan=null,pfx=null;
+  let pf=null,plan=null,pfx=null,pfSty=null;
   const goodRate=s=>{const r=safeParseFloat(s);return (r>=50&&r<=300)?r:null;};
   const idOf=s=>{let id=(typeof s==="string"&&/^[\w-]{1,40}$/.test(s))?s:"";if(!id||seen.has(id))id=uid();seen.add(id);return id;};
   const status=(s,rate)=>(s==="ok"||s==="na"||s==="pending")?s:(rate?"ok":"na");
@@ -452,8 +463,16 @@ function parseCSVImport(text){
     if(!headers){headers=cols;continue;}
     const o={}; headers.forEach((h,i)=>o[h]=cols[i]||"");
     if(section==="settings"){if(o.key)settings[o.key]=o.value;continue;}
-    if(section==="pf"){if(Object.prototype.hasOwnProperty.call(pf,o.asset))pf[o.asset]=Math.max(0,safeParseFloat(o.quantity)||0);continue;}
-    if(section==="pfx"){if(pfx.length<PFX_MAX*5)pfx.push({name:o.name,amount:safeParseFloat(o.amount),cur:o.currency});continue;}
+    if(section==="pf"){
+      if(Object.prototype.hasOwnProperty.call(pf,o.asset)){pf[o.asset]=Math.max(0,safeParseFloat(o.quantity)||0);
+        if("color" in o||"order" in o)(pfSty||(pfSty=[])).push({key:o.asset,color:o.color,order:o.order});}
+      continue;
+    }
+    if(section==="pfx"){
+      if(pfx.length<PFX_MAX*5){const id="r"+pfx.length;pfx.push({id,name:o.name,amount:safeParseFloat(o.amount),cur:o.currency,slot:/^\d$/.test(o.color_slot||"")?+o.color_slot:-1});
+        if("color" in o||"order" in o)(pfSty||(pfSty=[])).push({key:"x"+id,color:o.color,order:o.order});}
+      continue;
+    }
     if(section==="plan"){
       if(PLAN_COINS.includes(o.asset)&&(o.currency==="JPY"||o.currency==="USDC")&&!plan.some(x=>x.sym===o.asset))
         plan.push({sym:o.asset,cur:o.currency,budget:Math.max(0,safeParseFloat(o.budget)||0),invested:Math.max(0,safeParseFloat(o.invested)||0),lot:Math.max(0,safeParseFloat(o.lot)||0)});
@@ -489,18 +508,24 @@ function parseCSVImport(text){
         currency_type:(o.currency_type==="USD"||o.currency_type==="JPY")?o.currency_type:(amtUsd>0?"USD":"JPY"),memo:sanitizeImportStr(o.memo,2000)});
     }
   }
-  return {txs,exps,convs,cats,yearly,settings,meta,truncated,pf,plan,pfx:pfx&&pfxClean(pfx)};
+  let pfStyle=null;
+  if(pfSty){
+    const colors={},ord=[];
+    pfSty.forEach(z=>{if(isHex(z.color))colors[z.key]=z.color;const n=String(z.order==null?"":z.order).trim();if(n!==""&&isFinite(+n))ord.push([+n,z.key]);});
+    pfStyle=pfStyleClean({order:ord.sort((a,b)=>a[0]-b[0]).map(z=>z[1]),colors});
+  }
+  return {txs,exps,convs,cats,yearly,settings,meta,truncated,pf,plan,pfx:pfx&&pfxClean(pfx),pfStyle};
 }
 
 /* ============================================================
    状態
 ============================================================ */
 const LSK={dark:"cl_dark",taxrate:"cl_taxrate",txs:"cl_txs",exps:"cl_exps",convs:"cl_convs",
-  txcats:"cl_txcats",txdetails:"cl_txdetails",expcats:"cl_expcats",expprojs:"cl_expprojs",yearly:"cl_yearly",pf:"cl_pf",pfx:"cl_pfx",plan:"cl_plan"};
+  txcats:"cl_txcats",txdetails:"cl_txdetails",expcats:"cl_expcats",expprojs:"cl_expprojs",yearly:"cl_yearly",pf:"cl_pf",pfx:"cl_pfx",pfstyle:"cl_pfstyle",plan:"cl_plan"};
 const DEF_TX_CATS=["perp","現物","エアドロ"], DEF_TX_DETAILS=["Hyperliquid","Lighter","Binance"];
 const DEF_EXP_CATS=["エアドロ","ガス","両建て"], DEF_EXP_PROJS=["Hyperliquid","Lighter"];
 
-let DB={dark:true,taxRate:30,txs:[],exps:[],convs:[],txCats:DEF_TX_CATS.slice(),txDetails:DEF_TX_DETAILS.slice(),expCats:DEF_EXP_CATS.slice(),expProjs:DEF_EXP_PROJS.slice(),yearly:{},pf:pfDefault(),pfx:[],plan:[]};
+let DB={dark:true,taxRate:30,txs:[],exps:[],convs:[],txCats:DEF_TX_CATS.slice(),txDetails:DEF_TX_DETAILS.slice(),expCats:DEF_EXP_CATS.slice(),expProjs:DEF_EXP_PROJS.slice(),yearly:{},pf:pfDefault(),pfx:[],pfStyle:{order:null,colors:{}},plan:[]};
 let saveError=false;
 function lget(k,def){try{const s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
 function loadDB(){
@@ -513,6 +538,7 @@ function loadDB(){
   const pv=lget(LSK.pf,null); DB.pf=pfDefault();
   if(pv&&typeof pv==="object")Object.keys(DB.pf).forEach(k=>{const v=+pv[k];if(isFinite(v)&&v>0)DB.pf[k]=v;});
   DB.pfx=pfxClean(lget(LSK.pfx,[]));
+  DB.pfStyle=pfStyleClean(lget(LSK.pfstyle,null)); pfStylePrune();
   const pl=lget(LSK.plan,[]); DB.plan=Array.isArray(pl)?pl.filter(x=>x&&PLAN_COINS.includes(x.sym)):[];
 }
 function saveDB(){
@@ -529,6 +555,7 @@ function saveDB(){
     localStorage.setItem(LSK.yearly,JSON.stringify(DB.yearly));
     localStorage.setItem(LSK.pf,JSON.stringify(DB.pf));
     localStorage.setItem(LSK.pfx,JSON.stringify(DB.pfx));
+    localStorage.setItem(LSK.pfstyle,JSON.stringify(DB.pfStyle));
     localStorage.setItem(LSK.plan,JSON.stringify(DB.plan));
     saveError=false;
   }catch(e){
@@ -663,7 +690,7 @@ function setDispCur(c){UI.dispCur=c;UI.chartSel=-1;UI.yearChartSel=-1;render();}
 
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),2200);}
 function openSheet(html){document.getElementById("sheet").innerHTML=html;document.getElementById("mask").classList.add("on");document.getElementById("sheet").classList.add("on");}
-function closeSheet(){document.getElementById("mask").classList.remove("on");document.getElementById("sheet").classList.remove("on");UI.eTx=UI.eExp=UI.eConv=null;UI.editYear=null;UI.pendingRestore=null;UI.editPf=null;UI.editPfx=null;UI.editPlan=null;}
+function closeSheet(){document.getElementById("mask").classList.remove("on");document.getElementById("sheet").classList.remove("on");UI.eTx=UI.eExp=UI.eConv=null;UI.editYear=null;UI.pendingRestore=null;UI.editPf=null;UI.editPfx=null;UI.editStyle=null;UI.editPlan=null;}
 
 /* ============================================================
    チップ (カテゴリ/詳細/プロジェクト) 共通処理
@@ -1009,8 +1036,9 @@ function exportCSV(){
     const yk=Object.keys(DB.yearly).sort();
     if(yk.length)L.push(["## 年次手入力"],["year","pl_jpy","exp_jpy","taxable_jpy","usd_jpy_rate","rate_source"],
       ...yk.map(k=>{const m=DB.yearly[k];return [k,+m.pl||0,+m.exp||0,m.taxable==null?"":m.taxable,isValidRate(m.rate)?m.rate:"",csvQ(m.rateSrc||"")];}),[""]);
-    L.push(["## 資産"],["asset","quantity"],...PF_ASSETS.map(a=>[a.k,+DB.pf[a.k]||0]),[""]);
-    L.push(["## 資産（手入力）"],["name","amount","currency"],...pfxList().map(x=>[csvQ(x.name),+x.amount||0,x.cur]),[""]);
+    const ordK=DB.pfStyle.order?pfOrderKeys():null, ordOf=k=>ordK?ordK.indexOf(k):"", colOf=k=>DB.pfStyle.colors[k]||"";
+    L.push(["## 資産"],["asset","quantity","color","order"],...PF_ASSETS.map(a=>[a.k,+DB.pf[a.k]||0,colOf(a.k),ordOf(a.k)]),[""]);
+    L.push(["## 資産（手入力）"],["name","amount","currency","color","order","color_slot"],...pfxList().map(x=>[csvQ(x.name),+x.amount||0,x.cur,colOf("x"+x.id),ordOf("x"+x.id),x.slot]),[""]);
     L.push(["## 現物計画"],["asset","currency","budget","invested","lot"],...PLAN_COINS.map(k=>DB.plan.find(x=>x.sym===k)).filter(Boolean).map(x=>[x.sym,x.cur,+x.budget||0,+x.invested||0,+x.lot||0]),[""]);
     L.push(["## 円転明細"],["date","amount_usdc","usd_jpy_rate","memo","id"],
       ...byDate(DB.convs).map(c=>[c.created_at,c.amount_usdc,c.usd_jpy_rate,csvQ(c.memo||""),c.id]),[""]);
@@ -1076,7 +1104,7 @@ function doRestore(){
   const r=UI.pendingRestore; if(!r)return;
   DB.txs=r.txs.slice().reverse(); DB.exps=r.exps.slice().reverse(); DB.convs=r.convs.slice().reverse();
   DB.yearly=r.yearly;
-  if(r.pf)DB.pf=r.pf; if(r.pfx)DB.pfx=r.pfx; if(r.plan)DB.plan=r.plan;
+  if(r.pf)DB.pf=r.pf; if(r.pfx)DB.pfx=r.pfx; if(r.pfStyle)DB.pfStyle=r.pfStyle; if(r.plan)DB.plan=r.plan; pfStylePrune();
   if(r.cats.tx_cats)DB.txCats=r.cats.tx_cats; if(r.cats.tx_details)DB.txDetails=r.cats.tx_details;
   if(r.cats.exp_cats)DB.expCats=r.cats.exp_cats; if(r.cats.exp_projs)DB.expProjs=r.cats.exp_projs;
   const tr=parseFloat(r.settings.tax_rate); if(tr>0&&tr<=100)DB.taxRate=tr;
@@ -1087,7 +1115,7 @@ function doRestore(){
   backfillRates(); backfillYearRates();
   setTimeout(()=>{UI.importMsg=null;render();},5000);
 }
-function handleDeleteAll(){DB.txs=[];DB.exps=[];DB.convs=[];DB.yearly={};DB.pf=pfDefault();DB.pfx=[];DB.plan=[];UI.pfSel=null;UI.confirmDelete=false;saveDB();render();toast("削除しました");}
+function handleDeleteAll(){DB.txs=[];DB.exps=[];DB.convs=[];DB.yearly={};DB.pf=pfDefault();DB.pfx=[];DB.pfStyle={order:null,colors:{}};DB.plan=[];UI.pfSel=null;UI.confirmDelete=false;saveDB();render();toast("削除しました");}
 function toggleDark(){DB.dark=!DB.dark;saveDB();applyTheme();render();}
 function applyTheme(){document.body.classList.toggle("light",!DB.dark);const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",DB.dark?"#030712":"#f3f4f6");}
 
@@ -1098,7 +1126,7 @@ const SEC_CHECKS=[
  {id:"memo",icon:"📝",title:"iPhoneのメモ・写真・連絡先は読めない",verdict:"✅ 完全に遮断済み",detail:"Webアプリは iOS の WebKit サンドボックス内で動作します。カメラ・連絡先・写真・メモ等の API をこのアプリは一切呼び出していません。",code:"// 使用しているAPI（全リスト）\nlocalStorage, fetch('open.er-api.com'), fetch('api.frankfurter.dev'),\nfetch('api.coingecko.com'), URL.createObjectURL, FileReader\n\n// 以下は存在しない\nnavigator.contacts  // 連絡先 → 0件\nnavigator.camera    // カメラ  → 0件\nnavigator.geolocation // 位置情報 → 0件"},
  {id:"virus",icon:"🦠",title:"ウイルス・マルウェアの侵入はないか",verdict:"✅ 侵入経路なし",detail:"eval・new Function はコード全体で0件。外部のスクリプト（CDN等）は一切読み込みません。CSP で通信先を為替APIの2つと価格API（CoinGecko）に限定しているため、万一不正なコードが紛れ込んでも他のサーバーへデータを送れません。",code:"default-src 'none'  // 原則すべてブロック\nconnect-src open.er-api.com api.frankfurter.dev\n            api.coingecko.com\n// 通信できるのは為替と価格のAPIだけ\n\neval → 0件\n外部スクリプト → 0件"},
  {id:"api",icon:"🌐",title:"為替・価格APIは安全か・個人情報を送っていないか",verdict:"✅ GETのみ。個人情報送信なし",detail:"外部通信は為替レートと仮想通貨の価格の取得のみ（当日: open.er-api.com／過去の日付: api.frankfurter.dev／価格: api.coingecko.com）。GET リクエストに body はなく、保有数量などの個人情報は送りません。50〜300円の範囲外レートは自動排除します。",code:"async function getRate() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  const rate = data?.rates?.JPY;\n  if (rate < 50 || rate > 300) return null;\n}"},
- {id:"wallet",icon:"👛",title:"ウォレットを勝手に操作されないか",verdict:"✅ ウォレットAPIが存在しない",detail:"MetaMask・WalletConnect等のウォレット接続APIを一切実装していません。秘密鍵・シードフレーズの入力欄もありません。",code:"// localStorageに保存するキー（全リスト）\ncl_dark, cl_taxrate, cl_txs, cl_exps, cl_convs,\ncl_txcats, cl_txdetails, cl_expcats, cl_expprojs,\ncl_yearly, cl_pf・cl_pfx（保有資産）, cl_plan, cl_prices\n// → 秘密鍵・ウォレットアドレスは一切保存しない"},
+ {id:"wallet",icon:"👛",title:"ウォレットを勝手に操作されないか",verdict:"✅ ウォレットAPIが存在しない",detail:"MetaMask・WalletConnect等のウォレット接続APIを一切実装していません。秘密鍵・シードフレーズの入力欄もありません。",code:"// localStorageに保存するキー（全リスト）\ncl_dark, cl_taxrate, cl_txs, cl_exps, cl_convs,\ncl_txcats, cl_txdetails, cl_expcats, cl_expprojs,\ncl_yearly, cl_pf・cl_pfx（保有資産）, cl_pfstyle, cl_plan, cl_prices\n// → 秘密鍵・ウォレットアドレスは一切保存しない"},
  {id:"personal",icon:"🪪",title:"個人情報が抜き取られないか",verdict:"✅ 入力欄・送信処理が存在しない",detail:"氏名・住所・電話番号・メールアドレス等の入力欄はありません。入力できるのは金額・日付・カテゴリ・メモのみです。",code:"currency_type / profit / loss / category\nmemo（最大200文字） / created_at（日付）\n// → 氏名・住所・マイナンバー等 → 0件"},
  {id:"payment",icon:"💳",title:"Appleで勝手に課金・決済されないか",verdict:"✅ 課金システムが存在しない",detail:"App Store課金・In-App Purchase・Apple PayのAPIを一切実装していません。",code:"StoreKit       → 0件\nwindow.ApplePay→ 0件\nPaymentRequest → 0件"},
  {id:"password",icon:"🔑",title:"パスワード・Appleアカウントが盗まれないか",verdict:"✅ パスワード取得の手段が存在しない",detail:"iOSのWebKitはキーチェーンへのJSアクセスを完全にブロックしています。パスワード入力欄も存在しません。",code:"type=\"number\"  // 金額入力\ntype=\"date\"    // 日付入力\ntype=\"file\"    // CSVインポート用\n// type=\"password\" → 0件"},
@@ -1297,9 +1325,9 @@ function deleteYear(y){delete DB.yearly[y];saveDB();closeSheet();render();toast(
 /* ============================================================
    資産ポートフォリオ（BTC・ETH・HYPE・NEAR・USDC は CoinGecko の価格で自動更新）
 ============================================================ */
-const PF_ASSETS=[{k:"BTC",name:"BTC",id:"bitcoin",c:"--c-btc"},{k:"ETH",name:"ETH",id:"ethereum",c:"--c-eth"},
-  {k:"HYPE",name:"HYPE",id:"hyperliquid",c:"--c-hype"},{k:"NEAR",name:"NEAR",id:"near",c:"--c-near"},
-  {k:"USDC",name:"USDC",id:"usd-coin",c:"--c-usdc"},{k:"JPY",name:"日本円",id:null,c:"--c-jpy"}];
+const PF_ASSETS=[{k:"BTC",name:"BTC",id:"bitcoin"},{k:"ETH",name:"ETH",id:"ethereum"},
+  {k:"HYPE",name:"HYPE",id:"hyperliquid"},{k:"NEAR",name:"NEAR",id:"near"},
+  {k:"USDC",name:"USDC",id:"usd-coin"},{k:"JPY",name:"日本円",id:null}];
 const PLAN_COINS=["BTC","ETH","HYPE","NEAR"];
 const PRICE_API="https://api.coingecko.com/api/v3/simple/price?ids="+PF_ASSETS.filter(a=>a.id).map(a=>a.id).join(",")+"&vs_currencies=usd,jpy";
 const PRICE_TTL=5*60*1000;
@@ -1338,34 +1366,60 @@ function priceOf(k,cur){ // 1単位の価格（cur: USD / JPY）
 }
 function fmtCur(v,cur){return v==null?"—":(cur==="USD"?fmtUSD(v):fmtJPYFloor(v));}
 function fmtQty(q){return (+q).toLocaleString("en-US",{maximumFractionDigits:8});}
-/* 手入力の資産（オルカン・株など）：名称と金額（円/USD）。色は2枠、3つ目からは円グラフで「その他」にまとめる */
-const PFX_MAX=20, PF_XC=["--c-x0","--c-x1"];
+/* 手入力の資産（オルカン・株など）：名称と金額（円/USD） */
+const PFX_MAX=20;
 function pfxList(){return Array.isArray(DB.pfx)?DB.pfx:[];}
 function pfxClean(list){
-  const out=[],seen=new Set();
+  const out=[],seen=new Set(),ids=new Set();
   (Array.isArray(list)?list:[]).forEach(x=>{
     if(!x||typeof x!=="object"||out.length>=PFX_MAX)return;
     const name=sanitizeImportStr(String(x.name==null?"":x.name),20), key=name.toLowerCase(), n=+x.amount;
     if(!name||seen.has(key))return; seen.add(key);
-    out.push({name,amount:isFinite(n)&&n>0&&n<=1e15?n:0,cur:x.cur==="USD"?"USD":"JPY"});
+    const id=typeof x.id==="string"&&/^[a-z0-9]{1,16}$/.test(x.id)&&!ids.has(x.id)?x.id:"";
+    if(id)ids.add(id);
+    out.push({id,name,amount:isFinite(n)&&n>0&&n<=1e15?n:0,cur:x.cur==="USD"?"USD":"JPY",slot:x.slot});
   });
+  let k=0; out.forEach(x=>{if(!x.id){while(ids.has("m"+k))k++;x.id="m"+k;ids.add(x.id);}});
+  // 最初の色（初期値）：空いている色を順番に。足りなくなったらグレー（並び・色でいつでも変更できる）
+  const used=new Set();
+  out.forEach(x=>{if(Number.isInteger(x.slot)&&x.slot>=0&&x.slot<PFX_DEF.length-1&&!used.has(x.slot))used.add(x.slot);else x.slot=-1;});
+  out.forEach(x=>{if(x.slot===-1){let f=0;while(f<PFX_DEF.length-1&&used.has(f))f++;x.slot=f;if(f<PFX_DEF.length-1)used.add(f);}});
   return out;
 }
+/* 並び順と色：初期値は見分けやすいように検証した並び・色。ユーザーが自由に変えられる */
+const PF_DEF={BTC:["#d95926","#eb6834"],ETH:["#9085e9","#6250d6"],HYPE:["#199e70","#1baf7a"],NEAR:["#c98500","#eda100"],USDC:["#3987e5","#2a78d6"],JPY:["#6b7280","#9ca3af"]};
+const PFX_DEF=[["#d55181","#e87ba4"],["#0ca30c","#008300"],["#e66767","#e34948"],["#9ca3af","#d1d5db"]];
+const PF_KEY_RE=/^(BTC|ETH|HYPE|NEAR|USDC|JPY|x[a-z0-9]{1,16})$/;
+function isHex(c){return typeof c==="string"&&/^#[0-9a-fA-F]{6}$/.test(c);}
+function pfStyleClean(v){
+  const st={order:null,colors:{}}; if(!v||typeof v!=="object")return st;
+  if(Array.isArray(v.order)){const o=[];v.order.forEach(k=>{if(typeof k==="string"&&PF_KEY_RE.test(k)&&!o.includes(k)&&o.length<60)o.push(k);});st.order=o.length?o:null;}
+  if(v.colors&&typeof v.colors==="object")Object.keys(v.colors).forEach(k=>{if(PF_KEY_RE.test(k)&&isHex(v.colors[k]))st.colors[k]=v.colors[k].toLowerCase();});
+  return st;
+}
+function pfDefaultOrder(){return [...PLAN_COINS,...pfxList().map(x=>"x"+x.id),"USDC","JPY"];}
+function pfStylePrune(){
+  const keys=new Set(pfDefaultOrder()), st=DB.pfStyle||(DB.pfStyle={order:null,colors:{}});
+  if(st.order){st.order=st.order.filter(k=>keys.has(k));if(!st.order.length)st.order=null;}
+  Object.keys(st.colors).forEach(k=>{if(!keys.has(k))delete st.colors[k];});
+}
+function pfOrderKeys(){
+  const all=pfDefaultOrder(), have=new Set(all), o=((DB.pfStyle&&DB.pfStyle.order)||[]).filter(k=>have.has(k)), seen=new Set(o);
+  return [...o,...all.filter(k=>!seen.has(k))];
+}
+function pfxGet(k){return pfxList().find(x=>"x"+x.id===k);}
+function pfName(k){if(k[0]==="x"){const x=pfxGet(k);return x?x.name:"";}const a=PF_ASSETS.find(z=>z.k===k);return a?a.name:k;}
+function pfDefColor(k){const m=DB.dark?0:1;if(PF_DEF[k])return PF_DEF[k][m];const x=pfxGet(k);return PFX_DEF[x&&x.slot>=0&&x.slot<PFX_DEF.length?x.slot:PFX_DEF.length-1][m];}
+function pfColor(k){const c=DB.pfStyle&&DB.pfStyle.colors[k];return isHex(c)?c:pfDefColor(k);}
 function pfRows(cur){
   const fx=usdJpy(), conv=(v,from)=>from===cur?v:(fx?(cur==="JPY"?v*fx:v/fx):null);
-  const fixed=k=>{const a=PF_ASSETS.find(x=>x.k===k),q=+DB.pf[k]||0,pr=priceOf(k,cur);return {key:k,name:a.name,c:a.c,q,price:pr,value:pr==null?null:q*pr};};
-  const xr=pfxList().filter(x=>+x.amount>0).map((x,i)=>({key:i<PF_XC.length?"X"+i:"OTH",name:x.name,c:PF_XC[i]||"--c-oth",q:+x.amount,price:null,value:conv(+x.amount,x.cur),x}));
-  // 並び＝円の順：仮想通貨 → 手入力（色つき）→ USDC → 日本円 → その他（隣り合う色が見分けやすい順）
-  const rows=[...PLAN_COINS.map(fixed),...xr.slice(0,PF_XC.length),fixed("USDC"),fixed("JPY"),...xr.slice(PF_XC.length)].filter(r=>r.q>0);
-  const total=rows.reduce((s,r)=>s+(r.value||0),0), slices=[];
-  rows.forEach(r=>{
-    r.share=total>0&&r.value!=null?r.value/total:null;
-    if(!(r.value>0))return;
-    const z=slices.find(t=>t.key===r.key);
-    if(z)z.value+=r.value; else slices.push({key:r.key,name:r.key==="OTH"?"その他":r.name,c:r.c,value:r.value});
-  });
-  slices.forEach(t=>{t.share=total>0?t.value/total:0;});
-  return {rows,slices,total,missing:rows.some(r=>r.value==null)};
+  const rows=pfOrderKeys().map(k=>{
+    if(k[0]==="x"){const x=pfxGet(k),q=+x.amount||0;return {key:k,name:x.name,c:pfColor(k),q,price:null,value:conv(q,x.cur),x};}
+    const a=PF_ASSETS.find(z=>z.k===k),q=+DB.pf[k]||0,pr=priceOf(k,cur);return {key:k,name:a.name,c:pfColor(k),q,price:pr,value:pr==null?null:q*pr};
+  }).filter(r=>r.q>0);
+  const total=rows.reduce((s,r)=>s+(r.value||0),0);
+  rows.forEach(r=>{r.share=total>0&&r.value!=null?r.value/total:null;});
+  return {rows,slices:rows.filter(r=>r.value>0),total,missing:rows.some(r=>r.value==null)};
 }
 function pfPick(k){UI.pfSel=UI.pfSel===k?null:k;render();}
 function priceStatus(){
@@ -1387,34 +1441,34 @@ function pfCardHTML(){
     if(!S.length)svg+='<circle cx="100" cy="100" r="80" fill="none" stroke="var(--line)" stroke-width="26"/>';
     S.forEach(t=>{
       const len=t.share*C, dash=Math.max(0.01,len-gap), on=UI.pfSel===t.key, dim=UI.pfSel&&!on;
-      svg+='<circle class="pfslice" cx="100" cy="100" r="80" fill="none" stroke="var('+t.c+')" stroke-width="'+(on?30:26)+'" stroke-dasharray="'+dash.toFixed(2)+" "+(C-dash).toFixed(2)+
+      svg+='<circle class="pfslice" cx="100" cy="100" r="80" fill="none" stroke="'+t.c+'" stroke-width="'+(on?30:26)+'" stroke-dasharray="'+dash.toFixed(2)+" "+(C-dash).toFixed(2)+
            '" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 100 100)" opacity="'+(dim?0.35:1)+'" onclick="pfPick(\''+t.key+'\')"></circle>';
       off+=len;
     });
     svg+="</svg>";
     const sel=S.find(t=>t.key===UI.pfSel), selO=sel&&O.slices.find(t=>t.key===sel.key);
-    const big=v=>'<b style="font-size:'+Math.max(12,Math.min(19,Math.floor(106/(v.length*0.58))))+'px">'+v+"</b>";
+    const big=v=>{const n=v.length*0.58;return '<b style="font-size:'+Math.max(12,Math.min(20,Math.floor(116/n)))+"px;font-size:min(23px,"+(60/n).toFixed(2)+'cqw)">'+v+"</b>";};
     const center=sel?"<small>"+esc(sel.name)+" ・ "+pct(sel)+"</small>"+big(fmtCur(sel.value,cur))+"<i>"+(selO?fmtCur(selO.value,other):"")+"</i>"
                     :"<small>評価額</small>"+big(fmtCur(P.total,cur))+"<i>"+(O.missing?"":fmtCur(O.total,other))+"</i>";
-    const leg=S.map(t=>'<button type="button" class="pfli'+(UI.pfSel&&UI.pfSel!==t.key?" dim":"")+'" onclick="pfPick(\''+t.key+'\')"><i class="sw" style="background:var('+t.c+')"></i><span>'+esc(t.name)+"</span><b>"+pct(t)+"</b></button>").join("");
+    const leg=S.map(t=>'<button type="button" class="pfli'+(UI.pfSel&&UI.pfSel!==t.key?" dim":"")+'" onclick="pfPick(\''+t.key+'\')"><i class="sw" style="background:'+t.c+'"></i><span>'+esc(t.name)+"</span><b>"+pct(t)+"</b></button>").join("");
     h+='<div class="pfchart"><div class="pfleg">'+leg+'</div><div class="pfwrap">'+svg+'<div class="pfcenter">'+center+"</div></div></div>";
     h+='<div class="ylist">';
     P.rows.forEach(r=>{
       const sub=r.x?"手入力"+(r.x.cur!==cur?" ・ "+fmtCur(r.q,r.x.cur):""):r.key==="JPY"?"現金":fmtQty(r.q)+" "+r.name+(r.price!=null?" ・ "+fmtCur(r.price,cur):"");
-      h+='<button type="button" class="yrow'+(UI.pfSel===r.key?" sel":"")+'" onclick="pfPick(\''+r.key+'\')"><span class="yy"><i class="sw" style="background:var('+r.c+')"></i>'+esc(r.name)+
+      h+='<button type="button" class="yrow'+(UI.pfSel===r.key?" sel":"")+'" onclick="pfPick(\''+r.key+'\')"><span class="yy"><i class="sw" style="background:'+r.c+'"></i>'+esc(r.name)+
          "<small>"+esc(sub)+'</small></span><span class="yv"><b>'+fmtCur(r.value,cur)+"</b><small>"+(r.share!=null?(r.share*100).toFixed(1)+"%":"未取得")+'</small></span><span class="ychev"></span></button>';
     });
     h+="</div>";
     if(P.missing)h+='<p class="hint" style="margin-top:6px">価格や為替レートを取得できていない資産は合計に入っていません</p>';
   }
-  h+='<div class="row2" style="margin-top:12px"><button type="button" class="linkbtn" style="margin:0" onclick="openPfSheet()">'+(P.rows.length?"保有数量を編集":"保有数量を入力")+'</button>'+
-     '<button type="button" class="linkbtn" style="margin:0" onclick="openPfSheet(true)">＋ 銘柄を追加</button></div>';
+  h+='<div class="pfbtns"><button type="button" class="linkbtn" onclick="openPfSheet()">'+(P.rows.length?"数量を編集":"数量を入力")+'</button>'+
+     '<button type="button" class="linkbtn" onclick="openPfSheet(true)">＋ 銘柄を追加</button><button type="button" class="linkbtn" onclick="openPfStyle()">並び・色</button></div>';
   return h+'<p class="hint" style="margin-top:8px;text-align:center">価格データ：CoinGecko（5分ごとに自動更新）</p></div>';
 }
 function openPfSheet(addNew){
   UI.editPf={}; PF_ASSETS.forEach(a=>{const v=+DB.pf[a.k]||0;UI.editPf[a.k]=v?String(v):"";});
-  UI.editPfx=pfxList().map(x=>({name:x.name,amount:x.amount?String(x.amount):"",cur:x.cur}));
-  if(addNew===true&&UI.editPfx.length<PFX_MAX)UI.editPfx.push({name:"",amount:"",cur:"JPY"});
+  UI.editPfx=pfxList().map(x=>({id:x.id,slot:x.slot,name:x.name,amount:x.amount?String(x.amount):"",cur:x.cur}));
+  if(addNew===true&&UI.editPfx.length<PFX_MAX)UI.editPfx.push({id:"",name:"",amount:"",cur:"JPY"});
   renderPfSheet(addNew===true?UI.editPfx.length-1:-1,false);
 }
 function renderPfSheet(focus,keep){
@@ -1441,7 +1495,7 @@ function renderPfSheet(focus,keep){
     if(g&&g.scrollIntoView){g.scrollIntoView({block:"center"});const inp=g.querySelector&&g.querySelector("input");if(inp)inp.focus();}
   }catch(e){}
 }
-function pfxAdd(){if(!UI.editPfx||UI.editPfx.length>=PFX_MAX)return;UI.editPfx.push({name:"",amount:"",cur:"JPY"});renderPfSheet(UI.editPfx.length-1,true);}
+function pfxAdd(){if(!UI.editPfx||UI.editPfx.length>=PFX_MAX)return;UI.editPfx.push({id:"",name:"",amount:"",cur:"JPY"});renderPfSheet(UI.editPfx.length-1,true);}
 function pfxDel(i){if(!UI.editPfx)return;UI.editPfx.splice(i,1);renderPfSheet(-1,true);}
 function pfxCur(i,v){if(!UI.editPfx||!UI.editPfx[i])return;UI.editPfx[i].cur=v==="USD"?"USD":"JPY";renderPfSheet(-1,true);}
 function savePf(){
@@ -1452,16 +1506,41 @@ function savePf(){
     const n=Number(v); if(!isFinite(n)||n<0||n>1e15)return fail(a.name+"は0以上の数字で入れてください");
     out[a.k]=n;
   }
-  const xs=[], seen=new Set(PF_ASSETS.map(a=>a.name.toLowerCase()).concat(["その他"]));
+  const xs=[], seen=new Set(PF_ASSETS.map(a=>a.name.toLowerCase()));
   for(const x of UI.editPfx||[]){
     const name=String(x.name||"").trim().slice(0,20), v=String(x.amount||"").trim();
     if(!name&&!v)continue;
     if(!name)return fail("ほかの資産の名称を入れてください");
     const n=v===""?0:Number(v); if(!isFinite(n)||n<0||n>1e15)return fail(name+"の金額は0以上の数字で入れてください");
     if(seen.has(name.toLowerCase()))return fail("「"+name+"」と同じ名前がすでにあります");
-    seen.add(name.toLowerCase()); xs.push({name,amount:n,cur:x.cur==="USD"?"USD":"JPY"});
+    seen.add(name.toLowerCase());
+    xs.push({id:x.id||(Date.now().toString(36).slice(-6)+Math.random().toString(36).slice(2,8)).replace(/[^a-z0-9]/g,""),slot:x.slot,name,amount:n,cur:x.cur==="USD"?"USD":"JPY"});
   }
-  DB.pf=out;DB.pfx=xs;UI.pfSel=null;saveDB();closeSheet();render();toast("保存しました");refreshPrices(false);
+  DB.pf=out;DB.pfx=pfxClean(xs);pfStylePrune();UI.pfSel=null;saveDB();closeSheet();render();toast("保存しました");refreshPrices(false);
+}
+/* 並び・色の変更：↑↓で並べ替え、色の四角をタップして好きな色に */
+function openPfStyle(){UI.editStyle={order:pfOrderKeys(),colors:Object.assign({},DB.pfStyle.colors)};renderPfStyle(false);}
+function renderPfStyle(keep){
+  const f=UI.editStyle; if(!f)return;
+  const sh=document.getElementById("sheet"), top=keep&&sh?sh.scrollTop:0, n=f.order.length;
+  let h='<h2>並び順と色<button onclick="closeSheet()">✕</button></h2><p class="hint" style="margin:-6px 0 8px">上から順に、円グラフ（12時から時計回り）と一覧に並びます。色の四角をタップすると好きな色に変えられます。</p>';
+  f.order.forEach((k,i)=>{
+    h+='<div class="pford"><input type="color" value="'+(isHex(f.colors[k])?f.colors[k]:pfDefColor(k))+'" aria-label="'+esc(pfName(k))+'の色" oninput="pfsColor(\''+k+'\',this.value)" onchange="pfsColor(\''+k+'\',this.value)"><span>'+esc(pfName(k))+"</span>"+
+       '<button type="button" aria-label="上へ" onclick="pfsMove('+i+',-1)"'+(i===0?" disabled":"")+'>↑</button><button type="button" aria-label="下へ" onclick="pfsMove('+i+',1)"'+(i===n-1?" disabled":"")+">↓</button></div>";
+  });
+  h+='<button type="button" class="linkbtn" style="margin:14px 0 12px" onclick="pfsReset()">最初の並びと色に戻す</button><button class="savebtn" onclick="savePfStyle()">保存する</button>';
+  openSheet(h); try{if(sh)sh.scrollTop=top;}catch(e){}
+}
+function pfsColor(k,v){if(UI.editStyle&&PF_KEY_RE.test(k)&&isHex(v))UI.editStyle.colors[k]=v.toLowerCase();}
+function pfsMove(i,d){const o=UI.editStyle&&UI.editStyle.order,j=i+d;if(!o||j<0||j>=o.length)return;const t=o[i];o[i]=o[j];o[j]=t;renderPfStyle(true);}
+function pfsReset(){if(!UI.editStyle)return;UI.editStyle={order:pfDefaultOrder(),colors:{}};renderPfStyle(true);}
+function savePfStyle(){
+  const f=UI.editStyle; if(!f)return;
+  const def=pfDefaultOrder(), have=new Set(def), colors={};
+  Object.keys(f.colors).forEach(k=>{if(have.has(k)&&isHex(f.colors[k]))colors[k]=f.colors[k].toLowerCase();});
+  const order=f.order.filter(k=>have.has(k));
+  DB.pfStyle={order:order.join()===def.join()?null:order,colors};
+  UI.pfSel=null;saveDB();closeSheet();render();toast("保存しました");
 }
 
 /* 現物の計画：予算・投資済み（保有分込み）・1回の買付額から、残り・あと何発・いつまでを出す */
