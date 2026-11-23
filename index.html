@@ -203,6 +203,11 @@ body.light{--m-inv:#2a78d6;--m-track:rgba(42,120,214,.16)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none}
 .pfhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0}
 .pfeye:active{background:var(--hov)}
+.pftick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0 4px}
+.pftk{display:flex;align-items:center;gap:6px;min-width:0;padding:7px 10px;border-radius:10px;background:var(--card2);font-size:12px;line-height:16px}
+.pftk .sw{width:8px;height:8px}
+.pftk b{font-weight:700}
+.pftk em{font-style:normal;margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .pfhb{display:flex;align-items:center;gap:2px;flex:none}
 .pfeye{display:flex;align-items:center;justify-content:center;width:32px;height:30px;border-radius:8px;color:var(--sub)}
 .pfeye svg{width:18px;height:18px;display:block}
@@ -1445,6 +1450,9 @@ function pfCardHTML(){
      '<button type="button" class="pfeye" onclick="togglePfHide()" aria-pressed="'+hide+'" aria-label="'+(hide?"金額を表示":"金額を隠す")+'">'+(hide?PF_EYE_OFF:PF_EYE)+"</button>"+
      '<button type="button" class="pfeye'+(UI.priceBusy?" spin":"")+'" onclick="refreshPrices(true)" aria-label="価格を更新">'+PF_REFRESH+"</button></div></div>"+
      '<p class="hint" style="margin:0 0 4px">価格：CoinGecko ・ '+priceStatus()+(PRICES&&!UI.priceErr&&!UI.priceBusy?"（5分ごとに自動）":"")+"</p>";
+  const tick=pfOrderKeys().filter(k=>PLAN_COINS.includes(k)).map(k=>{const u=priceOf(k,"USD");
+    return u==null?"":'<span class="pftk"><i class="sw" style="background:'+pfColor(k)+'"></i><b>'+k+"</b><em>"+fmtUSD(u)+"</em></span>";}).join("");
+  if(tick)h+='<div class="pftick" role="group" aria-label="現在の価格（USD）">'+tick+"</div>";
   if(UI.pfSel&&!S.some(t=>t.key===UI.pfSel))UI.pfSel=null;
   if(!P.rows.length){
     h+='<p class="hint" style="margin:6px 0 0">BTC・ETH・HYPE・NEAR・USDCは数量を入れると、今の価格で自動計算します。株や投資信託などは「＋ 銘柄を追加」から金額で入れられます。</p>';
