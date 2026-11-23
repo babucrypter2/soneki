@@ -250,6 +250,10 @@ button.prow:active{background:var(--hov)}
 .mbar i{display:block;background:var(--m-inv);border-radius:6px}
 .mbar b{display:block;flex:1;background:var(--m-track);border-radius:6px}
 .pleg{display:flex;gap:16px;margin-top:12px;font-size:12.5px;color:var(--sub)}
+.amtrow{display:flex;gap:8px;align-items:stretch}
+.amtrow input{flex:1;min-width:0}
+.amtrow .curtoggle{flex:none;width:108px}
+.amtrow .curtoggle button{padding:6px 4px;font-size:13.5px}
 .pleg span{display:inline-flex;align-items:center;gap:6px}
 .xax{display:flex;margin-top:5px}
 .xax span{flex:1;text-align:center;font-size:10.5px;color:var(--sub)}
@@ -480,7 +484,8 @@ function parseCSVImport(text){
     }
     if(section==="plan"){
       if(PLAN_COINS.includes(o.asset)&&(o.currency==="JPY"||o.currency==="USDC")&&!plan.some(x=>x.sym===o.asset))
-        plan.push({sym:o.asset,cur:o.currency,budget:Math.max(0,safeParseFloat(o.budget)||0),invested:Math.max(0,safeParseFloat(o.invested)||0),lot:Math.max(0,safeParseFloat(o.lot)||0)});
+        plan.push({sym:o.asset,cur:o.currency,budget:Math.max(0,safeParseFloat(o.budget)||0),invested:Math.max(0,safeParseFloat(o.invested)||0),lot:Math.max(0,safeParseFloat(o.lot)||0),
+          bCur:planCur({cur:o.currency,bCur:o.budget_currency},"bCur"),iCur:planCur({cur:o.currency,iCur:o.invested_currency},"iCur")});
       continue;
     }
     if(section==="yearly"){
@@ -545,7 +550,7 @@ function loadDB(){
   DB.pfx=pfxClean(lget(LSK.pfx,[]));
   DB.pfStyle=pfStyleClean(lget(LSK.pfstyle,null)); pfStylePrune();
   DB.pfHide=lget(LSK.pfhide,false)===true;
-  const pl=lget(LSK.plan,[]); DB.plan=Array.isArray(pl)?pl.filter(x=>x&&PLAN_COINS.includes(x.sym)):[];
+  const pl=lget(LSK.plan,[]); DB.plan=Array.isArray(pl)?pl.filter(x=>x&&PLAN_COINS.includes(x.sym)).map(x=>Object.assign({},x,{bCur:planCur(x,"bCur"),iCur:planCur(x,"iCur")})):[];
 }
 function saveDB(){
   try{
@@ -1046,7 +1051,7 @@ function exportCSV(){
     const ordK=DB.pfStyle.order?pfOrderKeys():null, ordOf=k=>ordK?ordK.indexOf(k):"", colOf=k=>DB.pfStyle.colors[k]||"";
     L.push(["## 資産"],["asset","quantity","color","order"],...PF_ASSETS.map(a=>[a.k,+DB.pf[a.k]||0,colOf(a.k),ordOf(a.k)]),[""]);
     L.push(["## 資産（手入力）"],["name","amount","currency","color","order","color_slot"],...pfxList().map(x=>[csvQ(x.name),+x.amount||0,x.cur,colOf("x"+x.id),ordOf("x"+x.id),x.slot]),[""]);
-    L.push(["## 現物計画"],["asset","currency","budget","invested","lot"],...PLAN_COINS.map(k=>DB.plan.find(x=>x.sym===k)).filter(Boolean).map(x=>[x.sym,x.cur,+x.budget||0,+x.invested||0,+x.lot||0]),[""]);
+    L.push(["## 現物計画"],["asset","currency","budget","invested","lot","budget_currency","invested_currency"],...PLAN_COINS.map(k=>DB.plan.find(x=>x.sym===k)).filter(Boolean).map(x=>[x.sym,x.cur,+x.budget||0,+x.invested||0,+x.lot||0,planCur(x,"bCur"),planCur(x,"iCur")]),[""]);
     L.push(["## 円転明細"],["date","amount_usdc","usd_jpy_rate","memo","id"],
       ...byDate(DB.convs).map(c=>[c.created_at,c.amount_usdc,c.usd_jpy_rate,csvQ(c.memo||""),c.id]),[""]);
     L.push(["## 損益明細"],["date","category","detail","profit_usd","loss_usd","profit_jpy","loss_jpy","usd_jpy_rate","rate_source","memo","currency_type","rate_status","id"],
@@ -1562,10 +1567,19 @@ function savePfStyle(){
 function ymNow(){return todayStr().slice(0,7);}
 function addYM(ym,k){const y=+ym.slice(0,4),m=+ym.slice(5,7)-1+k;return (y+Math.floor(m/12))+"-"+String(((m%12)+12)%12+1).padStart(2,"0");}
 function ymLabel(ym){return (+ym.slice(0,4))+"年"+(+ym.slice(5,7))+"月";}
+function planBase(p){return p.cur==="JPY"?"JPY":"USD";}           // 買う通貨（USDCはドル扱い）
+function planCur(p,k){const v=p[k];return v==="JPY"||v==="USD"?v:planBase(p);} // 予算(bCur)・投資済み(iCur)の通貨
+function toCur(v,from,to){if(from===to)return v;const fx=usdJpy();if(!fx)return null;return to==="JPY"?v*fx:v/fx;}
 function planCalc(p){
-  const budget=+p.budget||0, inv=+p.invested||0, lot=+p.lot||0, rem=Math.max(0,budget-inv);
-  const n=lot>0&&rem>0?Math.ceil(rem/lot-1e-9):0;
-  return {budget,inv,lot,rem,pct:budget>0?Math.min(1,inv/budget):0,n,end:n>0?addYM(ymNow(),n-1):null};
+  const base=planBase(p), lot=+p.lot||0;
+  const budget=toCur(+p.budget||0,planCur(p,"bCur"),base), inv=toCur(+p.invested||0,planCur(p,"iCur"),base);
+  if(budget==null||inv==null)return {ok:false,budget:0,inv:0,lot,rem:0,pct:0,n:0,end:null};
+  const rem=Math.max(0,budget-inv), n=lot>0&&rem>0?Math.ceil(rem/lot-1e-9):0;
+  return {ok:true,budget,inv,lot,rem,pct:budget>0?Math.min(1,inv/budget):0,n,end:n>0?addYM(ymNow(),n-1):null};
+}
+function planMeta(c,cur){
+  return !c.ok?"為替レートを取得すると表示します":c.budget<=0?"予算が未設定です":c.rem<=0?"予算を使い切りました":
+    "残り "+fmtPlan(c.rem,cur)+(c.lot?"・あと"+c.n+"発・"+ymLabel(c.end)+"まで":"");
 }
 function fmtPlan(v,cur){return cur==="JPY"?fmtJPYFloor(v):"$"+Math.round(v).toLocaleString("en-US");}
 function meterHTML(pct){
@@ -1577,17 +1591,15 @@ function planCardHTML(){
   let h='<div class="card"><p class="mid" style="margin:0">現物の計画</p><p class="hint" style="margin:2px 0 6px">残金と進捗（保有分込み）</p>';
   if(!items.length)h+='<p class="hint" style="margin:6px 0 0">銘柄ごとに予算・もう投資した額・1回の買付額を入れると、残りとあと何回で終わるかを出します。</p>';
   items.forEach(x=>{
-    const c=planCalc(x);
-    const meta=c.budget<=0?"予算が未設定です":c.rem<=0?"予算を使い切りました":
-      "残り "+fmtPlan(c.rem,x.cur)+(c.lot?"・あと"+c.n+"発・"+ymLabel(c.end)+"まで":"");
-    h+='<button type="button" class="prow" onclick="openPlanSheet(\''+x.sym+'\')"><span class="top"><span class="nm">'+x.sym+"（"+(x.cur==="JPY"?"日本円":"USDC")+'）</span><span class="pc">'+Math.round(c.pct*100)+"%</span></span>"+
+    const c=planCalc(x), meta=planMeta(c,x.cur);
+    h+='<button type="button" class="prow" onclick="openPlanSheet(\''+x.sym+'\')"><span class="top"><span class="nm">'+x.sym+"（"+(x.cur==="JPY"?"日本円":"USDC")+'）</span><span class="pc">'+(c.ok?Math.round(c.pct*100)+"%":"—")+"</span></span>"+
        '<span class="meta">'+meta+"</span>"+meterHTML(c.pct)+"</button>";
   });
   if(items.length>1){
     const cur=UI.dispCur, fx=usdJpy();
     const cv=(v,from)=>{const same=(cur==="JPY")===(from==="JPY");if(same)return v;if(!fx)return null;return cur==="JPY"?v*fx:v/fx;};
     let b=0,iv=0,rm=0,ok=true;
-    items.forEach(x=>{const c=planCalc(x),B=cv(c.budget,x.cur),I=cv(Math.min(c.inv,c.budget),x.cur),M=cv(c.rem,x.cur);if(B==null){ok=false;return;}b+=B;iv+=I;rm+=M;});
+    items.forEach(x=>{const c=planCalc(x),B=cv(c.budget,x.cur),I=cv(Math.min(c.inv,c.budget),x.cur),M=cv(c.rem,x.cur);if(!c.ok||B==null){ok=false;return;}b+=B;iv+=I;rm+=M;});
     const pct=ok&&b>0?iv/b:0;
     h+='<div class="prow"><span class="top"><span class="nm">合計（'+(cur==="JPY"?"円換算":"ドル換算")+'）</span><span class="pc">'+(ok?Math.round(pct*100)+"%":"—")+"</span></span>"+
        '<span class="meta">'+(ok?"残り "+fmtPlan(rm,cur==="JPY"?"JPY":"USDC"):"為替レートを取得すると表示します")+"</span>"+meterHTML(pct)+"</div>";
@@ -1602,7 +1614,9 @@ function openPlanSheet(sym){
   const free=PLAN_COINS.filter(k=>!DB.plan.some(q=>q.sym===k));
   if(!x&&!free.length)return;
   const s0=x?x.sym:free[0];
-  UI.editPlan={orig:x?x.sym:null,sym:s0,cur:x?x.cur:(s0==="BTC"?"JPY":"USDC"),budget:x&&x.budget?String(x.budget):"",invested:x&&x.invested?String(x.invested):"",lot:x&&x.lot?String(x.lot):"",err:""};
+  const c0=x?x.cur:(s0==="BTC"?"JPY":"USDC"), b0=c0==="JPY"?"JPY":"USD";
+  UI.editPlan={orig:x?x.sym:null,sym:s0,cur:c0,bCur:x?planCur(x,"bCur"):b0,iCur:x?planCur(x,"iCur"):b0,
+    budget:x&&x.budget?String(x.budget):"",invested:x&&x.invested?String(x.invested):"",lot:x&&x.lot?String(x.lot):"",err:""};
   renderPlanSheet();
 }
 function renderPlanSheet(){
@@ -1611,20 +1625,32 @@ function renderPlanSheet(){
   const u=f.cur==="JPY"?"円":"USDC";
   let h='<h2>'+(f.orig?f.orig+"の計画":"計画を追加")+'<button onclick="closeSheet()">✕</button></h2>';
   if(!f.orig)h+='<div class="f"><div class="lbl">銘柄</div><div class="curtoggle">'+free.map(k=>'<button type="button" class="'+(f.sym===k?"on":"")+'" onclick="UI.editPlan.sym=\''+k+'\';renderPlanSheet()">'+k+"</button>").join("")+"</div></div>";
-  h+='<div class="f"><div class="lbl">買う通貨</div><div class="curtoggle">'+[["JPY","日本円"],["USDC","USDC"]].map(([v,l])=>'<button type="button" class="'+(f.cur===v?"on":"")+'" onclick="UI.editPlan.cur=\''+v+'\';renderPlanSheet()">'+l+"</button>").join("")+"</div></div>";
-  [["budget","予算（"+u+"）<span class=\"req\">*</span>"],["invested","投資済み・保有分込み（"+u+"）"],["lot","1回の買付額（"+u+"）"]].forEach(([k,l])=>{
-    h+='<div class="f"><div class="lbl">'+l+'</div><input type="number" inputmode="decimal" placeholder="0" value="'+esc(f[k])+'" oninput="UI.editPlan.'+k+'=this.value;updatePlanPreview()"></div>';
+  h+='<div class="f"><div class="lbl">買う通貨</div><div class="curtoggle">'+[["JPY","日本円"],["USDC","USDC"]].map(([v,l])=>'<button type="button" class="'+(f.cur===v?"on":"")+'" onclick="setPlanCur(\''+v+'\')">'+l+"</button>").join("")+"</div></div>";
+  // 予算・投資済みは、それぞれ円かドルを選んで入れられる（買う通貨に換算して計算）
+  [["budget","bCur","予算<span class=\"req\">*</span>"],["invested","iCur","投資済み・保有分込み"]].forEach(([k,ck,l])=>{
+    h+='<div class="f"><div class="lbl">'+l+'</div><div class="amtrow"><input type="number" inputmode="decimal" placeholder="0" value="'+esc(f[k])+'" oninput="UI.editPlan.'+k+'=this.value;updatePlanPreview()">'+
+       '<div class="curtoggle">'+[["JPY","円"],["USD","ドル"]].map(([v,t])=>'<button type="button" class="'+(f[ck]===v?"on":"")+'" onclick="setPlanAmtCur(\''+ck+'\',\''+v+'\')">'+t+"</button>").join("")+"</div></div></div>";
   });
-  h+='<p id="planPreview" class="preview" style="margin:0 0 10px"></p><p id="planErr" class="errtext" style="margin:0 0 8px">'+esc(f.err)+"</p>";
+  h+='<div class="f"><div class="lbl">1回の買付額（'+u+'）</div><input type="number" inputmode="decimal" placeholder="0" value="'+esc(f.lot)+'" oninput="UI.editPlan.lot=this.value;updatePlanPreview()"></div>';
+  h+='<p id="planPreview" class="preview" style="margin:0 0 4px"></p><p id="planFx" class="hint" style="margin:0 0 10px"></p><p id="planErr" class="errtext" style="margin:0 0 8px">'+esc(f.err)+"</p>";
   h+='<button class="savebtn" onclick="savePlan()">保存する</button>';
   if(f.orig)h+='<button class="savebtn" style="background:transparent;color:#f43f5e;margin-top:8px;border:1px solid rgba(244,63,94,.4)" onclick="deletePlan(\''+f.orig+'\')">この計画を削除</button>';
   openSheet(h); updatePlanPreview();
 }
+function setPlanCur(v){
+  const f=UI.editPlan; if(!f)return; const nb=v==="JPY"?"JPY":"USD";
+  // まだ金額を入れていない欄だけ、買う通貨に合わせて切り替える（入れた数字の単位は勝手に変えない）
+  if(!String(f.budget).trim())f.bCur=nb; if(!String(f.invested).trim())f.iCur=nb;
+  f.cur=v==="JPY"?"JPY":"USDC"; renderPlanSheet();
+}
+function setPlanAmtCur(k,v){const f=UI.editPlan;if(!f||(k!=="bCur"&&k!=="iCur"))return;f[k]=v==="JPY"?"JPY":"USD";renderPlanSheet();}
 function updatePlanPreview(){
-  const el=document.getElementById("planPreview"), f=UI.editPlan; if(!el||!f)return;
+  const el=document.getElementById("planPreview"), fe=document.getElementById("planFx"), f=UI.editPlan; if(!el||!f)return;
+  const c=planCalc(f), fx=usdJpy(), mixed=f.bCur!==planBase(f)||f.iCur!==planBase(f);
+  if(fe)fe.textContent=mixed&&fx?"※ 今のレート（$1＝¥"+fx.toFixed(1)+"）で円とドルを換算":"";
   if(!(+f.budget>0)){el.textContent="";return;}
-  const c=planCalc({budget:f.budget,invested:f.invested,lot:f.lot});
-  el.textContent=Math.round(c.pct*100)+"%・"+(c.rem<=0?"予算を使い切っています":"残り "+fmtPlan(c.rem,f.cur)+(c.n?"・あと"+c.n+"発・"+ymLabel(c.end)+"まで":""));
+  el.textContent=!c.ok?"為替レートを取得すると計算します":
+    Math.round(c.pct*100)+"%・"+(c.rem<=0?"予算を使い切っています":"残り "+fmtPlan(c.rem,f.cur)+(c.n?"・あと"+c.n+"発・"+ymLabel(c.end)+"まで":""));
 }
 function savePlan(){
   const f=UI.editPlan; if(!f)return;
@@ -1634,7 +1660,8 @@ function savePlan(){
   if(!(nums.budget>0))return fail("予算を入れてください");
   if(!PLAN_COINS.includes(f.sym))return fail("銘柄を選んでください");
   DB.plan=DB.plan.filter(q=>q.sym!==f.orig&&q.sym!==f.sym);
-  DB.plan.push({sym:f.sym,cur:f.cur==="JPY"?"JPY":"USDC",budget:nums.budget,invested:nums.invested,lot:nums.lot});
+  const pc=f.cur==="JPY"?"JPY":"USDC";
+  DB.plan.push({sym:f.sym,cur:pc,budget:nums.budget,invested:nums.invested,lot:nums.lot,bCur:f.bCur==="JPY"?"JPY":"USD",iCur:f.iCur==="JPY"?"JPY":"USD"});
   saveDB();closeSheet();render();toast("保存しました");
 }
 function deletePlan(sym){DB.plan=DB.plan.filter(q=>q.sym!==sym);saveDB();closeSheet();render();toast("削除しました");}
