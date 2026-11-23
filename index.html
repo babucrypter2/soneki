@@ -1468,8 +1468,8 @@ function pfCardHTML(){
     h+='<div class="pfchart"><div class="pfleg">'+leg+'</div><div class="pfwrap">'+svg+'<div class="pfcenter">'+center+"</div></div></div>";
     h+='<div class="ylist">';
     P.rows.forEach(r=>{
-      const coin=!r.x&&r.key!=="JPY", usd=coin?priceOf(r.key,"USD"):null, jpy=coin?priceOf(r.key,"JPY"):null;
-      const sub=r.x?"手入力"+(r.x.cur!==cur?" ・ "+money(r.q,r.x.cur):""):!coin?"現金":(hide?"•••":fmtQty(r.q))+" "+r.name+(jpy!=null?" ・ "+fmtCur(jpy,"JPY"):"");
+      const coin=!r.x&&r.key!=="JPY", usd=coin?priceOf(r.key,"USD"):null, alt=coin?priceOf(r.key,other):null;
+      const sub=r.x?"手入力"+(r.x.cur!==cur?" ・ "+money(r.q,r.x.cur):""):!coin?"現金":(hide?"•••":fmtQty(r.q))+" "+r.name+(alt!=null?" ・ "+money(r.q*alt,other):"");
       h+='<button type="button" class="yrow'+(UI.pfSel===r.key?" sel":"")+'" onclick="pfPick(\''+r.key+'\')"><span class="yy"><i class="sw" style="background:'+r.c+'"></i>'+esc(r.name)+(usd!=null?'<span class="pfpx">'+fmtUSD(usd)+"</span>":"")+
          "<small>"+esc(sub)+'</small></span><span class="yv"><b>'+money(r.value,cur)+"</b><small>"+(r.share!=null?(r.share*100).toFixed(1)+"%":"未取得")+'</small></span><span class="ychev"></span></button>';
     });
